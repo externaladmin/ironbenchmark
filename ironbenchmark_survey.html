@@ -199,7 +199,7 @@
     <div class="section-header">
       <div class="section-tag">Section 1 · About You</div>
       <div class="section-title">Let's start with some context.</div>
-      <div class="section-desc">6 questions · about 90 seconds. All responses are anonymous and aggregated — your individual answers are never shared.</div>
+      <div class="section-desc">6 questions · about 90 seconds. All responses are anonymous and aggregated — your individual answers are never shared. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
     </div>
 
     <!-- Q1 — Role -->
@@ -440,24 +440,24 @@
 
     <!-- Q14 — Maturity level -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 14</span>Which best describes how your sales and marketing operation uses data and technology today?</div>
+      <div class="q-label"><span class="q-num">Question 14</span>Which best describes how your sales and marketing operation runs today?</div>
       <div class="options" id="q14-opts">
         <label class="opt">
-          <input type="radio" name="q14" value="Spreadsheets and relationships — data lives in people's heads">
-          <span class="opt-text">Spreadsheets and relationships — data lives in people's heads
-            <span class="opt-sub">Leads come from who you know. Follow-up is a phone call. Your best reps carry the knowledge.</span>
+          <input type="radio" name="q14" value="Relationships and experience — systems are basic or inconsistent">
+          <span class="opt-text">Relationships and experience — systems are basic or inconsistent
+            <span class="opt-sub">Most leads come through who you know. Follow-up relies on the rep remembering. Spreadsheets, notes, and phone calls do most of the work.</span>
           </span>
         </label>
         <label class="opt">
-          <input type="radio" name="q14" value="CRM and digital tools — we track the pipeline and run campaigns">
-          <span class="opt-text">CRM and digital tools — we track the pipeline and run campaigns
-            <span class="opt-sub">You log calls, run email sequences, scan badges at shows. The system is there. Using it consistently is another question.</span>
+          <input type="radio" name="q14" value="CRM and digital tools are in place — used to varying degrees">
+          <span class="opt-text">CRM and digital tools are in place — used to varying degrees
+            <span class="opt-sub">You have a CRM, run email campaigns, and track leads. Some reps use the tools well. Others work around them. The data exists but isn't always acted on.</span>
           </span>
         </label>
         <label class="opt">
-          <input type="radio" name="q14" value="Demand intelligence — we act on signals, not schedules">
-          <span class="opt-text">Demand intelligence — we act on signals, not schedules
-            <span class="opt-sub">You know a customer's fleet is hitting service thresholds before they call. Outreach is proactive. Data drives decisions in real time.</span>
+          <input type="radio" name="q14" value="Data drives decisions — we're proactive, not reactive">
+          <span class="opt-text">Data drives decisions — we're proactive, not reactive
+            <span class="opt-sub">You know which customers are likely due for a machine before they call. Outreach is based on fleet data, service history, and buying patterns — not just scheduled check-ins.</span>
           </span>
         </label>
       </div>
@@ -492,12 +492,12 @@
 
     <!-- Q17 — Buyer visibility -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 17</span>Do you have visibility into prospects who are actively researching but haven't contacted you yet?</div>
+      <div class="q-label"><span class="q-num">Question 17</span>Can you identify prospects who are researching your equipment before they reach out to you?</div>
       <div class="options" id="q17-opts">
-        <label class="opt"><input type="radio" name="q17" value="Yes — we use intent data or website tracking to identify them"><span class="opt-text">Yes — we use intent data or website tracking to identify them</span></label>
-        <label class="opt"><input type="radio" name="q17" value="Partially — we see some signals but it's not systematic"><span class="opt-text">Partially — we see some signals but it's not systematic</span></label>
-        <label class="opt"><input type="radio" name="q17" value="No — we only know about leads who raise their hand"><span class="opt-text">No — we only know about leads who raise their hand</span></label>
-        <label class="opt"><input type="radio" name="q17" value="I hadn't thought about this before"><span class="opt-text">I hadn't thought about this before</span></label>
+        <label class="opt"><input type="radio" name="q17" value="Yes — we track website visitors or use tools that flag interested prospects"><span class="opt-text">Yes — we track website visitors or use tools that flag interested prospects</span></label>
+        <label class="opt"><input type="radio" name="q17" value="Sometimes — we pick up some signals but it's not consistent"><span class="opt-text">Sometimes — we pick up some signals but it's not consistent</span></label>
+        <label class="opt"><input type="radio" name="q17" value="No — we find out someone was interested only if they contact us"><span class="opt-text">No — we find out someone was interested only if they contact us</span></label>
+        <label class="opt"><input type="radio" name="q17" value="No — and we don't currently have a way to change that"><span class="opt-text">No — and we don't currently have a way to change that</span></label>
       </div>
       <div class="val-msg" id="q17-err">Please select an option to continue.</div>
     </div>
@@ -720,11 +720,12 @@
     const btn      = document.getElementById('submit-btn');
     const honeypot = document.getElementById('hp-website').value;
 
-    // Honeypot check
+    // Honeypot check — bot detected, silently fake success without submitting
     if (honeypot) {
-      // Bot detected — silently show success without submitting
-      goTo('screen-confirm', 5);
       hideProgress();
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-confirm').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -784,7 +785,7 @@
       console.error(err);
       btn.disabled = false;
       btn.innerHTML = 'Submit &amp; get the report →';
-      submitErr.textContent = 'Something went wrong — please try again or email contact@ironbenchmark.com';
+      submitErr.textContent = 'Something went wrong — please try again or email info@ironbenchmark.com';
       submitErr.classList.add('show');
     }
   }
