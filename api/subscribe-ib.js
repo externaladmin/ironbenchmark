@@ -84,7 +84,7 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from:    'IronBenchmark <hello@ironbenchmark.com>',
+        from:    'IronBenchmark <info@ironbenchmark.com>',
         to:      [email],
         subject: "You're in — 2026 IronBenchmark Report",
         html: `
@@ -128,7 +128,7 @@ export default async function handler(req, res) {
             <hr style="border: none; border-top: 1px solid #DDD9D2; margin: 24px 0;" />
             <p style="font-size: 12px; color: #999; margin: 0; line-height: 1.6;">
               IronBenchmark · Independent research for heavy equipment marketing leaders<br>
-              <a href="https://ironbenchmark.com" style="color: #1A2F3E;">ironbenchmark.com</a> · <a href="mailto:contact@ironbenchmark.com" style="color: #1A2F3E;">contact@ironbenchmark.com</a><br>
+              <a href="https://ironbenchmark.com" style="color: #1A2F3E;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1A2F3E;">info@ironbenchmark.com</a><br>
               You're receiving this because you completed the 2026 IronBenchmark survey.
             </p>
           </div>
