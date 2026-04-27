@@ -30,6 +30,7 @@ export default async function handler(req, res) {
     // ── 1. Add subscriber to Beehiiv with survey data ─────────────────────────
     const customFields = [
       ...(region                    ? [{ name: 'ib_region',              value: region }]                      : []),
+      ...(r.org_type                ? [{ name: 'ib_org_type',            value: r.org_type }]                  : []),
       ...(r.q1_role                 ? [{ name: 'ib_role',                value: r.q1_role }]                   : []),
       ...(r.q2_locations            ? [{ name: 'ib_locations',           value: r.q2_locations }]              : []),
       ...(r.q3_budget               ? [{ name: 'ib_budget',              value: r.q3_budget }]                 : []),

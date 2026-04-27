@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IronBenchmark 2026 Survey — Heavy Equipment Marketing</title>
-  <meta name="description" content="The 2026 IronBenchmark Survey — 5 minutes. Help build the first benchmark report for heavy equipment dealer and OEM marketing leaders.">
+  <title>IronBenchmark — Heavy Equipment State of Marketing 2026</title>
+  <meta name="description" content="Heavy Equipment State of Marketing 2026 — 5 minutes. Help build the first benchmark report for US heavy equipment dealer and OEM marketing leaders.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -57,6 +57,46 @@
     .topbar-brand span { color: var(--bronze); }
     .topbar-back { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
     .topbar-back:hover { color: #fff; }
+
+    /* ── ORG TYPE SCREEN ── */
+    .org-screen {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+      text-align: center;
+    }
+    .org-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bronze); margin-bottom: 16px;
+    }
+    .org-title {
+      font-family: var(--serif); font-size: 30px; color: var(--navy);
+      line-height: 1.2; margin-bottom: 12px;
+    }
+    .org-desc {
+      font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 40px;
+    }
+    .org-cards {
+      display: flex; flex-direction: column; gap: 12px; text-align: left;
+    }
+    .org-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 20px; background: var(--white);
+      border: 2px solid var(--border); border-radius: 10px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+    .org-card:hover { border-color: var(--bronze); }
+    .org-card.selected { border-color: var(--bronze); background: var(--bronze-bg); }
+    .org-card input[type="radio"] {
+      width: 20px; height: 20px; flex-shrink: 0;
+      accent-color: var(--bronze); cursor: pointer;
+    }
+    .org-card-body h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+    .org-card-body p  { font-size: 13px; color: var(--muted); line-height: 1.4; }
+    .org-nav { margin-top: 32px; }
+    .val-msg { font-size: 13px; color: var(--red); margin-top: 8px; display: none; }
+    .val-msg.show { display: block; }
 
     /* ── PROGRESS BAR ── */
     .progress-wrap {
@@ -140,10 +180,6 @@
     .btn-submit:hover { background: var(--bronze-lt); }
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* ── VALIDATION ── */
-    .val-msg { font-size: 13px; color: var(--red); margin-top: 8px; display: none; }
-    .val-msg.show { display: block; }
-
     /* ── SPINNER ── */
     .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -170,6 +206,8 @@
       .progress-wrap { padding: 0 20px 14px; }
       .survey-outer { padding: 32px 16px 64px; }
       .section-title { font-size: 24px; }
+      .org-screen { padding: 40px 16px 64px; }
+      .org-title { font-size: 26px; }
     }
   </style>
 </head>
@@ -180,7 +218,7 @@
   <a href="/" class="topbar-back">← Back to site</a>
 </nav>
 
-<div class="progress-wrap" id="progress-wrap">
+<div class="progress-wrap" id="progress-wrap" style="display:none;">
   <div class="progress-sections">
     <div class="prog-seg active" id="seg-1"></div>
     <div class="prog-seg" id="seg-2"></div>
@@ -192,9 +230,51 @@
 
 
 <!-- ══════════════════════════════════════════
+     ORG TYPE GATE — shown first, before survey
+     ══════════════════════════════════════════ -->
+<div class="screen active" id="screen-org">
+  <div class="org-screen">
+    <div class="org-eyebrow">Heavy Equipment State of Marketing 2026</div>
+    <h1 class="org-title">Who are you in the industry?</h1>
+    <p class="org-desc">We'll tailor a handful of questions to your role so the data is as accurate and useful as possible. Takes about 5 minutes.</p>
+
+    <div class="org-cards" id="org-opts">
+      <label class="org-card">
+        <input type="radio" name="org_type" value="dealer">
+        <div class="org-card-body">
+          <h3>Equipment Dealer</h3>
+          <p>You work at a dealership — selling, marketing, or running the business</p>
+        </div>
+      </label>
+      <label class="org-card">
+        <input type="radio" name="org_type" value="oem">
+        <div class="org-card-body">
+          <h3>OEM / Manufacturer</h3>
+          <p>You work at an equipment manufacturer or brand — marketing the product line or supporting a dealer network</p>
+        </div>
+      </label>
+      <label class="org-card">
+        <input type="radio" name="org_type" value="agency">
+        <div class="org-card-body">
+          <h3>Marketing Agency</h3>
+          <p>You work at an agency that serves equipment dealers or OEMs</p>
+        </div>
+      </label>
+    </div>
+    <div class="val-msg" id="org-err" style="text-align:center;">Please select one to continue.</div>
+
+    <div class="org-nav">
+      <button class="btn-next" onclick="goToA()" style="width:100%;padding:15px;">Start the survey →</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only · Anonymous and aggregated · Independent research</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
      SECTION 1 — About You  (Q1–Q6)
      ══════════════════════════════════════════ -->
-<div class="screen active" id="screen-a">
+<div class="screen" id="screen-a">
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 1 · About You</div>
@@ -202,40 +282,29 @@
       <div class="section-desc">6 questions · about 90 seconds. All responses are anonymous and aggregated — your individual answers are never shared. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
     </div>
 
-    <!-- Q1 — Role -->
+    <!-- Q1 — Title (options populated by JS based on org type) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 1</span>What best describes your role?</div>
       <div class="options" id="q1-opts">
-        <label class="opt"><input type="radio" name="q1" value="Dealer marketing manager / director"><span class="opt-text">Dealer marketing manager / director</span></label>
-        <label class="opt"><input type="radio" name="q1" value="OEM marketing manager / director"><span class="opt-text">OEM marketing manager / director</span></label>
-        <label class="opt"><input type="radio" name="q1" value="Dealer principal or GM with marketing oversight"><span class="opt-text">Dealer principal or GM with marketing oversight</span></label>
-        <label class="opt"><input type="radio" name="q1" value="Marketing agency serving equipment dealers or OEMs"><span class="opt-text">Marketing agency serving equipment dealers or OEMs</span></label>
-        <label class="opt"><input type="radio" name="q1" value="Other"><span class="opt-text">Other</span></label>
+        <!-- populated by renderQ1() -->
       </div>
       <div class="val-msg" id="q1-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q2 — Locations -->
+    <!-- Q2 — Size (label + options swapped by JS based on org type) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 2</span>How many locations does your dealership or company operate?</div>
+      <div class="q-label"><span class="q-num">Question 2</span><span id="q2-label">How many locations does your dealership operate?</span></div>
       <div class="options" id="q2-opts">
-        <label class="opt"><input type="radio" name="q2" value="1–2 locations"><span class="opt-text">1–2 locations</span></label>
-        <label class="opt"><input type="radio" name="q2" value="3–10 locations"><span class="opt-text">3–10 locations</span></label>
-        <label class="opt"><input type="radio" name="q2" value="11–25 locations"><span class="opt-text">11–25 locations</span></label>
-        <label class="opt"><input type="radio" name="q2" value="26+ locations / national"><span class="opt-text">26+ locations / national</span></label>
+        <!-- populated by renderQ2() -->
       </div>
       <div class="val-msg" id="q2-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q3 — Budget -->
+    <!-- Q3 — Budget (options swapped by JS) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 3</span>What is your approximate annual marketing budget (all channels)?</div>
       <div class="options" id="q3-opts">
-        <label class="opt"><input type="radio" name="q3" value="Under $50K"><span class="opt-text">Under $50K</span></label>
-        <label class="opt"><input type="radio" name="q3" value="$50K–$150K"><span class="opt-text">$50K–$150K</span></label>
-        <label class="opt"><input type="radio" name="q3" value="$150K–$500K"><span class="opt-text">$150K–$500K</span></label>
-        <label class="opt"><input type="radio" name="q3" value="$500K–$1M"><span class="opt-text">$500K–$1M</span></label>
-        <label class="opt"><input type="radio" name="q3" value="Over $1M"><span class="opt-text">Over $1M</span></label>
+        <!-- populated by renderQ3() -->
       </div>
       <div class="val-msg" id="q3-err">Please select an option to continue.</div>
     </div>
@@ -252,8 +321,8 @@
       <div class="val-msg" id="q4-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q5 — Structure -->
-    <div class="q-block">
+    <!-- Q5 — Structure (hidden for agencies) -->
+    <div class="q-block" id="q5-block">
       <div class="q-label"><span class="q-num">Question 5</span>How is your marketing function structured?</div>
       <div class="options" id="q5-opts">
         <label class="opt"><input type="radio" name="q5" value="Entirely in-house"><span class="opt-text">Entirely in-house</span></label>
@@ -267,13 +336,13 @@
 
     <!-- Q6 — Brand lines (open field) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 6</span>What brand line(s) do you represent or primarily work with?<span style="font-weight:400;color:var(--muted);font-size:14px;"> (optional)</span></div>
-      <div class="q-hint">e.g. Caterpillar, Komatsu, John Deere, Volvo CE, CNH, independent / multi-line</div>
-      <input type="text" id="q6-brand" class="text-input" placeholder="Type brand line(s) here…" autocomplete="off">
+      <div class="q-label"><span class="q-num">Question 6</span><span id="q6-label">What brand line(s) do you represent or primarily work with?</span><span style="font-weight:400;color:var(--muted);font-size:14px;"> (optional)</span></div>
+      <div class="q-hint" id="q6-hint">e.g. Caterpillar, Komatsu, John Deere, Volvo CE, CNH, independent / multi-line</div>
+      <input type="text" id="q6-brand" class="text-input" placeholder="Type here…" autocomplete="off">
     </div>
 
     <div class="nav-row">
-      <span></span>
+      <button class="btn-back" onclick="goTo('screen-org', -1)">← Back</button>
       <button class="btn-next" onclick="goToB()">Continue →</button>
     </div>
   </div>
@@ -379,9 +448,9 @@
       <div class="val-msg" id="q10-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q11 — Cost per lead -->
+    <!-- Q11 — Cost per lead (label adapts for OEM) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 11</span>What's your estimated cost-per-qualified-lead from your best-performing channel?</div>
+      <div class="q-label"><span class="q-num">Question 11</span><span id="q11-label">What's your estimated cost-per-qualified-lead from your best-performing channel?</span></div>
       <div class="options" id="q11-opts">
         <label class="opt"><input type="radio" name="q11" value="Under $50"><span class="opt-text">Under $50</span></label>
         <label class="opt"><input type="radio" name="q11" value="$50–$200"><span class="opt-text">$50–$200</span></label>
@@ -393,16 +462,11 @@
       <div class="val-msg" id="q11-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q12 — Biggest challenge -->
+    <!-- Q12 — Biggest challenge (options swapped by JS) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 12</span>What's your single biggest marketing challenge right now?</div>
       <div class="options" id="q12-opts">
-        <label class="opt"><input type="radio" name="q12" value="Generating enough quality leads"><span class="opt-text">Generating enough quality leads</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Justifying marketing ROI to leadership"><span class="opt-text">Justifying marketing ROI to leadership</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Keeping up with digital / knowing what works"><span class="opt-text">Keeping up with digital / knowing what works</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Differentiating from competitors in my region"><span class="opt-text">Differentiating from competitors in my region</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Retaining customers / repeat business"><span class="opt-text">Retaining customers / repeat business</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Finding and keeping good marketing staff"><span class="opt-text">Finding and keeping good marketing staff</span></label>
+        <!-- populated by renderQ12() -->
       </div>
       <div class="val-msg" id="q12-err">Please select an option to continue.</div>
     </div>
@@ -476,16 +540,11 @@
       <div class="val-msg" id="q15-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q16 — Lead response time -->
-    <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 16</span>When a new inbound lead comes in, how quickly does your team typically respond?</div>
+    <!-- Q16 — Lead response (hidden / replaced for OEM) -->
+    <div class="q-block" id="q16-block">
+      <div class="q-label"><span class="q-num">Question 16</span><span id="q16-label">When a new inbound lead comes in, how quickly does your team typically respond?</span></div>
       <div class="options" id="q16-opts">
-        <label class="opt"><input type="radio" name="q16" value="Within 1 hour"><span class="opt-text">Within 1 hour</span></label>
-        <label class="opt"><input type="radio" name="q16" value="Within a few hours (same day)"><span class="opt-text">Within a few hours (same day)</span></label>
-        <label class="opt"><input type="radio" name="q16" value="Within 24 hours"><span class="opt-text">Within 24 hours</span></label>
-        <label class="opt"><input type="radio" name="q16" value="Within 48 hours"><span class="opt-text">Within 48 hours</span></label>
-        <label class="opt"><input type="radio" name="q16" value="Longer than 48 hours"><span class="opt-text">Longer than 48 hours</span></label>
-        <label class="opt"><input type="radio" name="q16" value="We don't track this"><span class="opt-text">We don't track this</span></label>
+        <!-- populated by renderQ16() -->
       </div>
       <div class="val-msg" id="q16-err">Please select an option to continue.</div>
     </div>
@@ -517,7 +576,7 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-title">Last step — get the report.</div>
-      <div class="section-desc">As a contributor, you'll receive the full 2026 IronBenchmark Report before public release — free, delivered to your inbox within 60 days of survey close.</div>
+      <div class="section-desc">As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report before public release — free, delivered to your inbox within 60 days of survey close.</div>
     </div>
 
     <!-- Work email -->
@@ -530,7 +589,7 @@
       </div>
     </div>
 
-    <!-- Region -->
+    <!-- State -->
     <div class="q-block" style="margin-top:-12px;">
       <div class="q-label" style="font-weight:500;font-size:15px;">
         What state are you in? <span style="font-weight:400;color:var(--muted);font-size:14px;">(optional — helps us segment regional findings)</span>
@@ -549,11 +608,11 @@
         <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
         <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
         <option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option>
-        <option>Wisconsin</option><option>Wyoming</option><option>Canada</option><option>International</option>
+        <option>Wisconsin</option><option>Wyoming</option>
       </select>
     </div>
 
-    <!-- HONEYPOT — hidden from humans, bots fill it in -->
+    <!-- HONEYPOT -->
     <div class="hp-field" aria-hidden="true">
       <label for="hp-website">Website</label>
       <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off">
@@ -587,7 +646,7 @@
     </div>
     <div class="confirm-title">You're in.</div>
     <div class="confirm-body">
-      As a contributor, you'll receive the full 2026 IronBenchmark Report before public release — delivered to your inbox within 60 days of survey close. Thank you for making this possible.
+      As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report before public release — delivered to your inbox within 60 days of survey close. Thank you for making this possible.
     </div>
     <div class="confirm-forward">
       <p>Know another dealer or OEM marketing leader who'd want early access? Forward them the survey — the more practitioners who contribute, the stronger the data for everyone.</p>
@@ -600,8 +659,225 @@
 
 <script>
   const answers = {};
+  let orgType = ''; // 'dealer' | 'oem' | 'agency'
 
-  /* ── PROGRESS ── */
+  /* ══════════════════════════════════════════
+     ORG-TYPE CONTENT MAPS
+     ══════════════════════════════════════════ */
+
+  const Q1_OPTIONS = {
+    dealer: [
+      'Dealer Principal / Owner',
+      'General Manager with marketing oversight',
+      'Marketing Director / VP',
+      'Marketing Manager',
+      'Digital Marketing Manager / Coordinator',
+      'Sales Manager with marketing oversight',
+      'Other',
+    ],
+    oem: [
+      'VP / Director of Marketing',
+      'Marketing Manager',
+      'Digital Marketing Manager / Coordinator',
+      'Product Marketing Manager',
+      'Brand Manager',
+      'Regional Marketing Manager',
+      'Other',
+    ],
+    agency: [
+      'Agency Owner / Principal',
+      'Account Director / Manager',
+      'Digital Marketing Strategist',
+      'Content / Creative Lead',
+      'Other',
+    ],
+  };
+
+  const Q2_CONFIG = {
+    dealer: {
+      label: 'How many locations does your dealership operate?',
+      options: ['1–2 locations', '3–10 locations', '11–25 locations', '26+ locations'],
+    },
+    oem: {
+      label: 'How many dealer locations are in your US distribution network?',
+      options: ['Fewer than 25', '25–100', '100–300', '300+'],
+    },
+    agency: null, // hidden for agencies
+  };
+
+  const Q3_OPTIONS = {
+    dealer: [
+      'Under $100K',
+      '$100K–$350K',
+      '$350K–$750K',
+      '$750K–$1.5M',
+      'Over $1.5M',
+    ],
+    oem: [
+      'Under $500K',
+      '$500K–$2M',
+      '$2M–$5M',
+      '$5M–$15M',
+      'Over $15M',
+    ],
+    agency: [
+      'Under $100K',
+      '$100K–$350K',
+      '$350K–$750K',
+      '$750K–$1.5M',
+      'Over $1.5M',
+    ],
+  };
+
+  const Q12_OPTIONS = {
+    dealer: [
+      'Generating enough quality leads',
+      'Justifying marketing ROI to leadership',
+      'Keeping up with digital / knowing what works',
+      'Differentiating from competitors in my region',
+      'Retaining customers / repeat business',
+      'Finding and keeping good marketing staff',
+    ],
+    oem: [
+      'Dealer adoption of co-op and marketing programs',
+      'Consistent brand execution across the dealer network',
+      'Measuring marketing impact across a distributed sales model',
+      'Differentiating from competing brands at the dealer level',
+      'Keeping up with digital channels and buyer behaviour shifts',
+      'Justifying marketing investment to the business',
+    ],
+    agency: [
+      'Proving ROI to clients',
+      'Differentiating the agency in a crowded market',
+      'Keeping up with digital / knowing what works',
+      'Attracting and retaining talent',
+      'Getting clients to invest adequately in marketing',
+      'Scaling without losing quality',
+    ],
+  };
+
+  const Q16_CONFIG = {
+    dealer: {
+      label: 'When a new inbound lead comes in, how quickly does your team typically respond?',
+      options: [
+        'Within 1 hour',
+        'Within a few hours (same day)',
+        'Within 24 hours',
+        'Within 48 hours',
+        'Longer than 48 hours',
+        'We don\'t track this',
+      ],
+    },
+    oem: {
+      label: 'When a lead is generated and routed to a dealer, how quickly is it typically followed up on?',
+      options: [
+        'Within 1 hour',
+        'Within a few hours (same day)',
+        'Within 24 hours',
+        'Within 48 hours',
+        'Longer than 48 hours',
+        'We don\'t track dealer lead follow-up time',
+      ],
+    },
+    agency: {
+      label: 'For your primary clients — when a new inbound lead comes in, how quickly does their team typically respond?',
+      options: [
+        'Within 1 hour',
+        'Within a few hours (same day)',
+        'Within 24 hours',
+        'Within 48 hours',
+        'Longer than 48 hours',
+        'We don\'t track this',
+      ],
+    },
+  };
+
+  /* ══════════════════════════════════════════
+     RENDER HELPERS — populate dynamic questions
+     ══════════════════════════════════════════ */
+
+  function renderRadioGroup(containerId, name, options) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = options.map(opt =>
+      `<label class="opt"><input type="radio" name="${name}" value="${opt}"><span class="opt-text">${opt}</span></label>`
+    ).join('');
+    bindOptHighlight(container);
+  }
+
+  function renderQ1() {
+    renderRadioGroup('q1-opts', 'q1', Q1_OPTIONS[orgType]);
+  }
+
+  function renderQ2() {
+    const cfg = Q2_CONFIG[orgType];
+    const block = document.getElementById('q2-block') || document.querySelector('#q2-opts')?.closest('.q-block');
+    if (!cfg) {
+      // Hide Q2 for agencies
+      const el = document.getElementById('q2-opts').closest('.q-block');
+      el.style.display = 'none';
+      return;
+    }
+    const el = document.getElementById('q2-opts').closest('.q-block');
+    el.style.display = '';
+    document.getElementById('q2-label').textContent = cfg.label;
+    renderRadioGroup('q2-opts', 'q2', cfg.options);
+  }
+
+  function renderQ3() {
+    renderRadioGroup('q3-opts', 'q3', Q3_OPTIONS[orgType]);
+  }
+
+  function renderQ5() {
+    const block = document.getElementById('q5-block');
+    // Hide Q5 for agencies (they ARE the agency)
+    block.style.display = orgType === 'agency' ? 'none' : '';
+  }
+
+  function renderQ6() {
+    if (orgType === 'oem') {
+      document.getElementById('q6-label').textContent = 'Which product lines or brands do you market?';
+      document.getElementById('q6-hint').textContent = 'e.g. compact excavators, large wheel loaders, telehandlers, full line';
+    } else if (orgType === 'agency') {
+      document.getElementById('q6-label').textContent = 'Which brands or dealers do you primarily work with?';
+      document.getElementById('q6-hint').textContent = 'e.g. Caterpillar dealers, Komatsu, CNH brands — or independent dealers';
+    } else {
+      document.getElementById('q6-label').textContent = 'What brand line(s) do you represent or primarily work with?';
+      document.getElementById('q6-hint').textContent = 'e.g. Caterpillar, Komatsu, John Deere, Volvo CE, CNH, independent / multi-line';
+    }
+  }
+
+  function renderQ11() {
+    if (orgType === 'oem') {
+      document.getElementById('q11-label').textContent = 'What\'s your estimated cost-per-dealer-qualified-lead from your best-performing channel?';
+    } else {
+      document.getElementById('q11-label').textContent = 'What\'s your estimated cost-per-qualified-lead from your best-performing channel?';
+    }
+  }
+
+  function renderQ12() {
+    renderRadioGroup('q12-opts', 'q12', Q12_OPTIONS[orgType]);
+  }
+
+  function renderQ16() {
+    const cfg = Q16_CONFIG[orgType];
+    document.getElementById('q16-label').textContent = cfg.label;
+    renderRadioGroup('q16-opts', 'q16', cfg.options);
+  }
+
+  function renderAllDynamic() {
+    renderQ1();
+    renderQ2();
+    renderQ3();
+    renderQ5();
+    renderQ6();
+    renderQ11();
+    renderQ12();
+    renderQ16();
+  }
+
+  /* ══════════════════════════════════════════
+     PROGRESS
+     ══════════════════════════════════════════ */
   const SECTION_LABELS = [
     'Section 1 of 4 — About You',
     'Section 2 of 4 — Where Your Budget Goes',
@@ -612,49 +888,71 @@
   function updateProgress(idx) {
     for (let i = 1; i <= 4; i++) {
       const seg = document.getElementById('seg-' + i);
-      if (i - 1 < idx)      seg.className = 'prog-seg done';
+      if (i - 1 < idx)        seg.className = 'prog-seg done';
       else if (i - 1 === idx) seg.className = 'prog-seg active';
-      else                   seg.className = 'prog-seg';
+      else                    seg.className = 'prog-seg';
     }
     document.getElementById('progress-label').textContent = SECTION_LABELS[idx] || '';
   }
 
-  function showProgress()  { document.getElementById('progress-wrap').style.display = ''; }
-  function hideProgress()  { document.getElementById('progress-wrap').style.display = 'none'; }
+  function showProgress() { document.getElementById('progress-wrap').style.display = ''; }
+  function hideProgress() { document.getElementById('progress-wrap').style.display = 'none'; }
 
-  /* ── OPTION HIGHLIGHTING ── */
-  document.querySelectorAll('.opt input').forEach(inp => {
-    inp.addEventListener('change', () => {
-      const group = inp.closest('.options');
-      const noneVals = ['None currently', 'Not planning to increase spending'];
-      if (inp.type === 'radio') {
-        group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
-        inp.closest('.opt').classList.add('selected');
-      } else {
-        inp.closest('.opt').classList.toggle('selected', inp.checked);
-        if (!noneVals.includes(inp.value) && inp.checked) {
-          group.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            if (noneVals.includes(cb.value)) { cb.checked = false; cb.closest('.opt').classList.remove('selected'); }
-          });
-        } else if (noneVals.includes(inp.value) && inp.checked) {
-          group.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            if (!noneVals.includes(cb.value)) { cb.checked = false; cb.closest('.opt').classList.remove('selected'); }
-          });
+  /* ══════════════════════════════════════════
+     OPTION HIGHLIGHTING (static options)
+     ══════════════════════════════════════════ */
+  function bindOptHighlight(container) {
+    container.querySelectorAll('.opt input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        const noneVals = ['None currently', 'Not planning to increase spending'];
+        if (inp.type === 'radio') {
+          container.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+          inp.closest('.opt').classList.add('selected');
+        } else {
+          inp.closest('.opt').classList.toggle('selected', inp.checked);
+          if (!noneVals.includes(inp.value) && inp.checked) {
+            container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+              if (noneVals.includes(cb.value)) { cb.checked = false; cb.closest('.opt').classList.remove('selected'); }
+            });
+          } else if (noneVals.includes(inp.value) && inp.checked) {
+            container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+              if (!noneVals.includes(cb.value)) { cb.checked = false; cb.closest('.opt').classList.remove('selected'); }
+            });
+          }
         }
-      }
+      });
+    });
+  }
+
+  // Bind static option groups on load
+  document.querySelectorAll('.options').forEach(bindOptHighlight);
+  document.querySelectorAll('.org-cards').forEach(bindOptHighlight);
+
+  // Org card highlight
+  document.querySelectorAll('.org-card input').forEach(inp => {
+    inp.addEventListener('change', () => {
+      document.querySelectorAll('.org-card').forEach(c => c.classList.remove('selected'));
+      inp.closest('.org-card').classList.add('selected');
     });
   });
 
-  /* ── HELPERS ── */
+  /* ══════════════════════════════════════════
+     HELPERS
+     ══════════════════════════════════════════ */
   function getRadio(name)   { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : null; }
   function getChecked(name) { return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(c => c.value); }
-  function showErr(id)  { document.getElementById(id).classList.add('show'); }
-  function hideErr(id)  { document.getElementById(id).classList.remove('show'); }
+  function showErr(id)      { document.getElementById(id).classList.add('show'); }
+  function hideErr(id)      { document.getElementById(id).classList.remove('show'); }
 
   function goTo(screenId, progIdx) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
-    updateProgress(progIdx);
+    if (progIdx >= 0) {
+      showProgress();
+      updateProgress(progIdx);
+    } else {
+      hideProgress();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -664,18 +962,55 @@
     return PERSONAL_DOMAINS.includes(domain);
   }
 
-  /* ── SECTION NAV ── */
+  /* ══════════════════════════════════════════
+     SECTION NAV
+     ══════════════════════════════════════════ */
+
+  // Org type gate → Section 1
+  function goToA() {
+    const selected = getRadio('org_type');
+    if (!selected) { showErr('org-err'); return; }
+    hideErr('org-err');
+    orgType = selected;
+    answers.org_type = orgType;
+    renderAllDynamic();
+    goTo('screen-a', 0);
+  }
+
+  // Section 1 → Section 2
   function goToB() {
     let valid = true;
-    ['q1','q2','q3','q4','q5'].forEach(q => {
-      const val = getRadio(q);
-      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
-    });
+    const q1 = getRadio('q1');
+    if (!q1) { showErr('q1-err'); valid = false; } else { hideErr('q1-err'); answers.q1 = q1; }
+
+    // Q2 only required if not agency
+    if (orgType !== 'agency') {
+      const q2 = getRadio('q2');
+      if (!q2) { showErr('q2-err'); valid = false; } else { hideErr('q2-err'); answers.q2 = q2; }
+    } else {
+      hideErr('q2-err'); answers.q2 = 'N/A — agency';
+    }
+
+    const q3 = getRadio('q3');
+    if (!q3) { showErr('q3-err'); valid = false; } else { hideErr('q3-err'); answers.q3 = q3; }
+
+    const q4 = getRadio('q4');
+    if (!q4) { showErr('q4-err'); valid = false; } else { hideErr('q4-err'); answers.q4 = q4; }
+
+    // Q5 only required if not agency
+    if (orgType !== 'agency') {
+      const q5 = getRadio('q5');
+      if (!q5) { showErr('q5-err'); valid = false; } else { hideErr('q5-err'); answers.q5 = q5; }
+    } else {
+      hideErr('q5-err'); answers.q5 = 'N/A — agency';
+    }
+
     answers.q6_brand = document.getElementById('q6-brand').value.trim();
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     goTo('screen-b', 1);
   }
 
+  // Section 2 → Section 3
   function goToC() {
     let valid = true;
     const q7 = getChecked('q7');
@@ -688,6 +1023,7 @@
     goTo('screen-c', 2);
   }
 
+  // Section 3 → Section 4
   function goToD() {
     let valid = true;
     ['q10','q11','q12','q13'].forEach(q => {
@@ -698,6 +1034,7 @@
     goTo('screen-d', 3);
   }
 
+  // Section 4 → Email capture
   function goToEmail() {
     let valid = true;
     ['q14','q15','q16','q17'].forEach(q => {
@@ -711,16 +1048,18 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  /* ── SUBMIT ── */
+  /* ══════════════════════════════════════════
+     SUBMIT
+     ══════════════════════════════════════════ */
   async function submitSurvey() {
-    const emailEl  = document.getElementById('final-email');
-    const email    = emailEl.value.trim();
-    const errEl    = document.getElementById('email-err');
+    const emailEl   = document.getElementById('final-email');
+    const email     = emailEl.value.trim();
+    const errEl     = document.getElementById('email-err');
     const submitErr = document.getElementById('submit-err');
-    const btn      = document.getElementById('submit-btn');
-    const honeypot = document.getElementById('hp-website').value;
+    const btn       = document.getElementById('submit-btn');
+    const honeypot  = document.getElementById('hp-website').value;
 
-    // Honeypot check — bot detected, silently fake success without submitting
+    // Honeypot — silently fake success
     if (honeypot) {
       hideProgress();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -729,7 +1068,6 @@
       return;
     }
 
-    // Email validation
     if (!email || !email.includes('@') || !email.includes('.')) {
       errEl.classList.add('show'); emailEl.classList.add('error'); return;
     }
@@ -745,23 +1083,24 @@
       email,
       region: answers.region,
       responses: {
-        q1_role:             answers.q1  || '',
-        q2_locations:        answers.q2  || '',
-        q3_budget:           answers.q3  || '',
-        q4_team_size:        answers.q4  || '',
-        q5_structure:        answers.q5  || '',
-        q6_brand_lines:      answers.q6_brand || '',
+        org_type:            answers.org_type        || '',
+        q1_role:             answers.q1              || '',
+        q2_locations:        answers.q2              || '',
+        q3_budget:           answers.q3              || '',
+        q4_team_size:        answers.q4              || '',
+        q5_structure:        answers.q5              || '',
+        q6_brand_lines:      answers.q6_brand        || '',
         q7_channels:         (answers.q7  || []).join('; '),
-        q8_largest_channel:  answers.q8  || '',
+        q8_largest_channel:  answers.q8              || '',
         q9_increase_spend:   (answers.q9  || []).join('; '),
-        q10_best_roi:        answers.q10 || '',
-        q11_cost_per_lead:   answers.q11 || '',
-        q12_challenge:       answers.q12 || '',
-        q13_performance:     answers.q13 || '',
-        q14_maturity:        answers.q14 || '',
-        q15_crm_usage:       answers.q15 || '',
-        q16_lead_response:   answers.q16 || '',
-        q17_buyer_visibility: answers.q17 || '',
+        q10_best_roi:        answers.q10             || '',
+        q11_cost_per_lead:   answers.q11             || '',
+        q12_challenge:       answers.q12             || '',
+        q13_performance:     answers.q13             || '',
+        q14_maturity:        answers.q14             || '',
+        q15_crm_usage:       answers.q15             || '',
+        q16_lead_response:   answers.q16             || '',
+        q17_buyer_visibility: answers.q17            || '',
       }
     };
 
@@ -791,7 +1130,7 @@
   }
 
   /* ── INIT ── */
-  updateProgress(0);
+  hideProgress();
 </script>
 </body>
 </html>
