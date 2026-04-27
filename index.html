@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IronBenchmark — The 2026 Heavy Equipment Dealer Marketing Benchmark</title>
+  <meta name="description" content="The first annual benchmark report for heavy equipment dealer and OEM marketing leaders. Real data on budget allocation, channel performance, and where the industry is headed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+  <!-- GA4 placeholder -->
+  <!-- Replace G-XXXXXXXXXX with your actual GA4 measurement ID -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F6F4EE;
+      --navy:      #1C3A2A;
+      --bronze:    #C9A84C;
+      --bronze-lt: #D9BC6A;
+      --muted:     #5A7060;
+      --border:    #D8D5C8;
+      --white:     #FFFFFF;
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--navy);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-wordmark {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+    .topbar-wordmark span {
+      color: var(--bronze);
+    }
+    .topbar-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--bronze);
+      margin-bottom: 24px;
+      padding: 6px 14px;
+      border: 1px solid var(--bronze);
+      border-radius: 2px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 6vw, 60px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--navy);
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--bronze);
+    }
+    .hero-desc {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+    .hero-desc strong {
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    /* ── COUNTER STRIP ── */
+    .counter-strip {
+      background: var(--navy);
+      padding: 28px 40px;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .counter-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .counter-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--bronze);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .counter-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 300;
+    }
+    .counter-text strong {
+      color: var(--white);
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    /* ── MAIN CTA SECTION ── */
+    .cta-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 40px;
+      text-align: center;
+    }
+    .cta-heading {
+      font-family: var(--serif);
+      font-size: 28px;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+    .cta-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+
+    /* Primary CTA button */
+    .btn-primary {
+      display: inline-block;
+      background: var(--bronze);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 36px;
+      border-radius: 3px;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--bronze-lt);
+      transform: translateY(-1px);
+    }
+    .btn-note {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+      font-weight: 400;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 40px;
+    }
+
+    /* ── WHAT'S IN THE REPORT ── */
+    .preview-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 40px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--bronze);
+      margin-bottom: 12px;
+    }
+    .preview-section h2 {
+      font-family: var(--serif);
+      font-size: 32px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .preview-section .section-intro {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 48px;
+      max-width: 560px;
+      line-height: 1.65;
+    }
+
+    .report-sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .report-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 24px;
+    }
+    .report-card-num {
+      font-family: var(--serif);
+      font-size: 13px;
+      color: var(--bronze);
+      margin-bottom: 10px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    .report-card h3 {
+      font-family: var(--serif);
+      font-size: 19px;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    .report-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .report-card-teaser {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--navy);
+      font-style: italic;
+      line-height: 1.55;
+    }
+
+    /* ── PREVIEW STATS (placeholders — update when data comes in) ── */
+    .stats-section {
+      background: var(--navy);
+      padding: 64px 40px;
+    }
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .stats-inner .section-label {
+      color: rgba(196,123,46,0.9);
+      margin-bottom: 10px;
+    }
+    .stats-inner h2 {
+      font-family: var(--serif);
+      font-size: 30px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .stats-inner .section-intro {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 48px;
+      font-style: italic;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .stat-card {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 28px 24px;
+      background: rgba(255,255,255,0.04);
+    }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 48px;
+      color: var(--bronze);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+    .stat-source {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* ── WHAT MOTIVATES COMPLETION ── */
+    .why-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 64px 40px;
+    }
+    .why-section h2 {
+      font-family: var(--serif);
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    .why-section .section-intro {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.65;
+    }
+    .why-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .why-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .why-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--bronze);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .why-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--white);
+    }
+    .why-item-body h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .why-item-body p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── EARLY ACCESS EMAIL ── */
+    .access-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 40px;
+    }
+    .access-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .access-inner h2 {
+      font-family: var(--serif);
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .access-inner p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .email-input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      font-family: var(--sans);
+      font-size: 15px;
+      background: var(--bg);
+      color: var(--navy);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-input:focus {
+      border-color: var(--bronze);
+    }
+    .email-input::placeholder {
+      color: #9BAAB3;
+    }
+    .email-submit {
+      padding: 14px 22px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 3px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .email-submit:hover {
+      background: #243D50;
+    }
+    .email-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    /* Success state */
+    .email-success {
+      display: none;
+      color: #1E6B40;
+      font-weight: 500;
+      font-size: 15px;
+      padding: 14px;
+      background: #EAF5EE;
+      border-radius: 3px;
+      border: 1px solid #B2D9C1;
+    }
+
+    /* ── METHODOLOGY ── */
+    .method-section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 40px;
+    }
+    .method-section h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+    .method-section p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+    .method-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .method-col h4 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .method-col ul {
+      list-style: none;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .method-col ul li::before {
+      content: '—';
+      color: var(--bronze);
+      margin-right: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 36px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-left {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--white);
+    }
+    .footer-left span { color: var(--bronze); }
+    .footer-right {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      text-align: right;
+      line-height: 1.7;
+    }
+    .footer-right a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-right a:hover { color: var(--bronze); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 620px) {
+      .topbar { padding: 14px 20px; }
+      .hero { padding: 52px 24px 40px; }
+      .cta-section { padding: 48px 24px; }
+      .preview-section { padding: 48px 24px; }
+      .stats-section { padding: 48px 24px; }
+      .why-section { padding: 48px 24px; }
+      .access-section { padding: 48px 24px; }
+      .method-section { padding: 40px 24px; }
+      footer { padding: 28px 24px; flex-direction: column; text-align: center; }
+      .footer-right { text-align: center; }
+      .email-form { flex-direction: column; }
+      .email-submit { width: 100%; padding: 14px; }
+      .method-grid { grid-template-columns: 1fr; gap: 24px; }
+      .topbar-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-wordmark">Iron<span>Benchmark</span></div>
+    <div class="topbar-tag">2026 Report · Now Open</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">First Annual · 2026</div>
+    <h1>The Heavy Equipment<br><em>Dealer Marketing</em><br>Benchmark</h1>
+    <p class="hero-desc">
+      For the first time, we're publishing real data on how heavy equipment dealers and OEM marketing leaders allocate budgets, which channels are delivering results, and where the industry is headed.
+      <strong>200+ practitioners. Fully anonymous. Free to access.</strong>
+    </p>
+    <a href="INSERT_TALLY_URL" class="btn-primary" target="_blank" rel="noopener">
+      Take the 5-minute survey &rarr;
+    </a>
+    <span class="btn-note">Your answers are anonymous and aggregated. You'll receive the full report free.</span>
+  </section>
+
+  <!-- LIVE COUNTER -->
+  <div class="counter-strip">
+    <div class="counter-inner">
+      <div class="counter-dot"></div>
+      <!-- Update this number weekly as responses come in -->
+      <div class="counter-text"><strong id="respondent-count">0</strong> dealer and OEM marketing leaders have already responded</div>
+    </div>
+  </div>
+
+  <!-- WHAT'S IN THE REPORT -->
+  <section class="preview-section">
+    <div class="section-label">What's in the report</div>
+    <h2>Six sections. One benchmark.</h2>
+    <p class="section-intro">Built from practitioner survey data combined with public market analysis — rate cards, show floor data, and digital ad library scans.</p>
+
+    <div class="report-sections">
+      <div class="report-card">
+        <div class="report-card-num">Section 01</div>
+        <h3>What Trade Media Actually Costs — and Who's Spending</h3>
+        <p>Rate card comparison across Equipment World, Construction Equipment Guide, For Construction Pros, Roads & Bridges, and Diesel Progress — plus inferred ad spend from real trade pub issues.</p>
+        <div class="report-card-teaser">"CPM benchmarks by format, and the brands with the most consistent trade media presence."</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-num">Section 02</div>
+        <h3>The True Cost of a Trade Show Presence</h3>
+        <p>Fully-loaded cost models for CONEXPO and AED Summit by booth size — including setup, graphics, staffing, and travel.</p>
+        <div class="report-card-teaser">"What 10×10 through 40×40 actually costs, all-in."</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-num">Section 03</div>
+        <h3>Digital Adoption — Where the Industry Actually Is</h3>
+        <p>Facebook and LinkedIn ad library analysis: who's running ads, what formats, and how long. Plus a Digital Maturity Index across 50 dealers.</p>
+        <div class="report-card-teaser">"The gap between digital adoption at large dealer groups vs. independent dealers."</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-num">Section 04</div>
+        <h3>Budget Allocation + Cost Per Lead</h3>
+        <p>Survey data: channel budget allocation split by dealer vs. OEM and by company size. Cost-per-lead by channel, ranked. The misalignment finding — where budget goes vs. where ROI actually comes from.</p>
+        <div class="report-card-teaser">"The channel with the best reported ROI vs. where budget is actually concentrated."</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-num">Section 05</div>
+        <h3>Team Structure — How the Function Is Built</h3>
+        <p>Marketing team size by company size, in-house vs. agency breakdown, and how the function differs between dealers and OEMs.</p>
+        <div class="report-card-teaser">"The in-house vs. agency split — and what's being outsourced vs. kept internal."</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-num">Section 06</div>
+        <h3>What's Working, What's Next, and the Confidence Gap</h3>
+        <p>Best ROI channel ranked, biggest marketing challenges, planned investment increases, and the confidence index — how many practitioners actually believe their current mix is optimized.</p>
+        <div class="report-card-teaser">"Only X% of respondents said they're confident their current marketing mix is optimized."</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PREVIEW STATS — update these as data comes in -->
+  <section class="stats-section">
+    <div class="stats-inner">
+      <div class="section-label">Early data — from public sources</div>
+      <h2>The numbers nobody has published.</h2>
+      <p class="section-intro">Stats below are sourced from public trade show prospectuses, publication rate cards, and ad library data — not estimates. Survey findings will be added when the report publishes.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">$35–55</div>
+          <div class="stat-label">Per sq ft — indoor CONEXPO booth space, before setup, graphics, and staffing</div>
+          <div class="stat-source">Source: CONEXPO-CON/AGG 2026 Exhibitor Prospectus</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Major trade publications serving the heavy equipment market — with wildly different CPM rates</div>
+          <div class="stat-source">Source: IronBenchmark rate card analysis</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">—</div>
+          <div class="stat-label">% of respondents spending more than 30% of budget on trade shows. <em>Survey in progress.</em></div>
+          <div class="stat-source">Available when report publishes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">—</div>
+          <div class="stat-label">% of dealers actively running paid digital ads. <em>Survey in progress.</em></div>
+          <div class="stat-source">Available when report publishes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY COMPLETE IT -->
+  <section class="why-section">
+    <div class="section-label">Why participate</div>
+    <h2>What you actually get out of this.</h2>
+    <p class="section-intro">Five minutes of your time earns you access to the only benchmark data that exists specifically for this role. No generic marketing stats. No enterprise SaaS vendor surveys. Just your peers.</p>
+
+    <ul class="why-list">
+      <li class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <div class="why-item-body">
+          <h4>Defend your budget with peer data</h4>
+          <p>When your GM asks why you're spending $80K at CONEXPO, now you have an answer backed by what similarly-sized dealer networks are doing.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="why-item-body">
+          <h4>Know where the industry is going</h4>
+          <p>Where are peer dealers planning to increase spend next year? What channels are being cut? You'll know before your competitors do.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </div>
+        <div class="why-item-body">
+          <h4>Benchmark your cost-per-lead</h4>
+          <p>Is $200 per qualified lead good or bad for this industry? For the first time, you'll have actual benchmark data to compare against — broken out by channel and company size.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="why-item-body">
+          <h4>4 minutes. No vendor pitch. Free forever.</h4>
+          <p>12 questions. Anonymous and aggregated — individual responses are never shared or sold. The report is free to everyone who participates.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- EARLY ACCESS EMAIL -->
+  <section class="access-section">
+    <div class="access-inner">
+      <div class="section-label" style="text-align:center;">Already responded?</div>
+      <h2>Get early access when the report publishes.</h2>
+      <p>We'll email you the full report before it goes public — typically within 60 days of survey close. No newsletter. One email with your report.</p>
+
+      <!-- Replace with your Beehiiv embed form -->
+      <form class="email-form" id="earlyAccessForm" onsubmit="handleEmailSubmit(event)">
+        <input
+          type="email"
+          class="email-input"
+          id="earlyAccessEmail"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+        >
+        <button type="submit" class="email-submit">Get Early Access</button>
+      </form>
+      <div class="email-success" id="emailSuccess">
+        ✓ You're on the list. We'll email you when the report is ready.
+      </div>
+      <p class="email-note">No spam. Unsubscribe anytime. Your email is only used to deliver the report.</p>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="method-section">
+    <h3>Methodology</h3>
+    <p>The 2026 IronBenchmark Report combines primary survey data with secondary analysis of publicly available market information. All survey responses are anonymized and aggregated — no individual or company-level data is ever disclosed.</p>
+
+    <div class="method-grid">
+      <div class="method-col">
+        <h4>Survey Data</h4>
+        <ul>
+          <li>Survey open: April – June 2026</li>
+          <li>Target respondents: 200+</li>
+          <li>Respondent types: dealer marketing managers and directors, OEM marketing managers and directors, dealer principals with marketing oversight</li>
+          <li>All responses anonymous and aggregated</li>
+          <li>Report published within 60 days of survey close</li>
+        </ul>
+      </div>
+      <div class="method-col">
+        <h4>Public Data Sources</h4>
+        <ul>
+          <li>Trade publication rate cards (Equipment World, CEG, FCP, R&B, Diesel Progress)</li>
+          <li>CONEXPO-CON/AGG and AED Summit exhibitor prospectuses</li>
+          <li>Facebook and LinkedIn ad libraries</li>
+          <li>Dealer website and digital presence analysis</li>
+          <li>AEM market data (publicly available releases)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">Iron<span>Benchmark</span></div>
+    <div class="footer-right">
+      © 2026 IronBenchmark &nbsp;·&nbsp; Presented by <a href="#">[Your Company]</a><br>
+      <a href="mailto:contact@ironbenchmark.com">contact@ironbenchmark.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── RESPONDENT COUNTER ──
+    // Update this number weekly. Just change the value below and push to GitHub.
+    const RESPONDENT_COUNT = 0; // <-- update this number weekly
+    document.getElementById('respondent-count').textContent = RESPONDENT_COUNT;
+
+    // ── EMAIL FORM (placeholder — replace with Beehiiv embed) ──
+    function handleEmailSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('earlyAccessEmail').value;
+      if (!email) return;
+
+      // TODO: Replace this block with your Beehiiv form submission
+      // Beehiiv will give you a form action URL — swap this fetch for their embed or API call
+      console.log('Email captured:', email);
+
+      // Show success state
+      document.querySelector('.email-form').style.display = 'none';
+      document.getElementById('emailSuccess').style.display = 'block';
+
+      // In production: POST to Beehiiv API or use their embed form instead of this custom form
+    }
+
+    // ── SMOOTH CTA SCROLL (if survey link is on-page) ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
