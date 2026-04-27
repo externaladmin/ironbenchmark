@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IronBenchmark 2026 Survey — Heavy Equipment Dealer Marketing</title>
-  <meta name="description" content="The 2026 IronBenchmark Survey — 15 questions, 5 minutes. Help build the first benchmark report for heavy equipment dealer and OEM marketing leaders.">
+  <title>IronBenchmark 2026 Survey — Heavy Equipment Marketing</title>
+  <meta name="description" content="The 2026 IronBenchmark Survey — 5 minutes. Help build the first benchmark report for heavy equipment dealer and OEM marketing leaders.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -32,7 +32,6 @@
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--navy);
@@ -54,20 +53,9 @@
       top: 0;
       z-index: 100;
     }
-    .topbar-brand {
-      font-family: var(--serif);
-      font-size: 20px;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
+    .topbar-brand { font-family: var(--serif); font-size: 20px; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
     .topbar-brand span { color: var(--bronze); }
-    .topbar-back {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .topbar-back { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
     .topbar-back:hover { color: #fff; }
 
     /* ── PROGRESS BAR ── */
@@ -76,305 +64,105 @@
       padding: 0 40px 16px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    .progress-sections {
-      display: flex;
-      gap: 4px;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-    .prog-seg {
-      flex: 1;
-      height: 3px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 2px;
-      transition: background 0.4s;
-    }
+    .progress-sections { display: flex; gap: 4px; max-width: 680px; margin: 0 auto; }
+    .prog-seg { flex: 1; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; transition: background 0.4s; }
     .prog-seg.active { background: var(--bronze); }
     .prog-seg.done   { background: rgba(255,255,255,0.55); }
     .progress-label {
-      text-align: center;
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-      margin-top: 8px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      text-align: center; font-size: 12px; color: rgba(255,255,255,0.5);
+      margin-top: 8px; letter-spacing: 0.04em; text-transform: uppercase;
     }
 
     /* ── MAIN CONTAINER ── */
-    .survey-outer {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
+    .survey-outer { max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
 
     /* ── SECTION HEADER ── */
-    .section-header {
-      margin-bottom: 36px;
-    }
-    .section-tag {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--bronze);
-      margin-bottom: 8px;
-    }
-    .section-title {
-      font-family: var(--serif);
-      font-size: 28px;
-      color: var(--navy);
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-    .section-desc {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .section-header { margin-bottom: 36px; }
+    .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bronze); margin-bottom: 8px; }
+    .section-title { font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
+    .section-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
 
     /* ── QUESTION BLOCK ── */
-    .q-block {
-      margin-bottom: 36px;
-    }
-    .q-label {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 14px;
-      line-height: 1.4;
-    }
-    .q-label span.q-num {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--bronze);
-      display: block;
-      margin-bottom: 4px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    .q-hint {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: -8px;
-      margin-bottom: 12px;
-    }
+    .q-block { margin-bottom: 36px; }
+    .q-label { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 14px; line-height: 1.4; }
+    .q-label span.q-num { font-size: 12px; font-weight: 500; color: var(--bronze); display: block; margin-bottom: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .q-hint { font-size: 13px; color: var(--muted); margin-top: -8px; margin-bottom: 12px; }
 
-    /* ── RADIO / CHECKBOX OPTIONS ── */
+    /* ── OPTIONS ── */
     .options { display: flex; flex-direction: column; gap: 8px; }
-
     .opt {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 16px;
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
-      user-select: none;
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 16px; background: var(--white);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none;
     }
     .opt:hover { border-color: var(--bronze); }
-    .opt.selected {
-      border-color: var(--bronze);
-      background: var(--bronze-bg);
+    .opt.selected { border-color: var(--bronze); background: var(--bronze-bg); }
+    .opt input[type="radio"], .opt input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+      accent-color: var(--bronze); cursor: pointer;
     }
-    .opt input[type="radio"],
-    .opt input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      accent-color: var(--bronze);
-      cursor: pointer;
+    .opt-text { font-size: 15px; color: var(--navy); line-height: 1.4; }
+    .opt-sub { font-size: 13px; color: var(--muted); margin-top: 2px; line-height: 1.4; display: block; }
+
+    /* ── TEXT / SELECT INPUTS ── */
+    .text-input, .select-input {
+      width: 100%; padding: 12px 16px; font-family: var(--sans); font-size: 15px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
     }
-    .opt-text {
-      font-size: 15px;
-      color: var(--navy);
-      line-height: 1.4;
-    }
+    .text-input:focus, .select-input:focus { border-color: var(--bronze); }
+    .text-input::placeholder { color: var(--muted); }
+    .select-input { -webkit-appearance: none; appearance: none; cursor: pointer; }
 
     /* ── EMAIL INPUT ── */
     .email-group { display: flex; flex-direction: column; gap: 6px; }
-    .email-group label {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--navy);
-    }
+    .email-group label { font-size: 14px; font-weight: 500; color: var(--navy); }
     .email-input {
-      width: 100%;
-      padding: 12px 16px;
-      font-family: var(--sans);
-      font-size: 16px;
-      color: var(--navy);
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      outline: none;
-      transition: border-color 0.15s;
+      width: 100%; padding: 12px 16px; font-family: var(--sans); font-size: 16px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
     }
     .email-input:focus { border-color: var(--bronze); }
     .email-input::placeholder { color: var(--muted); }
     .email-input.error { border-color: var(--red); }
 
-    .region-input {
-      width: 100%;
-      padding: 12px 16px;
-      font-family: var(--sans);
-      font-size: 15px;
-      color: var(--navy);
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      outline: none;
-      transition: border-color 0.15s;
-      -webkit-appearance: none;
-      appearance: none;
-      cursor: pointer;
-    }
-    .region-input:focus { border-color: var(--bronze); }
+    /* ── HONEYPOT ── */
+    .hp-field { display: none !important; visibility: hidden; }
 
     /* ── NAVIGATION ── */
-    .nav-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 40px;
-      gap: 12px;
-    }
-    .btn-back {
-      font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 10px 0;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-top: 40px; gap: 12px; }
+    .btn-back { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--muted); background: none; border: none; cursor: pointer; padding: 10px 0; transition: color 0.2s; }
     .btn-back:hover { color: var(--navy); }
-    .btn-next {
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      background: var(--navy);
-      border: none;
-      border-radius: 8px;
-      padding: 13px 28px;
-      cursor: pointer;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
+    .btn-next { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--navy); border: none; border-radius: 8px; padding: 13px 28px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
     .btn-next:hover { background: #264D38; }
-    .btn-submit {
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      background: var(--bronze);
-      border: none;
-      border-radius: 8px;
-      padding: 14px 32px;
-      cursor: pointer;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
+    .btn-submit { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--bronze); border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
     .btn-submit:hover { background: var(--bronze-lt); }
-    .btn-submit:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* ── VALIDATION MSG ── */
-    .val-msg {
-      font-size: 13px;
-      color: var(--red);
-      margin-top: 8px;
-      display: none;
-    }
+    /* ── VALIDATION ── */
+    .val-msg { font-size: 13px; color: var(--red); margin-top: 8px; display: none; }
     .val-msg.show { display: block; }
 
-    /* ── DIVIDER ── */
-    .q-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 32px 0;
-    }
+    /* ── SPINNER ── */
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── CONFIRMATION SCREEN ── */
-    .confirm-screen {
-      text-align: center;
-      padding: 48px 24px 80px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .confirm-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--navy);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-    }
-    .confirm-icon svg { color: var(--bronze); }
-    .confirm-title {
-      font-family: var(--serif);
-      font-size: 30px;
-      color: var(--navy);
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-    .confirm-body {
-      font-size: 16px;
-      color: #444;
-      line-height: 1.7;
-      margin-bottom: 28px;
-    }
-    .confirm-forward {
-      background: var(--bronze-bg);
-      border: 1px solid var(--bronze);
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin-bottom: 28px;
-      text-align: left;
-    }
-    .confirm-forward p {
-      font-size: 14px;
-      color: var(--navy);
-      line-height: 1.6;
-    }
-    .confirm-forward a {
-      color: var(--bronze);
-      font-weight: 600;
-      text-decoration: none;
-    }
+    /* ── CONFIRMATION ── */
+    .confirm-screen { text-align: center; padding: 48px 24px 80px; max-width: 600px; margin: 0 auto; }
+    .confirm-icon { width: 64px; height: 64px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .confirm-title { font-family: var(--serif); font-size: 30px; color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .confirm-body { font-size: 16px; color: #444; line-height: 1.7; margin-bottom: 28px; }
+    .confirm-forward { background: var(--bronze-bg); border: 1px solid var(--bronze); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; text-align: left; }
+    .confirm-forward p { font-size: 14px; color: var(--navy); line-height: 1.6; }
+    .confirm-forward a { color: var(--bronze); font-weight: 600; text-decoration: none; }
     .confirm-forward a:hover { text-decoration: underline; }
-    .confirm-home {
-      font-family: var(--sans);
-      font-size: 14px;
-      color: var(--muted);
-      text-decoration: none;
-    }
+    .confirm-home { font-family: var(--sans); font-size: 14px; color: var(--muted); text-decoration: none; }
     .confirm-home:hover { color: var(--navy); }
 
-    /* ── LOADING SPINNER ── */
-    .spinner {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 8px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    /* ── HIDDEN ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 540px) {
@@ -383,63 +171,53 @@
       .survey-outer { padding: 32px 16px 64px; }
       .section-title { font-size: 24px; }
     }
-
-    /* ── HIDDEN ── */
-    .screen { display: none; }
-    .screen.active { display: block; }
   </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <nav class="topbar">
-  <a href="ironbenchmark_website.html" class="topbar-brand">Iron<span>Benchmark</span></a>
-  <a href="ironbenchmark_website.html" class="topbar-back">← Back to site</a>
+  <a href="/" class="topbar-brand">Iron<span>Benchmark</span></a>
+  <a href="/" class="topbar-back">← Back to site</a>
 </nav>
 
-<!-- PROGRESS BAR -->
-<div class="progress-wrap">
-  <div class="progress-sections" id="progress-segs">
+<div class="progress-wrap" id="progress-wrap">
+  <div class="progress-sections">
     <div class="prog-seg active" id="seg-1"></div>
     <div class="prog-seg" id="seg-2"></div>
     <div class="prog-seg" id="seg-3"></div>
+    <div class="prog-seg" id="seg-4"></div>
   </div>
-  <div class="progress-label" id="progress-label">Section 1 of 3 — About You</div>
+  <div class="progress-label" id="progress-label">Section 1 of 4 — About You</div>
 </div>
 
-<!-- ════════════════════════════════════
-     SECTION A — About You (Q1–5)
-     ════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — About You  (Q1–Q6)
+     ══════════════════════════════════════════ -->
 <div class="screen active" id="screen-a">
   <div class="survey-outer">
     <div class="section-header">
-      <div class="section-tag">Section A · About You</div>
+      <div class="section-tag">Section 1 · About You</div>
       <div class="section-title">Let's start with some context.</div>
-      <div class="section-desc">5 questions · about 75 seconds. All responses are anonymous and aggregated — your individual answers are never shared.</div>
+      <div class="section-desc">6 questions · about 90 seconds. All responses are anonymous and aggregated — your individual answers are never shared.</div>
     </div>
 
-    <!-- Q1 -->
+    <!-- Q1 — Role -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 1 of 15</span>
-        What best describes your role?
-      </div>
+      <div class="q-label"><span class="q-num">Question 1</span>What best describes your role?</div>
       <div class="options" id="q1-opts">
         <label class="opt"><input type="radio" name="q1" value="Dealer marketing manager / director"><span class="opt-text">Dealer marketing manager / director</span></label>
         <label class="opt"><input type="radio" name="q1" value="OEM marketing manager / director"><span class="opt-text">OEM marketing manager / director</span></label>
         <label class="opt"><input type="radio" name="q1" value="Dealer principal or GM with marketing oversight"><span class="opt-text">Dealer principal or GM with marketing oversight</span></label>
-        <label class="opt"><input type="radio" name="q1" value="Marketing agency serving equipment dealers"><span class="opt-text">Marketing agency serving equipment dealers</span></label>
+        <label class="opt"><input type="radio" name="q1" value="Marketing agency serving equipment dealers or OEMs"><span class="opt-text">Marketing agency serving equipment dealers or OEMs</span></label>
         <label class="opt"><input type="radio" name="q1" value="Other"><span class="opt-text">Other</span></label>
       </div>
       <div class="val-msg" id="q1-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q2 -->
+    <!-- Q2 — Locations -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 2 of 15</span>
-        How many locations does your dealership or company operate?
-      </div>
+      <div class="q-label"><span class="q-num">Question 2</span>How many locations does your dealership or company operate?</div>
       <div class="options" id="q2-opts">
         <label class="opt"><input type="radio" name="q2" value="1–2 locations"><span class="opt-text">1–2 locations</span></label>
         <label class="opt"><input type="radio" name="q2" value="3–10 locations"><span class="opt-text">3–10 locations</span></label>
@@ -449,12 +227,9 @@
       <div class="val-msg" id="q2-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q3 -->
+    <!-- Q3 — Budget -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 3 of 15</span>
-        What is your approximate annual marketing budget (all channels)?
-      </div>
+      <div class="q-label"><span class="q-num">Question 3</span>What is your approximate annual marketing budget (all channels)?</div>
       <div class="options" id="q3-opts">
         <label class="opt"><input type="radio" name="q3" value="Under $50K"><span class="opt-text">Under $50K</span></label>
         <label class="opt"><input type="radio" name="q3" value="$50K–$150K"><span class="opt-text">$50K–$150K</span></label>
@@ -465,12 +240,9 @@
       <div class="val-msg" id="q3-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q4 -->
+    <!-- Q4 — Team size -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 4 of 15</span>
-        How many people (FTE or equivalent) work on marketing at your company?
-      </div>
+      <div class="q-label"><span class="q-num">Question 4</span>How many people (FTE or equivalent) work on marketing at your company?</div>
       <div class="options" id="q4-opts">
         <label class="opt"><input type="radio" name="q4" value="Just me"><span class="opt-text">Just me</span></label>
         <label class="opt"><input type="radio" name="q4" value="2–3 people"><span class="opt-text">2–3 people</span></label>
@@ -480,12 +252,9 @@
       <div class="val-msg" id="q4-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q5 -->
+    <!-- Q5 — Structure -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 5 of 15</span>
-        How is your marketing function structured?
-      </div>
+      <div class="q-label"><span class="q-num">Question 5</span>How is your marketing function structured?</div>
       <div class="options" id="q5-opts">
         <label class="opt"><input type="radio" name="q5" value="Entirely in-house"><span class="opt-text">Entirely in-house</span></label>
         <label class="opt"><input type="radio" name="q5" value="Primarily in-house, some agency support"><span class="opt-text">Primarily in-house, some agency support</span></label>
@@ -496,6 +265,13 @@
       <div class="val-msg" id="q5-err">Please select an option to continue.</div>
     </div>
 
+    <!-- Q6 — Brand lines (open field) -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 6</span>What brand line(s) do you represent or primarily work with?<span style="font-weight:400;color:var(--muted);font-size:14px;"> (optional)</span></div>
+      <div class="q-hint">e.g. Caterpillar, Komatsu, John Deere, Volvo CE, CNH, independent / multi-line</div>
+      <input type="text" id="q6-brand" class="text-input" placeholder="Type brand line(s) here…" autocomplete="off">
+    </div>
+
     <div class="nav-row">
       <span></span>
       <button class="btn-next" onclick="goToB()">Continue →</button>
@@ -503,90 +279,67 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     SECTION B — Where Your Budget Goes (Q6–9)
-     ════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — Where Your Budget Goes  (Q7–Q9)
+     ══════════════════════════════════════════ -->
 <div class="screen" id="screen-b">
   <div class="survey-outer">
     <div class="section-header">
-      <div class="section-tag">Section B · Where Your Budget Goes</div>
-      <div class="section-title">Channel spend and allocation.</div>
-      <div class="section-desc">4 questions · about 90 seconds. These questions produce the benchmark data respondents find most valuable.</div>
+      <div class="section-tag">Section 2 · Where Your Budget Goes</div>
+      <div class="section-title">Where does the money go?</div>
+      <div class="section-desc">3 questions · about 60 seconds. Channel spend is what your peers want to benchmark against most — where budget actually goes vs. where results come from.</div>
     </div>
 
-    <!-- Q6 -->
+    <!-- Q7 — Active channels -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 6 of 15</span>
-        Which channels are you actively investing in right now?
-      </div>
+      <div class="q-label"><span class="q-num">Question 7</span>Which channels are you actively investing in right now?</div>
       <div class="q-hint">Select all that apply.</div>
-      <div class="options" id="q6-opts">
-        <label class="opt"><input type="checkbox" name="q6" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="LinkedIn Ads"><span class="opt-text">LinkedIn Ads</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="Facebook / Instagram Ads"><span class="opt-text">Facebook / Instagram Ads</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="Trade publication advertising (print or digital)"><span class="opt-text">Trade publication advertising (print or digital)</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="Email marketing to your own list"><span class="opt-text">Email marketing to your own list</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
-        <label class="opt"><input type="checkbox" name="q6" value="None currently"><span class="opt-text">None currently</span></label>
-      </div>
-      <div class="val-msg" id="q6-err">Please select at least one option.</div>
-    </div>
-
-    <!-- Q7 -->
-    <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 7 of 15</span>
-        Of those channels — which represents your single largest budget allocation?
-      </div>
       <div class="options" id="q7-opts">
-        <label class="opt"><input type="radio" name="q7" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
-        <label class="opt"><input type="radio" name="q7" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
-        <label class="opt"><input type="radio" name="q7" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
-        <label class="opt"><input type="radio" name="q7" value="LinkedIn Ads"><span class="opt-text">LinkedIn Ads</span></label>
-        <label class="opt"><input type="radio" name="q7" value="Facebook / Instagram Ads"><span class="opt-text">Facebook / Instagram Ads</span></label>
-        <label class="opt"><input type="radio" name="q7" value="Trade publication advertising"><span class="opt-text">Trade publication advertising</span></label>
-        <label class="opt"><input type="radio" name="q7" value="Email marketing"><span class="opt-text">Email marketing</span></label>
-        <label class="opt"><input type="radio" name="q7" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
-        <label class="opt"><input type="radio" name="q7" value="Even split across channels"><span class="opt-text">Even split across channels</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="LinkedIn Ads"><span class="opt-text">LinkedIn Ads</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="Facebook / Instagram Ads"><span class="opt-text">Facebook / Instagram Ads</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="Trade publication advertising (print or digital)"><span class="opt-text">Trade publication advertising (print or digital)</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="Email marketing to your own list"><span class="opt-text">Email marketing to your own list</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="None currently"><span class="opt-text">None currently</span></label>
       </div>
-      <div class="val-msg" id="q7-err">Please select an option to continue.</div>
+      <div class="val-msg" id="q7-err">Please select at least one option.</div>
     </div>
 
-    <!-- Q8 -->
+    <!-- Q8 — Largest allocation -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 8 of 15</span>
-        Roughly what share of your total marketing budget goes to trade shows and events?
-      </div>
+      <div class="q-label"><span class="q-num">Question 8</span>Of those channels — which represents your single largest budget allocation?</div>
       <div class="options" id="q8-opts">
-        <label class="opt"><input type="radio" name="q8" value="Less than 10%"><span class="opt-text">Less than 10%</span></label>
-        <label class="opt"><input type="radio" name="q8" value="10–25%"><span class="opt-text">10–25%</span></label>
-        <label class="opt"><input type="radio" name="q8" value="26–40%"><span class="opt-text">26–40%</span></label>
-        <label class="opt"><input type="radio" name="q8" value="41–60%"><span class="opt-text">41–60%</span></label>
-        <label class="opt"><input type="radio" name="q8" value="More than 60%"><span class="opt-text">More than 60%</span></label>
-        <label class="opt"><input type="radio" name="q8" value="I'm not sure / we don't track this"><span class="opt-text">I'm not sure / we don't track this</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
+        <label class="opt"><input type="radio" name="q8" value="LinkedIn Ads"><span class="opt-text">LinkedIn Ads</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Facebook / Instagram Ads"><span class="opt-text">Facebook / Instagram Ads</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Trade publication advertising"><span class="opt-text">Trade publication advertising</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Email marketing"><span class="opt-text">Email marketing</span></label>
+        <label class="opt"><input type="radio" name="q8" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Even split across channels"><span class="opt-text">Even split across channels</span></label>
       </div>
       <div class="val-msg" id="q8-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q9 -->
+    <!-- Q9 — Planned increases -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 9 of 15</span>
-        Which digital channels are you actively investing in right now?
-      </div>
+      <div class="q-label"><span class="q-num">Question 9</span>In the next 12 months, where are you planning to increase spending?</div>
       <div class="q-hint">Select all that apply.</div>
       <div class="options" id="q9-opts">
+        <label class="opt"><input type="checkbox" name="q9" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="LinkedIn Ads"><span class="opt-text">LinkedIn Ads</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Facebook / Instagram Ads"><span class="opt-text">Facebook / Instagram Ads</span></label>
+        <label class="opt"><input type="checkbox" name="q9" value="Trade publication advertising"><span class="opt-text">Trade publication advertising</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Email marketing"><span class="opt-text">Email marketing</span></label>
-        <label class="opt"><input type="checkbox" name="q9" value="SEO / content"><span class="opt-text">SEO / content</span></label>
-        <label class="opt"><input type="checkbox" name="q9" value="None currently"><span class="opt-text">None currently</span></label>
+        <label class="opt"><input type="checkbox" name="q9" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
+        <label class="opt"><input type="checkbox" name="q9" value="Not planning to increase spending"><span class="opt-text">Not planning to increase spending</span></label>
       </div>
       <div class="val-msg" id="q9-err">Please select at least one option.</div>
     </div>
@@ -598,23 +351,21 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     SECTION C — Performance & Challenges (Q10–14)
-     ════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — Performance & Challenges  (Q10–Q13)
+     ══════════════════════════════════════════ -->
 <div class="screen" id="screen-c">
   <div class="survey-outer">
     <div class="section-header">
-      <div class="section-tag">Section C · Performance &amp; Challenges</div>
+      <div class="section-tag">Section 3 · Performance &amp; Challenges</div>
       <div class="section-title">What's working — and what isn't.</div>
-      <div class="section-desc">5 questions · about 2 minutes. The most valuable section of the report. What you share here is exactly what your peers want to know.</div>
+      <div class="section-desc">4 questions · about 90 seconds. The most valuable section of the report. What you share here is exactly what your peers want to know.</div>
     </div>
 
-    <!-- Q10 -->
+    <!-- Q10 — Best ROI channel -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 10 of 15</span>
-        Which single channel delivered your best ROI in the last 12 months?
-      </div>
+      <div class="q-label"><span class="q-num">Question 10</span>Which single channel delivered your best ROI in the last 12 months?</div>
       <div class="options" id="q10-opts">
         <label class="opt"><input type="radio" name="q10" value="Trade shows / events"><span class="opt-text">Trade shows / events</span></label>
         <label class="opt"><input type="radio" name="q10" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
@@ -628,12 +379,9 @@
       <div class="val-msg" id="q10-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q11 -->
+    <!-- Q11 — Cost per lead -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 11 of 15</span>
-        What's your estimated cost-per-qualified-lead from your best-performing channel?
-      </div>
+      <div class="q-label"><span class="q-num">Question 11</span>What's your estimated cost-per-qualified-lead from your best-performing channel?</div>
       <div class="options" id="q11-opts">
         <label class="opt"><input type="radio" name="q11" value="Under $50"><span class="opt-text">Under $50</span></label>
         <label class="opt"><input type="radio" name="q11" value="$50–$200"><span class="opt-text">$50–$200</span></label>
@@ -645,12 +393,9 @@
       <div class="val-msg" id="q11-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q12 -->
+    <!-- Q12 — Biggest challenge -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 12 of 15</span>
-        What's your single biggest marketing challenge right now?
-      </div>
+      <div class="q-label"><span class="q-num">Question 12</span>What's your single biggest marketing challenge right now?</div>
       <div class="options" id="q12-opts">
         <label class="opt"><input type="radio" name="q12" value="Generating enough quality leads"><span class="opt-text">Generating enough quality leads</span></label>
         <label class="opt"><input type="radio" name="q12" value="Justifying marketing ROI to leadership"><span class="opt-text">Justifying marketing ROI to leadership</span></label>
@@ -662,40 +407,16 @@
       <div class="val-msg" id="q12-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q13 -->
+    <!-- Q13 — Overall performance -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 13 of 15</span>
-        In the next 12 months, where are you planning to increase spending?
-      </div>
-      <div class="q-hint">Select all that apply.</div>
+      <div class="q-label"><span class="q-num">Question 13</span>Looking at your marketing results over the last 12 months — how would you describe your overall performance?</div>
       <div class="options" id="q13-opts">
-        <label class="opt"><input type="checkbox" name="q13" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="LinkedIn Ads"><span class="opt-text">LinkedIn Ads</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="Facebook / Instagram Ads"><span class="opt-text">Facebook / Instagram Ads</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="Trade publication advertising"><span class="opt-text">Trade publication advertising</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="Email marketing"><span class="opt-text">Email marketing</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
-        <label class="opt"><input type="checkbox" name="q13" value="Not planning to increase spending"><span class="opt-text">Not planning to increase spending</span></label>
+        <label class="opt"><input type="radio" name="q13" value="Strong — we hit our lead and revenue goals"><span class="opt-text">Strong — we hit our lead and revenue goals</span></label>
+        <label class="opt"><input type="radio" name="q13" value="Mixed — some channels worked well, others didn't"><span class="opt-text">Mixed — some channels worked well, others didn't</span></label>
+        <label class="opt"><input type="radio" name="q13" value="Disappointing — we underperformed vs. expectations"><span class="opt-text">Disappointing — we underperformed vs. expectations</span></label>
+        <label class="opt"><input type="radio" name="q13" value="Hard to say — we don't have clear metrics to evaluate"><span class="opt-text">Hard to say — we don't have clear metrics to evaluate</span></label>
       </div>
-      <div class="val-msg" id="q13-err">Please select at least one option.</div>
-    </div>
-
-    <!-- Q14 -->
-    <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 14 of 15</span>
-        Looking at your marketing results over the last 12 months — how would you describe your overall performance?
-      </div>
-      <div class="options" id="q14-opts">
-        <label class="opt"><input type="radio" name="q14" value="Strong — we hit our lead and revenue goals"><span class="opt-text">Strong — we hit our lead and revenue goals</span></label>
-        <label class="opt"><input type="radio" name="q14" value="Mixed — some channels worked well, others didn't"><span class="opt-text">Mixed — some channels worked well, others didn't</span></label>
-        <label class="opt"><input type="radio" name="q14" value="Disappointing — we underperformed vs. expectations"><span class="opt-text">Disappointing — we underperformed vs. expectations</span></label>
-        <label class="opt"><input type="radio" name="q14" value="Hard to say — we don't have clear metrics to evaluate"><span class="opt-text">Hard to say — we don't have clear metrics to evaluate</span></label>
-      </div>
-      <div class="val-msg" id="q14-err">Please select an option to continue.</div>
+      <div class="val-msg" id="q13-err">Please select an option to continue.</div>
     </div>
 
     <div class="nav-row">
@@ -705,109 +426,158 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     FINAL STEP — Get the Report (Q15)
-     ════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — How You Operate  (Q14–Q17)
+     ══════════════════════════════════════════ -->
 <div class="screen" id="screen-d">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section 4 · How You Operate</div>
+      <div class="section-title">Systems, data, and how you run the business.</div>
+      <div class="section-desc">4 questions · about 90 seconds. This section produces the most distinctive findings in the report — where the industry actually sits on digital maturity.</div>
+    </div>
+
+    <!-- Q14 — Maturity level -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 14</span>Which best describes how your sales and marketing operation uses data and technology today?</div>
+      <div class="options" id="q14-opts">
+        <label class="opt">
+          <input type="radio" name="q14" value="Spreadsheets and relationships — data lives in people's heads">
+          <span class="opt-text">Spreadsheets and relationships — data lives in people's heads
+            <span class="opt-sub">Leads come from who you know. Follow-up is a phone call. Your best reps carry the knowledge.</span>
+          </span>
+        </label>
+        <label class="opt">
+          <input type="radio" name="q14" value="CRM and digital tools — we track the pipeline and run campaigns">
+          <span class="opt-text">CRM and digital tools — we track the pipeline and run campaigns
+            <span class="opt-sub">You log calls, run email sequences, scan badges at shows. The system is there. Using it consistently is another question.</span>
+          </span>
+        </label>
+        <label class="opt">
+          <input type="radio" name="q14" value="Demand intelligence — we act on signals, not schedules">
+          <span class="opt-text">Demand intelligence — we act on signals, not schedules
+            <span class="opt-sub">You know a customer's fleet is hitting service thresholds before they call. Outreach is proactive. Data drives decisions in real time.</span>
+          </span>
+        </label>
+      </div>
+      <div class="val-msg" id="q14-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q15 — CRM quality -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 15</span>How would you describe how your team actually uses your CRM?</div>
+      <div class="options" id="q15-opts">
+        <label class="opt"><input type="radio" name="q15" value="Consistently — it's our system of record, everyone uses it"><span class="opt-text">Consistently — it's our system of record, everyone uses it</span></label>
+        <label class="opt"><input type="radio" name="q15" value="Inconsistently — some reps use it, some don't"><span class="opt-text">Inconsistently — some reps use it, some don't</span></label>
+        <label class="opt"><input type="radio" name="q15" value="We have one but it's mostly empty"><span class="opt-text">We have one but it's mostly empty</span></label>
+        <label class="opt"><input type="radio" name="q15" value="We don't have a CRM"><span class="opt-text">We don't have a CRM</span></label>
+      </div>
+      <div class="val-msg" id="q15-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q16 — Lead response time -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 16</span>When a new inbound lead comes in, how quickly does your team typically respond?</div>
+      <div class="options" id="q16-opts">
+        <label class="opt"><input type="radio" name="q16" value="Within 1 hour"><span class="opt-text">Within 1 hour</span></label>
+        <label class="opt"><input type="radio" name="q16" value="Within a few hours (same day)"><span class="opt-text">Within a few hours (same day)</span></label>
+        <label class="opt"><input type="radio" name="q16" value="Within 24 hours"><span class="opt-text">Within 24 hours</span></label>
+        <label class="opt"><input type="radio" name="q16" value="Within 48 hours"><span class="opt-text">Within 48 hours</span></label>
+        <label class="opt"><input type="radio" name="q16" value="Longer than 48 hours"><span class="opt-text">Longer than 48 hours</span></label>
+        <label class="opt"><input type="radio" name="q16" value="We don't track this"><span class="opt-text">We don't track this</span></label>
+      </div>
+      <div class="val-msg" id="q16-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q17 — Buyer visibility -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 17</span>Do you have visibility into prospects who are actively researching but haven't contacted you yet?</div>
+      <div class="options" id="q17-opts">
+        <label class="opt"><input type="radio" name="q17" value="Yes — we use intent data or website tracking to identify them"><span class="opt-text">Yes — we use intent data or website tracking to identify them</span></label>
+        <label class="opt"><input type="radio" name="q17" value="Partially — we see some signals but it's not systematic"><span class="opt-text">Partially — we see some signals but it's not systematic</span></label>
+        <label class="opt"><input type="radio" name="q17" value="No — we only know about leads who raise their hand"><span class="opt-text">No — we only know about leads who raise their hand</span></label>
+        <label class="opt"><input type="radio" name="q17" value="I hadn't thought about this before"><span class="opt-text">I hadn't thought about this before</span></label>
+      </div>
+      <div class="val-msg" id="q17-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-c', 2)">← Back</button>
+      <button class="btn-next" onclick="goToEmail()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FINAL STEP — Get the Report
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-email">
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-title">Last step — get the report.</div>
       <div class="section-desc">As a contributor, you'll receive the full 2026 IronBenchmark Report before public release — free, delivered to your inbox within 60 days of survey close.</div>
     </div>
 
-    <!-- Q15 -->
+    <!-- Work email -->
     <div class="q-block">
-      <div class="q-label">
-        <span class="q-num">Question 15 of 15</span>
-        Enter your email to receive the full 2026 IronBenchmark Report when published.
-      </div>
-
+      <div class="q-label">Work email address</div>
       <div class="email-group">
-        <label for="q15-email">Work email address</label>
-        <input type="email" id="q15-email" class="email-input" placeholder="you@yourcompany.com" autocomplete="email">
-        <div class="val-msg" id="q15-err">Please enter a valid email address.</div>
+        <label for="final-email" style="font-size:13px;color:var(--muted);font-weight:400;">Please use your work email — we use this to verify you're an industry practitioner and to send you the report.</label>
+        <input type="email" id="final-email" class="email-input" placeholder="you@yourcompany.com" autocomplete="email">
+        <div class="val-msg" id="email-err">Please enter a valid work email address (no gmail, yahoo, or hotmail).</div>
       </div>
     </div>
 
-    <div class="q-block" style="margin-top: -12px;">
-      <div class="q-label" style="font-weight: 500; font-size: 15px;">
-        What state or region are you in? <span style="font-weight: 400; color: var(--muted); font-size: 14px;">(optional — helps us segment regional findings)</span>
+    <!-- Region -->
+    <div class="q-block" style="margin-top:-12px;">
+      <div class="q-label" style="font-weight:500;font-size:15px;">
+        What state are you in? <span style="font-weight:400;color:var(--muted);font-size:14px;">(optional — helps us segment regional findings)</span>
       </div>
-      <select id="q15-region" class="region-input">
+      <select id="final-region" class="select-input">
         <option value="">Select a state…</option>
-        <option>Alabama</option>
-        <option>Alaska</option>
-        <option>Arizona</option>
-        <option>Arkansas</option>
-        <option>California</option>
-        <option>Colorado</option>
-        <option>Connecticut</option>
-        <option>Delaware</option>
-        <option>Florida</option>
-        <option>Georgia</option>
-        <option>Hawaii</option>
-        <option>Idaho</option>
-        <option>Illinois</option>
-        <option>Indiana</option>
-        <option>Iowa</option>
-        <option>Kansas</option>
-        <option>Kentucky</option>
-        <option>Louisiana</option>
-        <option>Maine</option>
-        <option>Maryland</option>
-        <option>Massachusetts</option>
-        <option>Michigan</option>
-        <option>Minnesota</option>
-        <option>Mississippi</option>
-        <option>Missouri</option>
-        <option>Montana</option>
-        <option>Nebraska</option>
-        <option>Nevada</option>
-        <option>New Hampshire</option>
-        <option>New Jersey</option>
-        <option>New Mexico</option>
-        <option>New York</option>
-        <option>North Carolina</option>
-        <option>North Dakota</option>
-        <option>Ohio</option>
-        <option>Oklahoma</option>
-        <option>Oregon</option>
-        <option>Pennsylvania</option>
-        <option>Rhode Island</option>
-        <option>South Carolina</option>
-        <option>South Dakota</option>
-        <option>Tennessee</option>
-        <option>Texas</option>
-        <option>Utah</option>
-        <option>Vermont</option>
-        <option>Virginia</option>
-        <option>Washington</option>
-        <option>West Virginia</option>
-        <option>Wisconsin</option>
-        <option>Wyoming</option>
-        <option>Canada</option>
-        <option>International</option>
+        <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+        <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+        <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+        <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+        <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+        <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+        <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+        <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+        <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+        <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+        <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+        <option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option>
+        <option>Wisconsin</option><option>Wyoming</option><option>Canada</option><option>International</option>
       </select>
     </div>
 
+    <!-- HONEYPOT — hidden from humans, bots fill it in -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="hp-website">Website</label>
+      <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
     <!-- Privacy note -->
-    <div style="background: #EBF0EC; border-radius: 8px; padding: 14px 18px; margin-bottom: 8px;">
-      <p style="font-size: 13px; color: var(--muted); line-height: 1.5;">
-        🔒 <strong style="color: var(--navy);">Your data is private.</strong> No individual responses are ever shared or used for sales targeting. All findings are anonymized and aggregated. You can unsubscribe from IronBenchmark emails at any time.
+    <div style="background:#EBF0EC;border-radius:8px;padding:14px 18px;margin-bottom:8px;">
+      <p style="font-size:13px;color:var(--muted);line-height:1.5;">
+        🔒 <strong style="color:var(--navy);">Your data is private.</strong> No individual responses are ever shared or used for sales targeting. All findings are anonymized and aggregated. Unsubscribe anytime.
       </p>
     </div>
 
     <div class="nav-row">
-      <button class="btn-back" onclick="document.querySelector('.progress-wrap').style.display='';goTo('screen-c', 2)">← Back</button>
+      <button class="btn-back" onclick="showProgress();goTo('screen-d', 3)">← Back</button>
       <button class="btn-submit" id="submit-btn" onclick="submitSurvey()">Submit &amp; get the report →</button>
     </div>
-    <div class="val-msg" id="submit-err" style="text-align:right; margin-top: 8px;"></div>
+    <div class="val-msg" id="submit-err" style="text-align:right;margin-top:8px;"></div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════
-     CONFIRMATION SCREEN
-     ════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     CONFIRMATION
+     ══════════════════════════════════════════ -->
 <div class="screen" id="screen-confirm">
   <div class="confirm-screen">
     <div class="confirm-icon">
@@ -820,46 +590,48 @@
       As a contributor, you'll receive the full 2026 IronBenchmark Report before public release — delivered to your inbox within 60 days of survey close. Thank you for making this possible.
     </div>
     <div class="confirm-forward">
-      <p>Know another dealer or OEM marketing leader who'd want early access? Forward them this link — the more practitioners who contribute, the stronger the data.</p>
-      <p style="margin-top: 10px;"><a href="ironbenchmark_website.html">ironbenchmark.com →</a></p>
+      <p>Know another dealer or OEM marketing leader who'd want early access? Forward them the survey — the more practitioners who contribute, the stronger the data for everyone.</p>
+      <p style="margin-top:10px;"><a href="/">ironbenchmark.com →</a></p>
     </div>
-    <a href="ironbenchmark_website.html" class="confirm-home">← Back to IronBenchmark.com</a>
+    <a href="/" class="confirm-home">← Back to IronBenchmark.com</a>
   </div>
 </div>
 
+
 <script>
-  /* ── STATE ── */
   const answers = {};
 
   /* ── PROGRESS ── */
   const SECTION_LABELS = [
-    'Section 1 of 3 — About You',
-    'Section 2 of 3 — Where Your Budget Goes',
-    'Section 3 of 3 — Performance & Challenges',
-    '',
+    'Section 1 of 4 — About You',
+    'Section 2 of 4 — Where Your Budget Goes',
+    'Section 3 of 4 — Performance & Challenges',
+    'Section 4 of 4 — How You Operate',
   ];
 
-  function updateProgress(activeIdx) {
-    for (let i = 1; i <= 3; i++) {
+  function updateProgress(idx) {
+    for (let i = 1; i <= 4; i++) {
       const seg = document.getElementById('seg-' + i);
-      if (i - 1 < activeIdx)       seg.className = 'prog-seg done';
-      else if (i - 1 === activeIdx) seg.className = 'prog-seg active';
-      else                          seg.className = 'prog-seg';
+      if (i - 1 < idx)      seg.className = 'prog-seg done';
+      else if (i - 1 === idx) seg.className = 'prog-seg active';
+      else                   seg.className = 'prog-seg';
     }
-    document.getElementById('progress-label').textContent = SECTION_LABELS[activeIdx] || '';
+    document.getElementById('progress-label').textContent = SECTION_LABELS[idx] || '';
   }
+
+  function showProgress()  { document.getElementById('progress-wrap').style.display = ''; }
+  function hideProgress()  { document.getElementById('progress-wrap').style.display = 'none'; }
 
   /* ── OPTION HIGHLIGHTING ── */
   document.querySelectorAll('.opt input').forEach(inp => {
     inp.addEventListener('change', () => {
       const group = inp.closest('.options');
+      const noneVals = ['None currently', 'Not planning to increase spending'];
       if (inp.type === 'radio') {
         group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
-        inp.closest('.opt').classList.toggle('selected', inp.checked);
+        inp.closest('.opt').classList.add('selected');
       } else {
         inp.closest('.opt').classList.toggle('selected', inp.checked);
-        // Uncheck "None currently" / "Not planning..." if another option picked
-        const noneVals = ['None currently', 'Not planning to increase spending'];
         if (!noneVals.includes(inp.value) && inp.checked) {
           group.querySelectorAll('input[type="checkbox"]').forEach(cb => {
             if (noneVals.includes(cb.value)) { cb.checked = false; cb.closest('.opt').classList.remove('selected'); }
@@ -874,19 +646,11 @@
   });
 
   /* ── HELPERS ── */
-  function getRadio(name) {
-    const el = document.querySelector(`input[name="${name}"]:checked`);
-    return el ? el.value : null;
-  }
-  function getChecked(name) {
-    return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(c => c.value);
-  }
-  function showErr(id) {
-    document.getElementById(id).classList.add('show');
-  }
-  function hideErr(id) {
-    document.getElementById(id).classList.remove('show');
-  }
+  function getRadio(name)   { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : null; }
+  function getChecked(name) { return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(c => c.value); }
+  function showErr(id)  { document.getElementById(id).classList.add('show'); }
+  function hideErr(id)  { document.getElementById(id).classList.remove('show'); }
+
   function goTo(screenId, progIdx) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
@@ -894,29 +658,30 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  const PERSONAL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','live.com','msn.com','me.com','mac.com'];
+  function isPersonalEmail(email) {
+    const domain = email.split('@')[1]?.toLowerCase() || '';
+    return PERSONAL_DOMAINS.includes(domain);
+  }
+
   /* ── SECTION NAV ── */
   function goToB() {
     let valid = true;
     ['q1','q2','q3','q4','q5'].forEach(q => {
       const val = getRadio(q);
-      if (!val) { showErr(q + '-err'); valid = false; }
-      else { hideErr(q + '-err'); answers[q] = val; }
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
+    answers.q6_brand = document.getElementById('q6-brand').value.trim();
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     goTo('screen-b', 1);
   }
 
   function goToC() {
     let valid = true;
-    // Q6 — checkbox (at least 1)
-    const q6 = getChecked('q6');
-    if (!q6.length) { showErr('q6-err'); valid = false; } else { hideErr('q6-err'); answers.q6 = q6; }
-    // Q7, Q8 — radio
-    ['q7','q8'].forEach(q => {
-      const val = getRadio(q);
-      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
-    });
-    // Q9 — checkbox
+    const q7 = getChecked('q7');
+    if (!q7.length) { showErr('q7-err'); valid = false; } else { hideErr('q7-err'); answers.q7 = q7; }
+    const q8 = getRadio('q8');
+    if (!q8) { showErr('q8-err'); valid = false; } else { hideErr('q8-err'); answers.q8 = q8; }
     const q9 = getChecked('q9');
     if (!q9.length) { showErr('q9-err'); valid = false; } else { hideErr('q9-err'); answers.q9 = q9; }
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
@@ -925,63 +690,80 @@
 
   function goToD() {
     let valid = true;
-    ['q10','q11','q12'].forEach(q => {
+    ['q10','q11','q12','q13'].forEach(q => {
       const val = getRadio(q);
       if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
-    const q13 = getChecked('q13');
-    if (!q13.length) { showErr('q13-err'); valid = false; } else { hideErr('q13-err'); answers.q13 = q13; }
-    const q14 = getRadio('q14');
-    if (!q14) { showErr('q14-err'); valid = false; } else { hideErr('q14-err'); answers.q14 = q14; }
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-    // Hide progress bar on final email screen — it's not a section
-    document.querySelector('.progress-wrap').style.display = 'none';
     goTo('screen-d', 3);
+  }
+
+  function goToEmail() {
+    let valid = true;
+    ['q14','q15','q16','q17'].forEach(q => {
+      const val = getRadio(q);
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
+    });
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    hideProgress();
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-email').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   /* ── SUBMIT ── */
   async function submitSurvey() {
-    const emailEl = document.getElementById('q15-email');
-    const email = emailEl.value.trim();
-    const errEl = document.getElementById('q15-err');
+    const emailEl  = document.getElementById('final-email');
+    const email    = emailEl.value.trim();
+    const errEl    = document.getElementById('email-err');
     const submitErr = document.getElementById('submit-err');
-    const btn = document.getElementById('submit-btn');
+    const btn      = document.getElementById('submit-btn');
+    const honeypot = document.getElementById('hp-website').value;
 
-    // Validate email
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      errEl.classList.add('show');
-      emailEl.classList.add('error');
+    // Honeypot check
+    if (honeypot) {
+      // Bot detected — silently show success without submitting
+      goTo('screen-confirm', 5);
+      hideProgress();
       return;
     }
-    errEl.classList.remove('show');
-    emailEl.classList.remove('error');
 
-    answers.q15_email  = email;
-    answers.q15_region = document.getElementById('q15-region').value || '';
+    // Email validation
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      errEl.classList.add('show'); emailEl.classList.add('error'); return;
+    }
+    if (isPersonalEmail(email)) {
+      errEl.classList.add('show'); emailEl.classList.add('error'); return;
+    }
+    errEl.classList.remove('show'); emailEl.classList.remove('error');
 
-    // Build payload
+    answers.email  = email;
+    answers.region = document.getElementById('final-region').value || '';
+
     const payload = {
       email,
-      region: answers.q15_region,
+      region: answers.region,
       responses: {
-        q1_role:              answers.q1  || '',
-        q2_locations:         answers.q2  || '',
-        q3_budget:            answers.q3  || '',
-        q4_team_size:         answers.q4  || '',
-        q5_structure:         answers.q5  || '',
-        q6_channels:          (answers.q6  || []).join('; '),
-        q7_largest_channel:   answers.q7  || '',
-        q8_tradeshow_share:   answers.q8  || '',
-        q9_digital_channels:  (answers.q9  || []).join('; '),
-        q10_best_roi:         answers.q10 || '',
-        q11_cost_per_lead:    answers.q11 || '',
-        q12_challenge:        answers.q12 || '',
-        q13_increase_spend:   (answers.q13 || []).join('; '),
-        q14_performance:      answers.q14 || '',
+        q1_role:             answers.q1  || '',
+        q2_locations:        answers.q2  || '',
+        q3_budget:           answers.q3  || '',
+        q4_team_size:        answers.q4  || '',
+        q5_structure:        answers.q5  || '',
+        q6_brand_lines:      answers.q6_brand || '',
+        q7_channels:         (answers.q7  || []).join('; '),
+        q8_largest_channel:  answers.q8  || '',
+        q9_increase_spend:   (answers.q9  || []).join('; '),
+        q10_best_roi:        answers.q10 || '',
+        q11_cost_per_lead:   answers.q11 || '',
+        q12_challenge:       answers.q12 || '',
+        q13_performance:     answers.q13 || '',
+        q14_maturity:        answers.q14 || '',
+        q15_crm_usage:       answers.q15 || '',
+        q16_lead_response:   answers.q16 || '',
+        q17_buyer_visibility: answers.q17 || '',
       }
     };
 
-    // Disable button
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Submitting…';
     submitErr.textContent = '';
@@ -993,21 +775,16 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
-      if (!res.ok) {
-        throw new Error('Server error ' + res.status);
-      }
-
-      // Success
-      goTo('screen-confirm', 4);
-      // Hide progress bar on confirmation
-      document.querySelector('.progress-wrap').style.display = 'none';
-
+      if (!res.ok) throw new Error('Server error ' + res.status);
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-confirm').classList.add('active');
+      hideProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error(err);
       btn.disabled = false;
       btn.innerHTML = 'Submit &amp; get the report →';
-      submitErr.textContent = 'Something went wrong — please try again or email us at contact@ironbenchmark.com';
+      submitErr.textContent = 'Something went wrong — please try again or email contact@ironbenchmark.com';
       submitErr.classList.add('show');
     }
   }

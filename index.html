@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IronBenchmark — The 2026 Heavy Equipment Dealer Marketing Benchmark</title>
+  <title>IronBenchmark — The 2026 Heavy Equipment Marketing Benchmark</title>
   <meta name="description" content="The first annual benchmark report for heavy equipment dealer and OEM marketing leaders. Real data on budget allocation, channel performance, and where the industry is headed.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -452,7 +452,7 @@
       transition: background 0.2s;
     }
     .email-submit:hover {
-      background: #243D50;
+      background: #264D38;
     }
     .email-note {
       font-size: 12px;
@@ -573,31 +573,30 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-eyebrow">First Annual · 2026</div>
-    <h1>The Heavy Equipment<br><em>Dealer Marketing</em><br>Benchmark</h1>
+    <h1>The Heavy Equipment<br><em>Marketing</em><br>Benchmark</h1>
     <p class="hero-desc">
       For the first time, we're publishing real data on how heavy equipment dealers and OEM marketing leaders allocate budgets, which channels are delivering results, and where the industry is headed.
-      <strong>200+ practitioners. Fully anonymous. Free to access.</strong>
+      <br><strong>200+ practitioners. Anonymous data. Free report for everyone who participates.</strong>
     </p>
-    <a href="INSERT_TALLY_URL" class="btn-primary" target="_blank" rel="noopener">
+    <a href="/survey" class="btn-primary">
       Take the 5-minute survey &rarr;
     </a>
-    <span class="btn-note">Your answers are anonymous and aggregated. You'll receive the full report free.</span>
+    <span class="btn-note">Anonymous and aggregated. You'll receive the full report free.</span>
   </section>
 
-  <!-- LIVE COUNTER -->
-  <div class="counter-strip">
+  <!-- LIVE COUNTER — hidden when count is 0, shows automatically once RESPONDENT_COUNT > 0 -->
+  <div class="counter-strip" id="counter-strip" style="display:none;">
     <div class="counter-inner">
       <div class="counter-dot"></div>
-      <!-- Update this number weekly as responses come in -->
-      <div class="counter-text"><strong id="respondent-count">0</strong> dealer and OEM marketing leaders have already responded</div>
+      <div class="counter-text"><strong id="respondent-count">0</strong> heavy equipment marketing leaders have already responded</div>
     </div>
   </div>
 
   <!-- WHAT'S IN THE REPORT -->
   <section class="preview-section">
     <div class="section-label">What's in the report</div>
-    <h2>Six sections. One benchmark.</h2>
-    <p class="section-intro">Built from practitioner survey data combined with public market analysis — rate cards, show floor data, and digital ad library scans.</p>
+    <h2>What the report covers.</h2>
+    <p class="section-intro">Built from practitioner survey data combined with public market analysis — rate cards, show floor data, digital ad library scans, and the first-ever industry maturity index.</p>
 
     <div class="report-sections">
       <div class="report-card">
@@ -624,7 +623,7 @@
       <div class="report-card">
         <div class="report-card-num">Section 04</div>
         <h3>Budget Allocation + Cost Per Lead</h3>
-        <p>Survey data: channel budget allocation split by dealer vs. OEM and by company size. Cost-per-lead by channel, ranked. The misalignment finding — where budget goes vs. where ROI actually comes from.</p>
+        <p>Channel budget allocation split by dealer vs. OEM and company size. Cost-per-lead by channel, ranked. The misalignment finding — where budget goes vs. where ROI actually comes from.</p>
         <div class="report-card-teaser">"The channel with the best reported ROI vs. where budget is actually concentrated."</div>
       </div>
 
@@ -638,8 +637,15 @@
       <div class="report-card">
         <div class="report-card-num">Section 06</div>
         <h3>What's Working, What's Next, and the Confidence Gap</h3>
-        <p>Best ROI channel ranked, biggest marketing challenges, planned investment increases, and the confidence index — how many practitioners actually believe their current mix is optimized.</p>
+        <p>Best ROI channel ranked, biggest marketing challenges, planned investment increases, and the confidence index — how many practitioners believe their current mix is optimized.</p>
         <div class="report-card-teaser">"Only X% of respondents said they're confident their current marketing mix is optimized."</div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-num">Section 07</div>
+        <h3>The Industry Maturity Index</h3>
+        <p>Where dealers and OEMs actually sit on the journey from spreadsheets and relationships to demand intelligence — CRM adoption, lead response times, buyer visibility, and the gap between Level 1 and Level 2 operations.</p>
+        <div class="report-card-teaser">"How many operations are still running on instinct — and what Level 2 looks like in practice."</div>
       </div>
     </div>
   </section>
@@ -716,8 +722,8 @@
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
         </div>
         <div class="why-item-body">
-          <h4>4 minutes. No vendor pitch. Free forever.</h4>
-          <p>12 questions. Anonymous and aggregated — individual responses are never shared or sold. The report is free to everyone who participates.</p>
+          <h4>5 minutes. No vendor pitch. Free forever.</h4>
+          <p>15 questions. Anonymous and aggregated — individual responses are never shared or sold. The report is free to everyone who participates.</p>
         </div>
       </li>
     </ul>
@@ -728,9 +734,9 @@
   <!-- EARLY ACCESS EMAIL -->
   <section class="access-section">
     <div class="access-inner">
-      <div class="section-label" style="text-align:center;">Already responded?</div>
-      <h2>Get early access when the report publishes.</h2>
-      <p>We'll email you the full report before it goes public — typically within 60 days of survey close. No newsletter. One email with your report.</p>
+      <div class="section-label" style="text-align:center;">Not ready to take the survey?</div>
+      <h2>Get the report when it publishes.</h2>
+      <p>Drop your email and we'll send you the full report the day it goes live — before it's publicly available. No newsletter. One email with your report.</p>
 
       <!-- Replace with your Beehiiv embed form -->
       <form class="email-form" id="earlyAccessForm" onsubmit="handleEmailSubmit(event)">
@@ -791,9 +797,13 @@
 
   <script>
     // ── RESPONDENT COUNTER ──
-    // Update this number weekly. Just change the value below and push to GitHub.
-    const RESPONDENT_COUNT = 0; // <-- update this number weekly
-    document.getElementById('respondent-count').textContent = RESPONDENT_COUNT;
+    // Update this number weekly. Change the value below and push to GitHub.
+    // Counter is hidden automatically when 0 — no need to do anything at launch.
+    const RESPONDENT_COUNT = 23; // <-- update this number weekly
+    if (RESPONDENT_COUNT > 0) {
+      document.getElementById('respondent-count').textContent = RESPONDENT_COUNT;
+      document.getElementById('counter-strip').style.display = '';
+    }
 
     // ── EMAIL FORM (placeholder — replace with Beehiiv embed) ──
     function handleEmailSubmit(e) {
