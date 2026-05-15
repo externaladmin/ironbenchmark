@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IronBenchmark — The Dealer Response Report 2026</title>
+  <meta name="description" content="How equipment dealers manage customer communications across every channel — and the reputation gap it creates. 5 minutes. Free report for all respondents.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+  <!-- GA4 placeholder -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+
+  <!-- API: POST to /api/subscribe-ib-dealer — create api/subscribe-ib-dealer.js (mirror of subscribe-ib.js, study tag: 'dealer-response-2026') -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F6F4EE;
+      --navy:      #1C3A2A;
+      --bronze:    #C9A84C;
+      --bronze-lt: #D9BC6A;
+      --bronze-bg: #FBF8EE;
+      --muted:     #5A7060;
+      --border:    #D8D5C8;
+      --border-dk: #B8B5A4;
+      --white:     #FFFFFF;
+      --red:       #B03A2E;
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--navy);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand { font-family: var(--serif); font-size: 20px; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
+    .topbar-brand span { color: var(--bronze); }
+    .topbar-back { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .topbar-back:hover { color: #fff; }
+
+    /* ── INTRO SCREEN ── */
+    .intro-screen {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+      text-align: center;
+    }
+    .intro-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bronze); margin-bottom: 16px;
+    }
+    .intro-title {
+      font-family: var(--serif); font-size: 30px; color: var(--navy);
+      line-height: 1.2; margin-bottom: 16px;
+    }
+    .intro-desc {
+      font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 12px;
+    }
+    .intro-badges {
+      display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+      margin: 24px 0 36px;
+    }
+    .intro-badge {
+      font-size: 12px; font-weight: 500; color: var(--navy);
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 5px 14px;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap {
+      background: var(--navy);
+      padding: 0 40px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .progress-sections { display: flex; gap: 4px; max-width: 680px; margin: 0 auto; }
+    .prog-seg { flex: 1; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; transition: background 0.4s; }
+    .prog-seg.active { background: var(--bronze); }
+    .prog-seg.done   { background: rgba(255,255,255,0.55); }
+    .progress-label {
+      text-align: center; font-size: 12px; color: rgba(255,255,255,0.5);
+      margin-top: 8px; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    .survey-outer { max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { margin-bottom: 36px; }
+    .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bronze); margin-bottom: 8px; }
+    .section-title { font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
+    .section-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
+
+    /* ── QUESTION BLOCK ── */
+    .q-block { margin-bottom: 36px; }
+    .q-label { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 14px; line-height: 1.4; }
+    .q-label span.q-num { font-size: 12px; font-weight: 500; color: var(--bronze); display: block; margin-bottom: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .q-hint { font-size: 13px; color: var(--muted); margin-top: -8px; margin-bottom: 12px; }
+
+    /* ── OPTIONS ── */
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 16px; background: var(--white);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none;
+    }
+    .opt:hover { border-color: var(--bronze); }
+    .opt.selected { border-color: var(--bronze); background: var(--bronze-bg); }
+    .opt input[type="radio"], .opt input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+      accent-color: var(--bronze); cursor: pointer;
+    }
+    .opt-text { font-size: 15px; color: var(--navy); line-height: 1.4; }
+
+    /* ── TEXT INPUT ── */
+    .text-input {
+      width: 100%; padding: 12px 16px; font-family: var(--sans); font-size: 15px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .text-input:focus { border-color: var(--bronze); }
+    .text-input::placeholder { color: var(--muted); }
+
+    /* ── EMAIL INPUT ── */
+    .email-group { display: flex; flex-direction: column; gap: 6px; }
+    .email-group label { font-size: 14px; font-weight: 500; color: var(--navy); }
+    .email-input {
+      width: 100%; padding: 12px 16px; font-family: var(--sans); font-size: 16px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .email-input:focus { border-color: var(--bronze); }
+    .email-input::placeholder { color: var(--muted); }
+    .email-input.error { border-color: var(--red); }
+
+    /* ── HONEYPOT ── */
+    .hp-field { display: none !important; visibility: hidden; }
+
+    /* ── NAVIGATION ── */
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-top: 40px; gap: 12px; }
+    .btn-back { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--muted); background: none; border: none; cursor: pointer; padding: 10px 0; transition: color 0.2s; }
+    .btn-back:hover { color: var(--navy); }
+    .btn-next { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--navy); border: none; border-radius: 8px; padding: 13px 28px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .btn-next:hover { background: #264D38; }
+    .btn-submit { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--bronze); border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .btn-submit:hover { background: var(--bronze-lt); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── SPINNER ── */
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── ERROR MESSAGES ── */
+    .val-msg { font-size: 13px; color: var(--red); margin-top: 8px; display: none; }
+    .val-msg.show { display: block; }
+    .submit-err { font-size: 13px; color: var(--red); margin-top: 10px; display: none; }
+    .submit-err.show { display: block; }
+
+    /* ── EMAIL SCREEN ── */
+    .email-screen { max-width: 600px; margin: 0 auto; padding: 56px 24px 80px; }
+    .email-screen-title { font-family: var(--serif); font-size: 26px; color: var(--navy); margin-bottom: 10px; line-height: 1.2; }
+    .email-screen-desc { font-size: 15px; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+    .email-privacy { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+
+    /* ── CONFIRMATION ── */
+    .confirm-screen { text-align: center; padding: 48px 24px 80px; max-width: 600px; margin: 0 auto; }
+    .confirm-icon { width: 64px; height: 64px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .confirm-title { font-family: var(--serif); font-size: 30px; color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .confirm-body { font-size: 16px; color: #444; line-height: 1.7; margin-bottom: 28px; }
+    .confirm-studies { background: var(--bronze-bg); border: 1px solid var(--bronze); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; text-align: left; }
+    .confirm-studies p { font-size: 14px; color: var(--navy); line-height: 1.7; }
+    .confirm-studies a { color: var(--bronze); font-weight: 600; text-decoration: none; }
+    .confirm-studies a:hover { text-decoration: underline; }
+    .confirm-studies strong { font-weight: 600; }
+    .confirm-forward { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    .confirm-home { font-family: var(--sans); font-size: 14px; color: var(--muted); text-decoration: none; }
+    .confirm-home:hover { color: var(--navy); }
+
+    /* ── HIDDEN ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 540px) {
+      .topbar { padding: 14px 20px; }
+      .progress-wrap { padding: 0 20px 14px; }
+      .survey-outer { padding: 32px 16px 64px; }
+      .section-title { font-size: 24px; }
+      .intro-screen { padding: 40px 16px 64px; }
+      .intro-title { font-size: 26px; }
+      .email-screen { padding: 32px 16px 64px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="topbar-brand">Iron<span>Benchmark</span></a>
+  <a href="/" class="topbar-back">← Back to site</a>
+</nav>
+
+<div class="progress-wrap" id="progress-wrap" style="display:none;">
+  <div class="progress-sections">
+    <div class="prog-seg active" id="seg-1"></div>
+    <div class="prog-seg" id="seg-2"></div>
+    <div class="prog-seg" id="seg-3"></div>
+    <div class="prog-seg" id="seg-4"></div>
+  </div>
+  <div class="progress-label" id="progress-label">Section 1 of 4 — About You</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     INTRO SCREEN
+     ══════════════════════════════════════════ -->
+<div class="screen active" id="screen-intro">
+  <div class="intro-screen">
+    <div class="intro-eyebrow">IronBenchmark · Independent Research · Dealer-Focused</div>
+    <h1 class="intro-title">The Dealer Response Report 2026</h1>
+    <p class="intro-desc">Customers are reaching dealers through more channels than ever — phone, email, web forms, Facebook Messenger, text, WhatsApp. Most dealers have no idea how many inquiries they're actually getting, or how many they're losing.</p>
+    <p class="intro-desc">This study measures the gap. 16 questions. About 5 minutes. You'll receive the full report free when it publishes.</p>
+    <div class="intro-badges">
+      <span class="intro-badge">Equipment dealers only</span>
+      <span class="intro-badge">Fully anonymous</span>
+      <span class="intro-badge">No vendor angle</span>
+      <span class="intro-badge">Free report for respondents</span>
+    </div>
+    <button class="btn-next" onclick="startSurvey()" style="width:100%;padding:15px;font-size:16px;">Start the survey →</button>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">Equipment dealers only &nbsp;·&nbsp; Anonymous and aggregated &nbsp;·&nbsp; Independent research — no sponsors</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — About You  (Q1–Q4)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-1">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section 1 · About You</div>
+      <div class="section-title">Let's start with some context.</div>
+      <div class="section-desc">4 questions · about 60 seconds. All responses are anonymous and aggregated. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
+    </div>
+
+    <!-- Q1 — Role -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 1</span>What best describes your role?</div>
+      <div class="options" id="q1-opts">
+        <label class="opt"><input type="radio" name="q1" value="Dealer Principal / Owner"><span class="opt-text">Dealer Principal / Owner</span></label>
+        <label class="opt"><input type="radio" name="q1" value="General Manager"><span class="opt-text">General Manager</span></label>
+        <label class="opt"><input type="radio" name="q1" value="Sales Manager"><span class="opt-text">Sales Manager</span></label>
+        <label class="opt"><input type="radio" name="q1" value="Service Manager"><span class="opt-text">Service Manager</span></label>
+        <label class="opt"><input type="radio" name="q1" value="Operations Manager with sales / marketing responsibility"><span class="opt-text">Operations Manager with sales / marketing responsibility</span></label>
+        <label class="opt"><input type="radio" name="q1" value="Marketing Manager / Director"><span class="opt-text">Marketing Manager / Director</span></label>
+        <label class="opt"><input type="radio" name="q1" value="Other"><span class="opt-text">Other</span></label>
+      </div>
+      <div class="val-msg" id="q1-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q2 — Locations -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 2</span>How many locations does your dealership operate?</div>
+      <div class="options" id="q2-opts">
+        <label class="opt"><input type="radio" name="q2" value="1 location"><span class="opt-text">1 location</span></label>
+        <label class="opt"><input type="radio" name="q2" value="2–5 locations"><span class="opt-text">2–5 locations</span></label>
+        <label class="opt"><input type="radio" name="q2" value="6–15 locations"><span class="opt-text">6–15 locations</span></label>
+        <label class="opt"><input type="radio" name="q2" value="16+ locations"><span class="opt-text">16+ locations</span></label>
+      </div>
+      <div class="val-msg" id="q2-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q3 — Brand lines (open text) -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 3</span>What brand lines does your dealership carry?</div>
+      <div class="q-hint">e.g. Caterpillar, Komatsu, John Deere, AGCO, Kubota, Bobcat — or Independent / Multi-line</div>
+      <input type="text" id="q3-brands" class="text-input" placeholder="Type here…" autocomplete="off">
+      <div class="val-msg" id="q3-err">Please enter your brand lines to continue.</div>
+    </div>
+
+    <!-- Q4 — Website URL (optional) -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 4</span>What's your dealership's website URL? <span style="font-weight:400;color:var(--muted);font-size:14px;">(optional)</span></div>
+      <div class="q-hint">Helps us verify brand lines and is never shared publicly</div>
+      <input type="text" id="q4-website" class="text-input" placeholder="www.yourdealership.com" autocomplete="url">
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-intro', -1)">← Back</button>
+      <button class="btn-next" onclick="goTo2()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — How Customers Reach You  (Q5–Q7)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-2">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section 2 · How Customers Reach You</div>
+      <div class="section-title">The channels your customers are using.</div>
+      <div class="section-desc">3 questions · about 60 seconds. This section maps where the inbound volume is actually coming from — and whether dealers have visibility into it.</div>
+    </div>
+
+    <!-- Q5 — Channels (multi-select) -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 5</span>Through which channels are customers and prospects actively contacting your dealership today?</div>
+      <div class="q-hint">Select all that apply</div>
+      <div class="options" id="q5-opts">
+        <label class="opt"><input type="checkbox" name="q5" value="Phone call"><span class="opt-text">Phone call</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="Walk-in (lot or showroom)"><span class="opt-text">Walk-in (lot or showroom)</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="Email"><span class="opt-text">Email</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="Website contact or quote form"><span class="opt-text">Website contact or quote form</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="Live chat on your website"><span class="opt-text">Live chat on your website</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="Facebook Messenger or Facebook page"><span class="opt-text">Facebook Messenger or Facebook page</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="Text / SMS"><span class="opt-text">Text / SMS</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="WhatsApp"><span class="opt-text">WhatsApp</span></label>
+        <label class="opt"><input type="checkbox" name="q5" value="Online listing platforms (Equipment Trader, IronPlanet, etc.)"><span class="opt-text">Online listing platforms (Equipment Trader, IronPlanet, etc.)</span></label>
+      </div>
+      <div class="val-msg" id="q5-err">Please select at least one channel to continue.</div>
+    </div>
+
+    <!-- Q6 — Primary channel -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 6</span>Which of those channels drives the most inbound contact?</div>
+      <div class="options" id="q6-opts">
+        <label class="opt"><input type="radio" name="q6" value="Phone call"><span class="opt-text">Phone call</span></label>
+        <label class="opt"><input type="radio" name="q6" value="Walk-in"><span class="opt-text">Walk-in</span></label>
+        <label class="opt"><input type="radio" name="q6" value="Email"><span class="opt-text">Email</span></label>
+        <label class="opt"><input type="radio" name="q6" value="Website form"><span class="opt-text">Website form</span></label>
+        <label class="opt"><input type="radio" name="q6" value="Live chat"><span class="opt-text">Live chat</span></label>
+        <label class="opt"><input type="radio" name="q6" value="Facebook / Messenger"><span class="opt-text">Facebook / Messenger</span></label>
+        <label class="opt"><input type="radio" name="q6" value="Text / SMS"><span class="opt-text">Text / SMS</span></label>
+        <label class="opt"><input type="radio" name="q6" value="WhatsApp"><span class="opt-text">WhatsApp</span></label>
+        <label class="opt"><input type="radio" name="q6" value="Online listings"><span class="opt-text">Online listings</span></label>
+      </div>
+      <div class="val-msg" id="q6-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q7 — Volume visibility -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 7</span>Do you actually know how many inbound inquiries your dealership receives in a typical week?</div>
+      <div class="options" id="q7-opts">
+        <label class="opt"><input type="radio" name="q7" value="Yes — we track this and have a reliable number"><span class="opt-text">Yes — we track this and have a reliable number</span></label>
+        <label class="opt"><input type="radio" name="q7" value="Roughly — general sense but we don't track it formally"><span class="opt-text">Roughly — general sense but we don't track it formally</span></label>
+        <label class="opt"><input type="radio" name="q7" value="Honestly, no — we don't have visibility into total inbound volume"><span class="opt-text">Honestly, no — we don't have visibility into total inbound volume</span></label>
+      </div>
+      <div class="val-msg" id="q7-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-1', 0)">← Back</button>
+      <button class="btn-next" onclick="goTo3()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — How You Handle It  (Q8–Q13)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-3">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section 3 · How You Handle It</div>
+      <div class="section-title">What happens when the inquiry comes in.</div>
+      <div class="section-desc">6 questions · about 90 seconds. No right answers here — the value in this study is in the honest data, including the uncomfortable parts.</div>
+    </div>
+
+    <!-- Q8 — Who responds to digital -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 8</span>When a customer contacts you through a digital channel — website form, Facebook message, email — who is responsible for responding?</div>
+      <div class="options" id="q8-opts">
+        <label class="opt"><input type="radio" name="q8" value="A dedicated person (BDC, admin, or receptionist)"><span class="opt-text">A dedicated person (BDC, admin, or receptionist)</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Whoever sees it first"><span class="opt-text">Whoever sees it first</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Salespeople individually — each handles their own"><span class="opt-text">Salespeople individually — each handles their own</span></label>
+        <label class="opt"><input type="radio" name="q8" value="We use an automated response for initial contact"><span class="opt-text">We use an automated response for initial contact</span></label>
+        <label class="opt"><input type="radio" name="q8" value="It's inconsistent — no clear owner"><span class="opt-text">It's inconsistent — no clear owner</span></label>
+      </div>
+      <div class="val-msg" id="q8-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q9 — Response speed -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 9</span>How quickly does your team typically respond to a digital inquiry?</div>
+      <div class="options" id="q9-opts">
+        <label class="opt"><input type="radio" name="q9" value="Within 1 hour"><span class="opt-text">Within 1 hour</span></label>
+        <label class="opt"><input type="radio" name="q9" value="Same business day"><span class="opt-text">Same business day</span></label>
+        <label class="opt"><input type="radio" name="q9" value="Within 1–2 business days"><span class="opt-text">Within 1–2 business days</span></label>
+        <label class="opt"><input type="radio" name="q9" value="It varies — depends on who's available"><span class="opt-text">It varies — depends on who's available</span></label>
+        <label class="opt"><input type="radio" name="q9" value="We don't have a standard for this"><span class="opt-text">We don't have a standard for this</span></label>
+      </div>
+      <div class="val-msg" id="q9-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q10 — Salesperson leaving -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 10</span>When a salesperson leaves your dealership, what typically happens to their open customer conversations and leads?</div>
+      <div class="options" id="q10-opts">
+        <label class="opt"><input type="radio" name="q10" value="We have a clear handoff process — manager reviews and reassigns everything"><span class="opt-text">We have a clear handoff process — manager reviews and reassigns everything</span></label>
+        <label class="opt"><input type="radio" name="q10" value="Most things get picked up, but some probably fall through"><span class="opt-text">Most things get picked up, but some probably fall through</span></label>
+        <label class="opt"><input type="radio" name="q10" value="It's pretty inconsistent — depends on the situation"><span class="opt-text">It's pretty inconsistent — depends on the situation</span></label>
+        <label class="opt"><input type="radio" name="q10" value="We've lost deals because of this"><span class="opt-text">We've lost deals because of this</span></label>
+      </div>
+      <div class="val-msg" id="q10-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q11 — Quote follow-up ownership -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 11</span>After a quote or proposal goes out — who owns the follow-up?</div>
+      <div class="options" id="q11-opts">
+        <label class="opt"><input type="radio" name="q11" value="The salesperson who sent it — entirely their call"><span class="opt-text">The salesperson who sent it — entirely their call</span></label>
+        <label class="opt"><input type="radio" name="q11" value="Sales manager follows up if nothing happens within a set time"><span class="opt-text">Sales manager follows up if nothing happens within a set time</span></label>
+        <label class="opt"><input type="radio" name="q11" value="CRM reminders or automation triggers follow-up"><span class="opt-text">CRM reminders or automation triggers follow-up</span></label>
+        <label class="opt"><input type="radio" name="q11" value="It's informal — whoever remembers"><span class="opt-text">It's informal — whoever remembers</span></label>
+        <label class="opt"><input type="radio" name="q11" value="We don't have a consistent follow-up process"><span class="opt-text">We don't have a consistent follow-up process</span></label>
+      </div>
+      <div class="val-msg" id="q11-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q12 — Biggest challenge -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 12</span>What's your biggest challenge managing communications across multiple channels?</div>
+      <div class="options" id="q12-opts">
+        <label class="opt"><input type="radio" name="q12" value="Keeping track of all the places messages come from"><span class="opt-text">Keeping track of all the places messages come from</span></label>
+        <label class="opt"><input type="radio" name="q12" value="Response speed — we can't always get back fast enough"><span class="opt-text">Response speed — we can't always get back fast enough</span></label>
+        <label class="opt"><input type="radio" name="q12" value="Knowing which inquiries are serious buyers vs. tire kickers"><span class="opt-text">Knowing which inquiries are serious buyers vs. tire kickers</span></label>
+        <label class="opt"><input type="radio" name="q12" value="Handoff to salespeople — things fall through the cracks"><span class="opt-text">Handoff to salespeople — things fall through the cracks</span></label>
+        <label class="opt"><input type="radio" name="q12" value="Customer history not visible to the whole team"><span class="opt-text">Customer history not visible to the whole team</span></label>
+        <label class="opt"><input type="radio" name="q12" value="It's manageable — no major issues"><span class="opt-text">It's manageable — no major issues</span></label>
+      </div>
+      <div class="val-msg" id="q12-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q13 — Lost deal -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 13</span>Has your dealership lost a deal — or nearly lost one — because a customer message wasn't seen or responded to in time?</div>
+      <div class="options" id="q13-opts">
+        <label class="opt"><input type="radio" name="q13" value="Yes, definitely — I can think of specific examples"><span class="opt-text">Yes, definitely — I can think of specific examples</span></label>
+        <label class="opt"><input type="radio" name="q13" value="Probably — I suspect it's happened but we don't always know"><span class="opt-text">Probably — I suspect it's happened but we don't always know</span></label>
+        <label class="opt"><input type="radio" name="q13" value="Not that I'm aware of"><span class="opt-text">Not that I'm aware of</span></label>
+        <label class="opt"><input type="radio" name="q13" value="No — our response process is tight"><span class="opt-text">No — our response process is tight</span></label>
+      </div>
+      <div class="val-msg" id="q13-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-2', 1)">← Back</button>
+      <button class="btn-next" onclick="goTo4()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — Reputation  (Q14–Q16)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-4">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section 4 · Reputation</div>
+      <div class="section-title">What customers find when they look you up.</div>
+      <div class="section-desc">3 questions · about 60 seconds. Your online reputation is being shaped whether you're managing it or not. This section benchmarks how actively dealers are in the conversation.</div>
+    </div>
+
+    <!-- Q14 — Google rating awareness -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 14</span>Do you know your current Google star rating?</div>
+      <div class="options" id="q14-opts">
+        <label class="opt"><input type="radio" name="q14" value="Yes — I know it right now without looking it up"><span class="opt-text">Yes — I know it right now without looking it up</span></label>
+        <label class="opt"><input type="radio" name="q14" value="Yes — I checked recently"><span class="opt-text">Yes — I checked recently</span></label>
+        <label class="opt"><input type="radio" name="q14" value="Roughly, but I haven't looked in a while"><span class="opt-text">Roughly, but I haven't looked in a while</span></label>
+        <label class="opt"><input type="radio" name="q14" value="No"><span class="opt-text">No</span></label>
+      </div>
+      <div class="val-msg" id="q14-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q15 — Review monitoring -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 15</span>Do you actively monitor and respond to your online reviews?</div>
+      <div class="options" id="q15-opts">
+        <label class="opt"><input type="radio" name="q15" value="Yes — I check regularly and respond to most reviews"><span class="opt-text">Yes — I check regularly and respond to most reviews</span></label>
+        <label class="opt"><input type="radio" name="q15" value="Occasionally — when something flags or a bad one comes in"><span class="opt-text">Occasionally — when something flags or a bad one comes in</span></label>
+        <label class="opt"><input type="radio" name="q15" value="We have alerts set up but rarely act on them"><span class="opt-text">We have alerts set up but rarely act on them</span></label>
+        <label class="opt"><input type="radio" name="q15" value="No — we don't have a process for this"><span class="opt-text">No — we don't have a process for this</span></label>
+      </div>
+      <div class="val-msg" id="q15-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q16 — Asking for reviews -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question 16</span>How do you currently ask satisfied customers to leave a review?</div>
+      <div class="options" id="q16-opts">
+        <label class="opt"><input type="radio" name="q16" value="We have a consistent process — most customers get asked"><span class="opt-text">We have a consistent process — most customers get asked</span></label>
+        <label class="opt"><input type="radio" name="q16" value="We ask, but it's sporadic and depends on the salesperson"><span class="opt-text">We ask, but it's sporadic and depends on the salesperson</span></label>
+        <label class="opt"><input type="radio" name="q16" value="We rely on customers to leave reviews on their own"><span class="opt-text">We rely on customers to leave reviews on their own</span></label>
+        <label class="opt"><input type="radio" name="q16" value="We don't really ask"><span class="opt-text">We don't really ask</span></label>
+      </div>
+      <div class="val-msg" id="q16-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-3', 2)">← Back</button>
+      <button class="btn-next" onclick="goToEmail()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     EMAIL CAPTURE
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-email">
+  <div class="email-screen">
+    <div class="section-tag" style="margin-bottom:12px;">Almost done</div>
+    <div class="email-screen-title">Where should we send your copy of the report?</div>
+    <div class="email-screen-desc"><em>The Dealer Response Report 2026</em> will be emailed to you free when it publishes — before public release. Enter your work email below.</div>
+
+    <!-- Honeypot -->
+    <div class="hp-field" aria-hidden="true">
+      <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="email-group" style="margin-bottom:8px;">
+      <label for="final-email">Work email address</label>
+      <input type="email" id="final-email" class="email-input" placeholder="you@yourdealership.com" autocomplete="email">
+      <div class="val-msg" id="email-err">Please enter a valid work email address (no personal email domains).</div>
+    </div>
+
+    <p class="email-privacy">Your email is used only to send you the report. It will not be shared, sold, or used for sales outreach. IronBenchmark is independent research.</p>
+
+    <div style="margin-top:32px;">
+      <button class="btn-submit" id="submit-btn" onclick="submitSurvey()">Submit &amp; get the report →</button>
+      <div class="submit-err" id="submit-err"></div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <button class="btn-back" onclick="goTo('screen-4', 3)">← Back</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CONFIRMATION
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-confirm">
+  <div class="confirm-screen">
+    <div class="confirm-icon">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l6 6L22 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="confirm-title">You're in. Thank you.</div>
+    <div class="confirm-body">Your responses have been recorded. You'll receive <strong>The Dealer Response Report 2026</strong> by email when it publishes — free, before public release.</div>
+
+    <div class="confirm-studies">
+      <p><strong>IronBenchmark has two other open studies — both free for respondents:</strong></p>
+      <p style="margin-top:10px;">
+        <a href="/survey">Heavy Equipment State of Marketing 2026</a> — budget allocation, cost-per-lead benchmarks by channel, digital adoption, and what's actually delivering ROI across the industry.
+      </p>
+      <p style="margin-top:8px;">
+        <a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first study on AI adoption in equipment sales. Tool usage, barriers, competitor confidence gap, and where the industry is headed.
+      </p>
+    </div>
+
+    <div class="confirm-forward">Know a fellow dealer who'd want to see this data? Forward them the link: <strong>ironbenchmark.com/dealer-response</strong></div>
+
+    <a href="/" class="confirm-home">← Back to IronBenchmark.com</a>
+  </div>
+</div>
+
+
+<script>
+  /* ══════════════════════════════════════════
+     STATE
+     ══════════════════════════════════════════ */
+  const answers = {};
+
+  /* ══════════════════════════════════════════
+     PROGRESS
+     ══════════════════════════════════════════ */
+  const SECTION_LABELS = [
+    'Section 1 of 4 — About You',
+    'Section 2 of 4 — How Customers Reach You',
+    'Section 3 of 4 — How You Handle It',
+    'Section 4 of 4 — Reputation',
+  ];
+
+  function updateProgress(idx) {
+    for (let i = 1; i <= 4; i++) {
+      const seg = document.getElementById('seg-' + i);
+      if (i - 1 < idx)        seg.className = 'prog-seg done';
+      else if (i - 1 === idx) seg.className = 'prog-seg active';
+      else                    seg.className = 'prog-seg';
+    }
+    document.getElementById('progress-label').textContent = SECTION_LABELS[idx] || '';
+  }
+
+  function showProgress() { document.getElementById('progress-wrap').style.display = ''; }
+  function hideProgress() { document.getElementById('progress-wrap').style.display = 'none'; }
+
+  /* ══════════════════════════════════════════
+     OPTION HIGHLIGHTING
+     ══════════════════════════════════════════ */
+  function bindOptHighlight(container) {
+    container.querySelectorAll('.opt input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        if (inp.type === 'radio') {
+          container.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+          inp.closest('.opt').classList.add('selected');
+        } else {
+          inp.closest('.opt').classList.toggle('selected', inp.checked);
+        }
+      });
+    });
+  }
+
+  document.querySelectorAll('.options').forEach(bindOptHighlight);
+
+  /* ══════════════════════════════════════════
+     HELPERS
+     ══════════════════════════════════════════ */
+  function getRadio(name)   { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : null; }
+  function getChecked(name) { return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(c => c.value); }
+  function showErr(id)      { document.getElementById(id).classList.add('show'); }
+  function hideErr(id)      { document.getElementById(id).classList.remove('show'); }
+
+  function goTo(screenId, progIdx) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    if (progIdx >= 0) {
+      showProgress();
+      updateProgress(progIdx);
+    } else {
+      hideProgress();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const PERSONAL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','live.com','msn.com','me.com','mac.com'];
+  function isPersonalEmail(email) {
+    const domain = email.split('@')[1]?.toLowerCase() || '';
+    return PERSONAL_DOMAINS.includes(domain);
+  }
+
+  /* ══════════════════════════════════════════
+     NAVIGATION
+     ══════════════════════════════════════════ */
+
+  function startSurvey() {
+    goTo('screen-1', 0);
+  }
+
+  function goTo2() {
+    let valid = true;
+
+    const q1 = getRadio('q1');
+    if (!q1) { showErr('q1-err'); valid = false; } else { hideErr('q1-err'); answers.q1 = q1; }
+
+    const q2 = getRadio('q2');
+    if (!q2) { showErr('q2-err'); valid = false; } else { hideErr('q2-err'); answers.q2 = q2; }
+
+    const q3 = document.getElementById('q3-brands').value.trim();
+    if (!q3) { showErr('q3-err'); valid = false; } else { hideErr('q3-err'); answers.q3 = q3; }
+
+    answers.q4 = document.getElementById('q4-website').value.trim();
+
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    goTo('screen-2', 1);
+  }
+
+  function goTo3() {
+    let valid = true;
+
+    const q5 = getChecked('q5');
+    if (!q5.length) { showErr('q5-err'); valid = false; } else { hideErr('q5-err'); answers.q5 = q5; }
+
+    const q6 = getRadio('q6');
+    if (!q6) { showErr('q6-err'); valid = false; } else { hideErr('q6-err'); answers.q6 = q6; }
+
+    const q7 = getRadio('q7');
+    if (!q7) { showErr('q7-err'); valid = false; } else { hideErr('q7-err'); answers.q7 = q7; }
+
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    goTo('screen-3', 2);
+  }
+
+  function goTo4() {
+    let valid = true;
+    ['q8','q9','q10','q11','q12','q13'].forEach(q => {
+      const val = getRadio(q);
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
+    });
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    goTo('screen-4', 3);
+  }
+
+  function goToEmail() {
+    let valid = true;
+    ['q14','q15','q16'].forEach(q => {
+      const val = getRadio(q);
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
+    });
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    hideProgress();
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-email').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ══════════════════════════════════════════
+     SUBMIT
+     ══════════════════════════════════════════ */
+  async function submitSurvey() {
+    const emailEl   = document.getElementById('final-email');
+    const email     = emailEl.value.trim();
+    const errEl     = document.getElementById('email-err');
+    const submitErr = document.getElementById('submit-err');
+    const btn       = document.getElementById('submit-btn');
+    const honeypot  = document.getElementById('hp-website').value;
+
+    if (honeypot) {
+      hideProgress();
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-confirm').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      errEl.classList.add('show'); emailEl.classList.add('error'); return;
+    }
+    if (isPersonalEmail(email)) {
+      errEl.classList.add('show'); emailEl.classList.add('error'); return;
+    }
+    errEl.classList.remove('show'); emailEl.classList.remove('error');
+
+    answers.email = email;
+
+    const payload = {
+      email,
+      study: 'dealer-response-2026',
+      responses: {
+        q1_role:                answers.q1              || '',
+        q2_locations:           answers.q2              || '',
+        q3_brand_lines:         answers.q3              || '',
+        q4_website:             answers.q4              || '',
+        q5_channels:            (answers.q5 || []).join('; '),
+        q6_primary_channel:     answers.q6              || '',
+        q7_volume_visibility:   answers.q7              || '',
+        q8_response_owner:      answers.q8              || '',
+        q9_response_speed:      answers.q9              || '',
+        q10_salesperson_leaving: answers.q10            || '',
+        q11_quote_followup:     answers.q11             || '',
+        q12_hardest_challenge:  answers.q12             || '',
+        q13_lost_deal:          answers.q13             || '',
+        q14_google_rating:      answers.q14             || '',
+        q15_review_monitoring:  answers.q15             || '',
+        q16_review_asking:      answers.q16             || '',
+      }
+    };
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Submitting…';
+    submitErr.textContent = '';
+    submitErr.classList.remove('show');
+
+    try {
+      const res = await fetch('/api/subscribe-ib-dealer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Server error ' + res.status);
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-confirm').classList.add('active');
+      hideProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      btn.innerHTML = 'Submit &amp; get the report →';
+      submitErr.textContent = 'Something went wrong — please try again or email info@ironbenchmark.com';
+      submitErr.classList.add('show');
+    }
+  }
+
+  /* ── INIT ── */
+  hideProgress();
+</script>
+</body>
+</html>

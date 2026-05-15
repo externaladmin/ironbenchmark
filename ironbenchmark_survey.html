@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IronBenchmark — Heavy Equipment State of Marketing 2026</title>
-  <meta name="description" content="Heavy Equipment State of Marketing 2026 — 5 minutes. Help build the first benchmark report for US heavy equipment dealer and OEM marketing leaders.">
+  <meta name="description" content="Heavy Equipment State of Marketing 2026 — 5 minutes. The first benchmark for construction, agricultural, and industrial equipment dealer and OEM marketing leaders.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -193,6 +193,12 @@
     .confirm-forward p { font-size: 14px; color: var(--navy); line-height: 1.6; }
     .confirm-forward a { color: var(--bronze); font-weight: 600; text-decoration: none; }
     .confirm-forward a:hover { text-decoration: underline; }
+    .confirm-studies { background: var(--bronze-bg); border: 1px solid var(--bronze); border-radius: 10px; padding: 20px 24px; margin-bottom: 20px; text-align: left; }
+    .confirm-studies p { font-size: 14px; color: var(--navy); line-height: 1.7; }
+    .confirm-studies a { color: var(--bronze); font-weight: 600; text-decoration: none; }
+    .confirm-studies a:hover { text-decoration: underline; }
+    .confirm-studies strong { font-weight: 600; }
+    .confirm-fwd-line { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
     .confirm-home { font-family: var(--sans); font-size: 14px; color: var(--muted); text-decoration: none; }
     .confirm-home:hover { color: var(--navy); }
 
@@ -266,7 +272,7 @@
     <div class="org-nav">
       <button class="btn-next" onclick="goToA()" style="width:100%;padding:15px;">Start the survey →</button>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only · Anonymous and aggregated · Independent research</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only · Anonymous and aggregated · Independent research — no sponsors</p>
   </div>
 </div>
 
@@ -302,7 +308,7 @@
 
     <!-- Q3 — Budget (options swapped by JS) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 3</span>What is your approximate annual marketing budget (all channels)?</div>
+      <div class="q-label"><span class="q-num">Question 3</span><span id="q3-label">What is your approximate annual marketing budget (all channels)?</span></div>
       <div class="options" id="q3-opts">
         <!-- populated by renderQ3() -->
       </div>
@@ -337,7 +343,7 @@
     <!-- Q6 — Brand lines (open field) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 6</span><span id="q6-label">What brand line(s) do you represent or primarily work with?</span><span style="font-weight:400;color:var(--muted);font-size:14px;"> (optional)</span></div>
-      <div class="q-hint" id="q6-hint">e.g. Caterpillar, Komatsu, John Deere, Volvo CE, CNH, independent / multi-line</div>
+      <div class="q-hint" id="q6-hint">e.g. Caterpillar, Komatsu, John Deere, AGCO, Kubota, Volvo CE, CNH, independent / multi-line</div>
       <input type="text" id="q6-brand" class="text-input" placeholder="Type here…" autocomplete="off">
     </div>
 
@@ -373,6 +379,7 @@
         <label class="opt"><input type="checkbox" name="q7" value="Trade publication advertising (print or digital)"><span class="opt-text">Trade publication advertising (print or digital)</span></label>
         <label class="opt"><input type="checkbox" name="q7" value="Email marketing to your own list"><span class="opt-text">Email marketing to your own list</span></label>
         <label class="opt"><input type="checkbox" name="q7" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
+        <label class="opt"><input type="checkbox" name="q7" value="Social content, video &amp; influencer marketing"><span class="opt-text">Social content, video &amp; influencer marketing</span></label>
         <label class="opt"><input type="checkbox" name="q7" value="None currently"><span class="opt-text">None currently</span></label>
       </div>
       <div class="val-msg" id="q7-err">Please select at least one option.</div>
@@ -390,6 +397,7 @@
         <label class="opt"><input type="radio" name="q8" value="Trade publication advertising"><span class="opt-text">Trade publication advertising</span></label>
         <label class="opt"><input type="radio" name="q8" value="Email marketing"><span class="opt-text">Email marketing</span></label>
         <label class="opt"><input type="radio" name="q8" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Social content, video &amp; influencer marketing"><span class="opt-text">Social content, video &amp; influencer marketing</span></label>
         <label class="opt"><input type="radio" name="q8" value="Even split across channels"><span class="opt-text">Even split across channels</span></label>
       </div>
       <div class="val-msg" id="q8-err">Please select an option to continue.</div>
@@ -408,6 +416,8 @@
         <label class="opt"><input type="checkbox" name="q9" value="Trade publication advertising"><span class="opt-text">Trade publication advertising</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Email marketing"><span class="opt-text">Email marketing</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="SEO / content marketing"><span class="opt-text">SEO / content marketing</span></label>
+        <label class="opt"><input type="checkbox" name="q9" value="Social content, video &amp; influencer marketing"><span class="opt-text">Social content, video &amp; influencer marketing</span></label>
+        <label class="opt"><input type="checkbox" name="q9" value="AI tools / marketing automation"><span class="opt-text">AI tools / marketing automation</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Not planning to increase spending"><span class="opt-text">Not planning to increase spending</span></label>
       </div>
       <div class="val-msg" id="q9-err">Please select at least one option.</div>
@@ -453,10 +463,11 @@
       <div class="q-label"><span class="q-num">Question 11</span><span id="q11-label">What's your estimated cost-per-qualified-lead from your best-performing channel?</span></div>
       <div class="options" id="q11-opts">
         <label class="opt"><input type="radio" name="q11" value="Under $50"><span class="opt-text">Under $50</span></label>
-        <label class="opt"><input type="radio" name="q11" value="$50–$200"><span class="opt-text">$50–$200</span></label>
-        <label class="opt"><input type="radio" name="q11" value="$200–$500"><span class="opt-text">$200–$500</span></label>
-        <label class="opt"><input type="radio" name="q11" value="$500–$1,500"><span class="opt-text">$500–$1,500</span></label>
-        <label class="opt"><input type="radio" name="q11" value="Over $1,500"><span class="opt-text">Over $1,500</span></label>
+        <label class="opt"><input type="radio" name="q11" value="$50–$100"><span class="opt-text">$50–$100</span></label>
+        <label class="opt"><input type="radio" name="q11" value="$100–$200"><span class="opt-text">$100–$200</span></label>
+        <label class="opt"><input type="radio" name="q11" value="$200–$300"><span class="opt-text">$200–$300</span></label>
+        <label class="opt"><input type="radio" name="q11" value="$300–$500"><span class="opt-text">$300–$500</span></label>
+        <label class="opt"><input type="radio" name="q11" value="Over $500"><span class="opt-text">Over $500</span></label>
         <label class="opt"><input type="radio" name="q11" value="I don't track this"><span class="opt-text">I don't track this</span></label>
       </div>
       <div class="val-msg" id="q11-err">Please select an option to continue.</div>
@@ -469,6 +480,20 @@
         <!-- populated by renderQ12() -->
       </div>
       <div class="val-msg" id="q12-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Q12b — Agency only: what does the client most often ask for -->
+    <div class="q-block" id="q12b-block" style="display:none;">
+      <div class="q-label"><span class="q-num">Agency question</span>What does your primary equipment client most often ask you to focus on?</div>
+      <div class="options" id="q12b-opts">
+        <label class="opt"><input type="radio" name="q12b" value="Generate leads and MQLs"><span class="opt-text">Generate leads and MQLs</span></label>
+        <label class="opt"><input type="radio" name="q12b" value="Grow social following and online audience"><span class="opt-text">Grow social following and online audience</span></label>
+        <label class="opt"><input type="radio" name="q12b" value="Build brand awareness"><span class="opt-text">Build brand awareness</span></label>
+        <label class="opt"><input type="radio" name="q12b" value="Enable and support the sales team"><span class="opt-text">Enable and support the sales team</span></label>
+        <label class="opt"><input type="radio" name="q12b" value="Manage and improve their digital presence"><span class="opt-text">Manage and improve their digital presence</span></label>
+        <label class="opt"><input type="radio" name="q12b" value="No single priority — a mix of all of the above"><span class="opt-text">No single priority — a mix of all of the above</span></label>
+      </div>
+      <div class="val-msg" id="q12b-err">Please select an option to continue.</div>
     </div>
 
     <!-- Q13 — Overall performance -->
@@ -528,14 +553,11 @@
       <div class="val-msg" id="q14-err">Please select an option to continue.</div>
     </div>
 
-    <!-- Q15 — CRM quality -->
+    <!-- Q15 — CRM quality (dealer/OEM) or client data quality (agency) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 15</span>How would you describe how your team actually uses your CRM?</div>
+      <div class="q-label"><span class="q-num">Question 15</span><span id="q15-label">How would you describe how your team actually uses your CRM?</span></div>
       <div class="options" id="q15-opts">
-        <label class="opt"><input type="radio" name="q15" value="Consistently — it's our system of record, everyone uses it"><span class="opt-text">Consistently — it's our system of record, everyone uses it</span></label>
-        <label class="opt"><input type="radio" name="q15" value="Partially — some team members use it regularly, others less so"><span class="opt-text">Partially — some team members use it regularly, others less so</span></label>
-        <label class="opt"><input type="radio" name="q15" value="We have one but it's not yet fully adopted"><span class="opt-text">We have one but it's not yet fully adopted</span></label>
-        <label class="opt"><input type="radio" name="q15" value="We don't use a CRM"><span class="opt-text">We don't use a CRM</span></label>
+        <!-- populated by renderQ15() -->
       </div>
       <div class="val-msg" id="q15-err">Please select an option to continue.</div>
     </div>
@@ -543,6 +565,7 @@
     <!-- Q16 — Lead response (hidden / replaced for OEM) -->
     <div class="q-block" id="q16-block">
       <div class="q-label"><span class="q-num">Question 16</span><span id="q16-label">When a new inbound lead comes in, how quickly does your team typically respond?</span></div>
+      <div class="q-hint">Excluding automated responses such as auto-reply emails. Inbound channels include web form, phone, email, and chat.</div>
       <div class="options" id="q16-opts">
         <!-- populated by renderQ16() -->
       </div>
@@ -576,7 +599,7 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-title">Last step — get the report.</div>
-      <div class="section-desc">As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report before public release — free, delivered to your inbox within 60 days of survey close.</div>
+      <div class="section-desc">As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report free — delivered to your inbox before public release.</div>
     </div>
 
     <!-- Work email -->
@@ -585,7 +608,7 @@
       <div class="email-group">
         <label for="final-email" style="font-size:13px;color:var(--muted);font-weight:400;">Please use your work email — we use this to verify you're an industry practitioner and to send you the report.</label>
         <input type="email" id="final-email" class="email-input" placeholder="you@yourcompany.com" autocomplete="email">
-        <div class="val-msg" id="email-err">Please enter a valid work email address (no gmail, yahoo, or hotmail).</div>
+        <div class="val-msg" id="email-err">Please enter a valid work email address (no personal email domains).</div>
       </div>
     </div>
 
@@ -640,18 +663,16 @@
 <div class="screen" id="screen-confirm">
   <div class="confirm-screen">
     <div class="confirm-icon">
-      <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <path d="M20 6L9 17l-5-5" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l6 6L22 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
-    <div class="confirm-title">You're in.</div>
+    <div class="confirm-title">You're in. Thank you.</div>
     <div class="confirm-body">
-      As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report before public release — delivered to your inbox within 60 days of survey close. Thank you for making this possible.
+      Your responses have been recorded. You'll receive the full <strong>Heavy Equipment State of Marketing 2026</strong> report free when it publishes — before public release.
     </div>
-    <div class="confirm-forward">
-      <p>Know another dealer or OEM marketing leader who'd want early access? Forward them the survey — the more practitioners who contribute, the stronger the data for everyone.</p>
-      <p style="margin-top:10px;"><a href="/">ironbenchmark.com →</a></p>
+    <div class="confirm-studies" id="confirm-studies-block">
+      <!-- populated by populateConfirmStudies() based on org type -->
     </div>
+    <div class="confirm-fwd-line" id="confirm-fwd-line"></div>
     <a href="/" class="confirm-home">← Back to IronBenchmark.com</a>
   </div>
 </div>
@@ -673,6 +694,7 @@
       'Marketing Manager',
       'Digital Marketing Manager / Coordinator',
       'Sales Manager with marketing oversight',
+      'Operations Director / VP with marketing oversight',
       'Other',
     ],
     oem: [
@@ -699,7 +721,7 @@
       options: ['1–2 locations', '3–10 locations', '11–25 locations', '26+ locations'],
     },
     oem: {
-      label: 'How many dealer locations are in your US distribution network?',
+      label: 'How many dealer locations are in your North America distribution network?',
       options: ['Fewer than 25', '25–100', '100–300', '300+'],
     },
     agency: null, // hidden for agencies
@@ -732,6 +754,8 @@
   const Q12_OPTIONS = {
     dealer: [
       'Generating enough quality leads',
+      'Sales team not acting on leads — poor follow-through',
+      'Attribution — knowing which channels actually drive sales',
       'Justifying marketing ROI to leadership',
       'Keeping up with digital / knowing what works',
       'Differentiating from competitors in my region',
@@ -740,6 +764,7 @@
     ],
     oem: [
       'Dealer adoption of co-op and marketing programs',
+      'Dealers not actioning leads we generate',
       'Consistent brand execution across the dealer network',
       'Measuring marketing impact across a distributed sales model',
       'Differentiating from competing brands at the dealer level',
@@ -825,6 +850,12 @@
 
   function renderQ3() {
     renderRadioGroup('q3-opts', 'q3', Q3_OPTIONS[orgType]);
+    const lbl = document.getElementById('q3-label');
+    if (orgType === 'agency') {
+      lbl.textContent = 'What is the average annual marketing budget of your typical equipment dealer or OEM client?';
+    } else {
+      lbl.textContent = 'What is your approximate annual marketing budget (all channels)?';
+    }
   }
 
   function renderQ5() {
@@ -842,7 +873,7 @@
       document.getElementById('q6-hint').textContent = 'e.g. Caterpillar dealers, Komatsu, CNH brands — or independent dealers';
     } else {
       document.getElementById('q6-label').textContent = 'What brand line(s) do you represent or primarily work with?';
-      document.getElementById('q6-hint').textContent = 'e.g. Caterpillar, Komatsu, John Deere, Volvo CE, CNH, independent / multi-line';
+      document.getElementById('q6-hint').textContent = 'e.g. Caterpillar, Komatsu, John Deere, AGCO, Kubota, Volvo CE, CNH, independent / multi-line';
     }
   }
 
@@ -856,6 +887,53 @@
 
   function renderQ12() {
     renderRadioGroup('q12-opts', 'q12', Q12_OPTIONS[orgType]);
+  }
+
+  function renderQ12b() {
+    const block = document.getElementById('q12b-block');
+    block.style.display = orgType === 'agency' ? '' : 'none';
+    if (orgType === 'agency') {
+      bindOptHighlight(block.querySelector('.options'));
+    }
+  }
+
+  const Q15_CONFIG = {
+    dealer: {
+      label: 'How would you describe how your team actually uses your CRM?',
+      options: [
+        'Consistently — it\'s our system of record, everyone uses it',
+        'Partially — some team members use it regularly, others less so',
+        'We have one but data quality or sales team adoption is poor',
+        'We have one but it\'s not yet fully adopted',
+        'We don\'t use a CRM',
+      ],
+    },
+    oem: {
+      label: 'How would you describe how your team actually uses your CRM?',
+      options: [
+        'Consistently — it\'s our system of record, everyone uses it',
+        'Partially — some team members use it regularly, others less so',
+        'We have one but data quality or sales team adoption is poor',
+        'We have one but it\'s not yet fully adopted',
+        'We don\'t use a CRM',
+      ],
+    },
+    agency: {
+      label: 'How would you describe the quality of customer and prospect data your clients give you to work with?',
+      options: [
+        'Clean and well-structured — easy to activate',
+        'Adequate but incomplete in places',
+        'Mixed — varies a lot by client',
+        'Generally poor — outdated contacts, duplicates, or missing info',
+        'They don\'t share data with us',
+      ],
+    },
+  };
+
+  function renderQ15() {
+    const cfg = Q15_CONFIG[orgType];
+    document.getElementById('q15-label').textContent = cfg.label;
+    renderRadioGroup('q15-opts', 'q15', cfg.options);
   }
 
   function renderQ16() {
@@ -872,6 +950,8 @@
     renderQ6();
     renderQ11();
     renderQ12();
+    renderQ12b();
+    renderQ15();
     renderQ16();
   }
 
@@ -1030,6 +1110,13 @@
       const val = getRadio(q);
       if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
+    // q12b — required for agencies only
+    if (orgType === 'agency') {
+      const q12b = getRadio('q12b');
+      if (!q12b) { showErr('q12b-err'); valid = false; } else { hideErr('q12b-err'); answers.q12b = q12b; }
+    } else {
+      hideErr('q12b-err'); answers.q12b = '';
+    }
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     goTo('screen-d', 3);
   }
@@ -1061,6 +1148,7 @@
 
     // Honeypot — silently fake success
     if (honeypot) {
+      populateConfirmStudies();
       hideProgress();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
@@ -1096,6 +1184,7 @@
         q10_best_roi:        answers.q10             || '',
         q11_cost_per_lead:   answers.q11             || '',
         q12_challenge:       answers.q12             || '',
+        q12b_client_ask:     answers.q12b            || '',
         q13_performance:     answers.q13             || '',
         q14_maturity:        answers.q14             || '',
         q15_crm_usage:       answers.q15             || '',
@@ -1116,6 +1205,7 @@
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Server error ' + res.status);
+      populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
       hideProgress();
@@ -1127,6 +1217,29 @@
       submitErr.textContent = 'Something went wrong — please try again or email info@ironbenchmark.com';
       submitErr.classList.add('show');
     }
+  }
+
+  /* ══════════════════════════════════════════
+     CONFIRMATION CROSS-PROMO (audience-qualified)
+     ══════════════════════════════════════════ */
+  function populateConfirmStudies() {
+    const block   = document.getElementById('confirm-studies-block');
+    const fwdLine = document.getElementById('confirm-fwd-line');
+    let html = '<p><strong>IronBenchmark has two other open studies — both free for respondents:</strong></p>';
+
+    if (orgType === 'dealer') {
+      html += `<p style="margin-top:10px;"><a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage customer communications across phone, email, web, text, WhatsApp, and social — and the downstream impact on deals and reputation.</p>`;
+      html += `<p style="margin-top:8px;"><a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, and where the industry is headed.</p>`;
+      fwdLine.textContent = 'Know a fellow dealer or marketing leader who\'d want this data? Forward them: ironbenchmark.com/survey';
+    } else if (orgType === 'oem') {
+      html += `<p style="margin-top:10px;"><a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, competitor confidence gap, and where the industry is headed.</p>`;
+      fwdLine.textContent = 'Know an OEM or dealer marketing leader who\'d want this data? Forward them: ironbenchmark.com/survey';
+    } else if (orgType === 'agency') {
+      html += `<p style="margin-top:10px;"><a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — how dealers and OEMs are actually adopting AI in their sales process. Useful context for anyone advising equipment clients.</p>`;
+      fwdLine.textContent = 'Know a dealer or OEM contact who\'d want this data? Forward them: ironbenchmark.com/survey';
+    }
+
+    block.innerHTML = html;
   }
 
   /* ── INIT ── */

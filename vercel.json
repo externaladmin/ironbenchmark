@@ -9,6 +9,14 @@
       "dest": "/ironbenchmark_survey.html"
     },
     {
+      "src": "/ai-sales",
+      "dest": "/ai-sales-survey.html"
+    },
+    {
+      "src": "/dealer-response",
+      "dest": "/dealer-response-survey.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }

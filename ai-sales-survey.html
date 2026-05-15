@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IronBenchmark — AI in Heavy Equipment Sales: 2026 Benchmark</title>
+  <meta name="description" content="The first benchmark on AI adoption in construction, agricultural, and industrial equipment sales. 5 minutes. Free report for all respondents.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+  <!-- GA4 placeholder -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+
+  <!-- API: POST to /api/subscribe-ib-ai — create api/subscribe-ib-ai.js (mirror of subscribe-ib.js, study tag: 'ai-sales-2026') -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F6F4EE;
+      --navy:      #1C3A2A;
+      --bronze:    #C9A84C;
+      --bronze-lt: #D9BC6A;
+      --bronze-bg: #FBF8EE;
+      --muted:     #5A7060;
+      --border:    #D8D5C8;
+      --border-dk: #B8B5A4;
+      --white:     #FFFFFF;
+      --red:       #B03A2E;
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--navy);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand { font-family: var(--serif); font-size: 20px; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
+    .topbar-brand span { color: var(--bronze); }
+    .topbar-back { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .topbar-back:hover { color: #fff; }
+
+    /* ── INTRO SCREEN ── */
+    .intro-screen {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+      text-align: center;
+    }
+    .intro-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bronze); margin-bottom: 16px;
+    }
+    .intro-title {
+      font-family: var(--serif); font-size: 30px; color: var(--navy);
+      line-height: 1.2; margin-bottom: 16px;
+    }
+    .intro-desc {
+      font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 12px;
+    }
+    .intro-badges {
+      display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+      margin: 24px 0 36px;
+    }
+    .intro-badge {
+      font-size: 12px; font-weight: 500; color: var(--navy);
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 5px 14px;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap {
+      background: var(--navy);
+      padding: 0 40px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .progress-sections { display: flex; gap: 4px; max-width: 680px; margin: 0 auto; }
+    .prog-seg { flex: 1; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; transition: background 0.4s; }
+    .prog-seg.active { background: var(--bronze); }
+    .prog-seg.done   { background: rgba(255,255,255,0.55); }
+    .progress-label {
+      text-align: center; font-size: 12px; color: rgba(255,255,255,0.5);
+      margin-top: 8px; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    .survey-outer { max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { margin-bottom: 36px; }
+    .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bronze); margin-bottom: 8px; }
+    .section-title { font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
+    .section-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
+
+    /* ── QUESTION BLOCK ── */
+    .q-block { margin-bottom: 36px; }
+    .q-label { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 14px; line-height: 1.4; }
+    .q-label span.q-num { font-size: 12px; font-weight: 500; color: var(--bronze); display: block; margin-bottom: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .q-hint { font-size: 13px; color: var(--muted); margin-top: -8px; margin-bottom: 12px; }
+
+    /* ── OPTIONS ── */
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 16px; background: var(--white);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none;
+    }
+    .opt:hover { border-color: var(--bronze); }
+    .opt.selected { border-color: var(--bronze); background: var(--bronze-bg); }
+    .opt input[type="radio"], .opt input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+      accent-color: var(--bronze); cursor: pointer;
+    }
+    .opt-text { font-size: 15px; color: var(--navy); line-height: 1.4; }
+
+    /* ── TEXT INPUT ── */
+    .text-input {
+      width: 100%; padding: 12px 16px; font-family: var(--sans); font-size: 15px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .text-input:focus { border-color: var(--bronze); }
+    .text-input::placeholder { color: var(--muted); }
+
+    /* ── EMAIL INPUT ── */
+    .email-group { display: flex; flex-direction: column; gap: 6px; }
+    .email-group label { font-size: 14px; font-weight: 500; color: var(--navy); }
+    .email-input {
+      width: 100%; padding: 12px 16px; font-family: var(--sans); font-size: 16px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .email-input:focus { border-color: var(--bronze); }
+    .email-input::placeholder { color: var(--muted); }
+    .email-input.error { border-color: var(--red); }
+
+    /* ── HONEYPOT ── */
+    .hp-field { display: none !important; visibility: hidden; }
+
+    /* ── NAVIGATION ── */
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-top: 40px; gap: 12px; }
+    .btn-back { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--muted); background: none; border: none; cursor: pointer; padding: 10px 0; transition: color 0.2s; }
+    .btn-back:hover { color: var(--navy); }
+    .btn-next { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--navy); border: none; border-radius: 8px; padding: 13px 28px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .btn-next:hover { background: #264D38; }
+    .btn-submit { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--bronze); border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .btn-submit:hover { background: var(--bronze-lt); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── SPINNER ── */
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── ERROR MESSAGES ── */
+    .val-msg { font-size: 13px; color: var(--red); margin-top: 8px; display: none; }
+    .val-msg.show { display: block; }
+    .submit-err { font-size: 13px; color: var(--red); margin-top: 10px; display: none; }
+    .submit-err.show { display: block; }
+
+    /* ── EMAIL SCREEN ── */
+    .email-screen { max-width: 600px; margin: 0 auto; padding: 56px 24px 80px; }
+    .email-screen-title { font-family: var(--serif); font-size: 26px; color: var(--navy); margin-bottom: 10px; line-height: 1.2; }
+    .email-screen-desc { font-size: 15px; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+    .email-privacy { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+
+    /* ── CONFIRMATION ── */
+    .confirm-screen { text-align: center; padding: 48px 24px 80px; max-width: 600px; margin: 0 auto; }
+    .confirm-icon { width: 64px; height: 64px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .confirm-title { font-family: var(--serif); font-size: 30px; color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .confirm-body { font-size: 16px; color: #444; line-height: 1.7; margin-bottom: 28px; }
+    .confirm-studies { background: var(--bronze-bg); border: 1px solid var(--bronze); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; text-align: left; }
+    .confirm-studies p { font-size: 14px; color: var(--navy); line-height: 1.7; }
+    .confirm-studies a { color: var(--bronze); font-weight: 600; text-decoration: none; }
+    .confirm-studies a:hover { text-decoration: underline; }
+    .confirm-studies strong { font-weight: 600; }
+    .confirm-forward { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    .confirm-home { font-family: var(--sans); font-size: 14px; color: var(--muted); text-decoration: none; }
+    .confirm-home:hover { color: var(--navy); }
+
+    /* ── HIDDEN ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 540px) {
+      .topbar { padding: 14px 20px; }
+      .progress-wrap { padding: 0 20px 14px; }
+      .survey-outer { padding: 32px 16px 64px; }
+      .section-title { font-size: 24px; }
+      .intro-screen { padding: 40px 16px 64px; }
+      .intro-title { font-size: 26px; }
+      .email-screen { padding: 32px 16px 64px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="topbar-brand">Iron<span>Benchmark</span></a>
+  <a href="/" class="topbar-back">← Back to site</a>
+</nav>
+
+<div class="progress-wrap" id="progress-wrap" style="display:none;">
+  <div class="progress-sections">
+    <div class="prog-seg active" id="seg-1"></div>
+    <div class="prog-seg" id="seg-2"></div>
+    <div class="prog-seg" id="seg-3"></div>
+    <div class="prog-seg" id="seg-4"></div>
+  </div>
+  <div class="progress-label" id="progress-label">Section A of 4 — Who You Are</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     INTRO SCREEN
+     ══════════════════════════════════════════ -->
+<div class="screen active" id="screen-intro">
+  <div class="intro-screen">
+    <div class="intro-eyebrow">IronBenchmark · Independent Research</div>
+    <h1 class="intro-title">AI in Heavy Equipment Sales:<br>2026 Benchmark</h1>
+    <p class="intro-desc">AI is moving fast. Nobody knows how fast it's moving in <em>this</em> industry — until now. This is the first benchmark study on AI adoption specifically in construction, agricultural, and industrial equipment sales.</p>
+    <p class="intro-desc">13 questions. About 5 minutes. You'll receive the full report free when it publishes.</p>
+    <div class="intro-badges">
+      <span class="intro-badge">Dealers · OEMs · Rental · Auction</span>
+      <span class="intro-badge">Fully anonymous</span>
+      <span class="intro-badge">No vendor angle</span>
+      <span class="intro-badge">Free report for respondents</span>
+    </div>
+    <button class="btn-next" onclick="startSurvey()" style="width:100%;padding:15px;font-size:16px;">Start the survey →</button>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only &nbsp;·&nbsp; Anonymous and aggregated &nbsp;·&nbsp; Independent research — no sponsors</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION A — Who You Are  (A1–A3)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-a">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section A · Who You Are</div>
+      <div class="section-title">Let's start with some context.</div>
+      <div class="section-desc">3 questions · about 60 seconds. Responses are fully anonymous and aggregated. IronBenchmark is independent research — not sponsored by any manufacturer, dealer group, or vendor.</div>
+    </div>
+
+    <!-- A1 — Org type -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question A1</span>What type of organization do you work for?</div>
+      <div class="options" id="a1-opts">
+        <label class="opt"><input type="radio" name="a1" value="Equipment dealer (single or multi-location)"><span class="opt-text">Equipment dealer (single or multi-location)</span></label>
+        <label class="opt"><input type="radio" name="a1" value="OEM / manufacturer"><span class="opt-text">OEM / manufacturer</span></label>
+        <label class="opt"><input type="radio" name="a1" value="Rental company"><span class="opt-text">Rental company</span></label>
+        <label class="opt"><input type="radio" name="a1" value="Auction house"><span class="opt-text">Auction house</span></label>
+        <label class="opt"><input type="radio" name="a1" value="Marketplace or listing platform"><span class="opt-text">Marketplace or listing platform</span></label>
+        <label class="opt"><input type="radio" name="a1" value="Other"><span class="opt-text">Other</span></label>
+      </div>
+      <div class="val-msg" id="a1-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- A2 — Role -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question A2</span>What best describes your role?</div>
+      <div class="options" id="a2-opts">
+        <label class="opt"><input type="radio" name="a2" value="Owner / Dealer Principal / GM"><span class="opt-text">Owner / Dealer Principal / GM</span></label>
+        <label class="opt"><input type="radio" name="a2" value="VP Sales / Sales Director"><span class="opt-text">VP Sales / Sales Director</span></label>
+        <label class="opt"><input type="radio" name="a2" value="Regional or Branch Sales Manager"><span class="opt-text">Regional or Branch Sales Manager</span></label>
+        <label class="opt"><input type="radio" name="a2" value="Marketing or Revenue Leader"><span class="opt-text">Marketing or Revenue Leader</span></label>
+        <label class="opt"><input type="radio" name="a2" value="C-Suite (CEO, COO, CRO)"><span class="opt-text">C-Suite (CEO, COO, CRO)</span></label>
+        <label class="opt"><input type="radio" name="a2" value="Other leadership role"><span class="opt-text">Other leadership role</span></label>
+      </div>
+      <div class="val-msg" id="a2-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- A3 — Sales team size -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question A3</span>How large is your sales team?</div>
+      <div class="options" id="a3-opts">
+        <label class="opt"><input type="radio" name="a3" value="Just me / sole operator"><span class="opt-text">Just me / sole operator</span></label>
+        <label class="opt"><input type="radio" name="a3" value="2–10 salespeople"><span class="opt-text">2–10 salespeople</span></label>
+        <label class="opt"><input type="radio" name="a3" value="11–30 salespeople"><span class="opt-text">11–30 salespeople</span></label>
+        <label class="opt"><input type="radio" name="a3" value="31–100 salespeople"><span class="opt-text">31–100 salespeople</span></label>
+        <label class="opt"><input type="radio" name="a3" value="100+ salespeople"><span class="opt-text">100+ salespeople</span></label>
+      </div>
+      <div class="val-msg" id="a3-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-intro', -1)">← Back</button>
+      <button class="btn-next" onclick="goToB()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION B — AI in Your Sales Process  (B1–B4)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-b">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section B · AI in Your Sales Process</div>
+      <div class="section-title">What's actually happening on the ground.</div>
+      <div class="section-desc">4 questions · about 90 seconds. No right or wrong answers — honest data is what makes this report useful.</div>
+    </div>
+
+    <!-- B1 — AI use cases (multi-select) -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question B1</span>Which of the following are you actively using AI for in your sales process today?</div>
+      <div class="q-hint">Select all that apply</div>
+      <div class="options" id="b1-opts">
+        <label class="opt"><input type="checkbox" name="b1" value="Prospecting and lead identification"><span class="opt-text">Prospecting and lead identification</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="Lead scoring or qualification"><span class="opt-text">Lead scoring or qualification</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="Writing emails, proposals, or follow-up messages"><span class="opt-text">Writing emails, proposals, or follow-up messages</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="CRM data entry or activity logging"><span class="opt-text">CRM data entry or activity logging</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="Call summaries or coaching"><span class="opt-text">Call summaries or coaching</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="Forecasting or pipeline analysis"><span class="opt-text">Forecasting or pipeline analysis</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="Customer-facing chatbots or live chat"><span class="opt-text">Customer-facing chatbots or live chat</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="Inventory or pricing recommendations"><span class="opt-text">Inventory or pricing recommendations</span></label>
+        <label class="opt"><input type="checkbox" name="b1" value="Not using AI in sales yet"><span class="opt-text">Not using AI in sales yet</span></label>
+      </div>
+      <div class="val-msg" id="b1-err">Please select at least one option to continue.</div>
+    </div>
+
+    <!-- B2 — Tools (multi-select) -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question B2</span>What AI tools or platforms are you currently using?</div>
+      <div class="q-hint">Select all that apply</div>
+      <div class="options" id="b2-opts">
+        <label class="opt"><input type="checkbox" name="b2" value="ChatGPT / OpenAI"><span class="opt-text">ChatGPT / OpenAI</span></label>
+        <label class="opt"><input type="checkbox" name="b2" value="Google Gemini / Workspace AI"><span class="opt-text">Google Gemini / Workspace AI</span></label>
+        <label class="opt"><input type="checkbox" name="b2" value="Microsoft Copilot"><span class="opt-text">Microsoft Copilot</span></label>
+        <label class="opt"><input type="checkbox" name="b2" value="Salesforce Einstein or HubSpot AI"><span class="opt-text">Salesforce Einstein or HubSpot AI</span></label>
+        <label class="opt"><input type="checkbox" name="b2" value="A purpose-built tool for equipment sales"><span class="opt-text">A purpose-built tool for equipment sales</span></label>
+        <label class="opt"><input type="checkbox" name="b2" value="Internal / custom-built tool"><span class="opt-text">Internal / custom-built tool</span></label>
+        <label class="opt"><input type="checkbox" name="b2" value="Other"><span class="opt-text">Other</span></label>
+        <label class="opt"><input type="checkbox" name="b2" value="None"><span class="opt-text">None</span></label>
+      </div>
+      <div class="val-msg" id="b2-err">Please select at least one option to continue.</div>
+    </div>
+
+    <!-- B3 — Impact -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question B3</span>How would you describe AI's impact on your sales results so far?</div>
+      <div class="options" id="b3-opts">
+        <label class="opt"><input type="radio" name="b3" value="Measurable positive impact on revenue or close rates"><span class="opt-text">Measurable positive impact on revenue or close rates</span></label>
+        <label class="opt"><input type="radio" name="b3" value="Productivity gains — same results, less time"><span class="opt-text">Productivity gains — same results, less time</span></label>
+        <label class="opt"><input type="radio" name="b3" value="Early days — too soon to measure"><span class="opt-text">Early days — too soon to measure</span></label>
+        <label class="opt"><input type="radio" name="b3" value="Minimal impact so far"><span class="opt-text">Minimal impact so far</span></label>
+        <label class="opt"><input type="radio" name="b3" value="We haven't adopted AI in sales yet"><span class="opt-text">We haven't adopted AI in sales yet</span></label>
+      </div>
+      <div class="val-msg" id="b3-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- B4 — Best area -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question B4</span>Which part of the sales process has AI helped the most?</div>
+      <div class="options" id="b4-opts">
+        <label class="opt"><input type="radio" name="b4" value="Top of funnel — finding and reaching buyers"><span class="opt-text">Top of funnel — finding and reaching buyers</span></label>
+        <label class="opt"><input type="radio" name="b4" value="Middle — nurturing, qualifying, follow-up"><span class="opt-text">Middle — nurturing, qualifying, follow-up</span></label>
+        <label class="opt"><input type="radio" name="b4" value="Bottom — proposals, pricing, closing"><span class="opt-text">Bottom — proposals, pricing, closing</span></label>
+        <label class="opt"><input type="radio" name="b4" value="Post-sale — retention, upsell, renewals"><span class="opt-text">Post-sale — retention, upsell, renewals</span></label>
+        <label class="opt"><input type="radio" name="b4" value="None yet"><span class="opt-text">None yet</span></label>
+      </div>
+      <div class="val-msg" id="b4-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-a', 0)">← Back</button>
+      <button class="btn-next" onclick="goToC()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION C — Barriers & Skepticism  (C1–C3)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-c">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section C · Barriers &amp; Skepticism</div>
+      <div class="section-title">The honest part of the conversation.</div>
+      <div class="section-desc">3 questions · about 60 seconds. This section produces some of the most valuable data in the report — the gap between where the industry thinks it is and where it actually is.</div>
+    </div>
+
+    <!-- C1 — Biggest barrier -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question C1</span>What's your biggest barrier to adopting or expanding AI in your sales process?</div>
+      <div class="options" id="c1-opts">
+        <label class="opt"><input type="radio" name="c1" value="Don't know where to start"><span class="opt-text">Don't know where to start</span></label>
+        <label class="opt"><input type="radio" name="c1" value="Cost or budget"><span class="opt-text">Cost or budget</span></label>
+        <label class="opt"><input type="radio" name="c1" value="Team resistance or adoption challenges"><span class="opt-text">Team resistance or adoption challenges</span></label>
+        <label class="opt"><input type="radio" name="c1" value="Data quality or CRM gaps"><span class="opt-text">Data quality or CRM gaps</span></label>
+        <label class="opt"><input type="radio" name="c1" value="Lack of tools built specifically for equipment sales"><span class="opt-text">Lack of tools built specifically for equipment sales</span></label>
+        <label class="opt"><input type="radio" name="c1" value="Leadership not convinced of the ROI"><span class="opt-text">Leadership not convinced of the ROI</span></label>
+        <label class="opt"><input type="radio" name="c1" value="Privacy or data security concerns"><span class="opt-text">Privacy or data security concerns</span></label>
+        <label class="opt"><input type="radio" name="c1" value="No real barrier — we're moving forward"><span class="opt-text">No real barrier — we're moving forward</span></label>
+      </div>
+      <div class="val-msg" id="c1-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- C2 — Competitor position -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question C2</span>When it comes to AI in sales — where do you think you stand vs. your competitors?</div>
+      <div class="options" id="c2-opts">
+        <label class="opt"><input type="radio" name="c2" value="Well ahead of most"><span class="opt-text">Well ahead of most</span></label>
+        <label class="opt"><input type="radio" name="c2" value="Slightly ahead"><span class="opt-text">Slightly ahead</span></label>
+        <label class="opt"><input type="radio" name="c2" value="About the same"><span class="opt-text">About the same</span></label>
+        <label class="opt"><input type="radio" name="c2" value="Probably behind"><span class="opt-text">Probably behind</span></label>
+        <label class="opt"><input type="radio" name="c2" value="No idea"><span class="opt-text">No idea</span></label>
+      </div>
+      <div class="val-msg" id="c2-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- C3 — Confidence driver -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question C3</span>What would most increase your confidence in AI for sales?</div>
+      <div class="options" id="c3-opts">
+        <label class="opt"><input type="radio" name="c3" value="Seeing proven ROI data from companies like mine"><span class="opt-text">Seeing proven ROI data from companies like mine</span></label>
+        <label class="opt"><input type="radio" name="c3" value="A purpose-built tool for equipment dealers / OEMs"><span class="opt-text">A purpose-built tool for equipment dealers / OEMs</span></label>
+        <label class="opt"><input type="radio" name="c3" value="Better integration with my existing CRM or DMS"><span class="opt-text">Better integration with my existing CRM or DMS</span></label>
+        <label class="opt"><input type="radio" name="c3" value="More training and support for my team"><span class="opt-text">More training and support for my team</span></label>
+        <label class="opt"><input type="radio" name="c3" value="Executive or board buy-in"><span class="opt-text">Executive or board buy-in</span></label>
+        <label class="opt"><input type="radio" name="c3" value="Nothing — I'm already confident"><span class="opt-text">Nothing — I'm already confident</span></label>
+      </div>
+      <div class="val-msg" id="c3-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-b', 1)">← Back</button>
+      <button class="btn-next" onclick="goToD()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION D — Looking Ahead  (D1–D2)
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-d">
+  <div class="survey-outer">
+    <div class="section-header">
+      <div class="section-tag">Section D · Looking Ahead</div>
+      <div class="section-title">Where this is all heading.</div>
+      <div class="section-desc">2 questions · about 60 seconds. The industry is split on this — your view contributes to one of the most interesting findings in the report.</div>
+    </div>
+
+    <!-- D1 — Biggest impact area -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question D1</span>Where do you expect AI to have the biggest impact on equipment sales in the next 2 years?</div>
+      <div class="options" id="d1-opts">
+        <label class="opt"><input type="radio" name="d1" value="Finding and reaching buyers before they're actively shopping"><span class="opt-text">Finding and reaching buyers before they're actively shopping</span></label>
+        <label class="opt"><input type="radio" name="d1" value="Personalizing outreach at scale"><span class="opt-text">Personalizing outreach at scale</span></label>
+        <label class="opt"><input type="radio" name="d1" value="Replacing or augmenting inside sales roles"><span class="opt-text">Replacing or augmenting inside sales roles</span></label>
+        <label class="opt"><input type="radio" name="d1" value="Improving used equipment pricing and recommendations"><span class="opt-text">Improving used equipment pricing and recommendations</span></label>
+        <label class="opt"><input type="radio" name="d1" value="Accelerating rental conversions"><span class="opt-text">Accelerating rental conversions</span></label>
+        <label class="opt"><input type="radio" name="d1" value="Reducing sales cycle length"><span class="opt-text">Reducing sales cycle length</span></label>
+        <label class="opt"><input type="radio" name="d1" value="It won't have major impact — relationships and reputation still drive this business"><span class="opt-text">It won't have major impact — relationships and reputation still drive this business</span></label>
+      </div>
+      <div class="val-msg" id="d1-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- D2 — Future outlook -->
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">Question D2</span>In 3 years, AI in heavy equipment sales will be…</div>
+      <div class="options" id="d2-opts">
+        <label class="opt"><input type="radio" name="d2" value="A core part of how every sales team operates"><span class="opt-text">A core part of how every sales team operates</span></label>
+        <label class="opt"><input type="radio" name="d2" value="Important for large dealers and OEMs, but not small operators"><span class="opt-text">Important for large dealers and OEMs, but not small operators</span></label>
+        <label class="opt"><input type="radio" name="d2" value="A nice-to-have for early adopters"><span class="opt-text">A nice-to-have for early adopters</span></label>
+        <label class="opt"><input type="radio" name="d2" value="Overhyped — the fundamentals won't change much"><span class="opt-text">Overhyped — the fundamentals won't change much</span></label>
+      </div>
+      <div class="val-msg" id="d2-err">Please select an option to continue.</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo('screen-c', 2)">← Back</button>
+      <button class="btn-next" onclick="goToEmail()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     EMAIL CAPTURE
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-email">
+  <div class="email-screen">
+    <div class="section-tag" style="margin-bottom:12px;">Almost done</div>
+    <div class="email-screen-title">Where should we send your copy of the report?</div>
+    <div class="email-screen-desc">The <em>AI in Heavy Equipment Sales: 2026 Benchmark</em> report will be emailed to you free when it publishes — before public release. Enter your work email below.</div>
+
+    <!-- Honeypot -->
+    <div class="hp-field" aria-hidden="true">
+      <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="email-group" style="margin-bottom:8px;">
+      <label for="final-email">Work email address</label>
+      <input type="email" id="final-email" class="email-input" placeholder="you@yourcompany.com" autocomplete="email">
+      <div class="val-msg" id="email-err">Please enter a valid work email address (no personal email domains).</div>
+    </div>
+
+    <p class="email-privacy">Your email is used only to send you the report. It will not be shared, sold, or used for sales outreach. IronBenchmark is independent research.</p>
+
+    <div style="margin-top:32px;">
+      <button class="btn-submit" id="submit-btn" onclick="submitSurvey()">Submit &amp; get the report →</button>
+      <div class="submit-err" id="submit-err"></div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <button class="btn-back" onclick="goTo('screen-d', 3)">← Back</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CONFIRMATION
+     ══════════════════════════════════════════ -->
+<div class="screen" id="screen-confirm">
+  <div class="confirm-screen">
+    <div class="confirm-icon">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l6 6L22 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="confirm-title">You're in. Thank you.</div>
+    <div class="confirm-body">Your responses have been recorded. You'll receive the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong> report by email when it publishes — free, before public release.</div>
+
+    <div class="confirm-studies">
+      <p><strong>IronBenchmark has two other open studies — both free for respondents:</strong></p>
+      <p style="margin-top:10px;">
+        <a href="/survey">Heavy Equipment State of Marketing 2026</a> — budget allocation, cost-per-lead benchmarks, digital adoption, and what channels are actually delivering ROI across the industry.
+      </p>
+      <p style="margin-top:8px;">
+        <a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage multi-channel customer communications and what it's costing them in deals and reputation. Dealer-focused.
+      </p>
+    </div>
+
+    <div class="confirm-forward">Know someone in equipment sales who'd want to see this data? Forward them the link: <strong>ironbenchmark.com/ai-sales</strong></div>
+
+    <a href="/" class="confirm-home">← Back to IronBenchmark.com</a>
+  </div>
+</div>
+
+
+<script>
+  /* ══════════════════════════════════════════
+     STATE
+     ══════════════════════════════════════════ */
+  const answers = {};
+
+  /* ══════════════════════════════════════════
+     PROGRESS
+     ══════════════════════════════════════════ */
+  const SECTION_LABELS = [
+    'Section A of 4 — Who You Are',
+    'Section B of 4 — AI in Your Sales Process',
+    'Section C of 4 — Barriers & Skepticism',
+    'Section D of 4 — Looking Ahead',
+  ];
+
+  function updateProgress(idx) {
+    for (let i = 1; i <= 4; i++) {
+      const seg = document.getElementById('seg-' + i);
+      if (i - 1 < idx)        seg.className = 'prog-seg done';
+      else if (i - 1 === idx) seg.className = 'prog-seg active';
+      else                    seg.className = 'prog-seg';
+    }
+    document.getElementById('progress-label').textContent = SECTION_LABELS[idx] || '';
+  }
+
+  function showProgress() { document.getElementById('progress-wrap').style.display = ''; }
+  function hideProgress() { document.getElementById('progress-wrap').style.display = 'none'; }
+
+  /* ══════════════════════════════════════════
+     OPTION HIGHLIGHTING
+     ══════════════════════════════════════════ */
+  function bindOptHighlight(container) {
+    container.querySelectorAll('.opt input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        const noneVals = ['None', 'Not using AI in sales yet'];
+        if (inp.type === 'radio') {
+          container.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+          inp.closest('.opt').classList.add('selected');
+        } else {
+          inp.closest('.opt').classList.toggle('selected', inp.checked);
+          if (!noneVals.includes(inp.value) && inp.checked) {
+            container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+              if (noneVals.includes(cb.value)) { cb.checked = false; cb.closest('.opt').classList.remove('selected'); }
+            });
+          } else if (noneVals.includes(inp.value) && inp.checked) {
+            container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+              if (!noneVals.includes(cb.value)) { cb.checked = false; cb.closest('.opt').classList.remove('selected'); }
+            });
+          }
+        }
+      });
+    });
+  }
+
+  document.querySelectorAll('.options').forEach(bindOptHighlight);
+
+  /* ══════════════════════════════════════════
+     HELPERS
+     ══════════════════════════════════════════ */
+  function getRadio(name)   { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : null; }
+  function getChecked(name) { return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(c => c.value); }
+  function showErr(id)      { document.getElementById(id).classList.add('show'); }
+  function hideErr(id)      { document.getElementById(id).classList.remove('show'); }
+
+  function goTo(screenId, progIdx) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    if (progIdx >= 0) {
+      showProgress();
+      updateProgress(progIdx);
+    } else {
+      hideProgress();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const PERSONAL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','live.com','msn.com','me.com','mac.com'];
+  function isPersonalEmail(email) {
+    const domain = email.split('@')[1]?.toLowerCase() || '';
+    return PERSONAL_DOMAINS.includes(domain);
+  }
+
+  /* ══════════════════════════════════════════
+     NAVIGATION
+     ══════════════════════════════════════════ */
+
+  function startSurvey() {
+    goTo('screen-a', 0);
+  }
+
+  function goToB() {
+    let valid = true;
+    ['a1','a2','a3'].forEach(q => {
+      const val = getRadio(q);
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
+    });
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    goTo('screen-b', 1);
+  }
+
+  function goToC() {
+    let valid = true;
+
+    const b1 = getChecked('b1');
+    if (!b1.length) { showErr('b1-err'); valid = false; } else { hideErr('b1-err'); answers.b1 = b1; }
+
+    const b2 = getChecked('b2');
+    if (!b2.length) { showErr('b2-err'); valid = false; } else { hideErr('b2-err'); answers.b2 = b2; }
+
+    ['b3','b4'].forEach(q => {
+      const val = getRadio(q);
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
+    });
+
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    goTo('screen-c', 2);
+  }
+
+  function goToD() {
+    let valid = true;
+    ['c1','c2','c3'].forEach(q => {
+      const val = getRadio(q);
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
+    });
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    goTo('screen-d', 3);
+  }
+
+  function goToEmail() {
+    let valid = true;
+    ['d1','d2'].forEach(q => {
+      const val = getRadio(q);
+      if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
+    });
+    if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    hideProgress();
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-email').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ══════════════════════════════════════════
+     SUBMIT
+     ══════════════════════════════════════════ */
+  async function submitSurvey() {
+    const emailEl   = document.getElementById('final-email');
+    const email     = emailEl.value.trim();
+    const errEl     = document.getElementById('email-err');
+    const submitErr = document.getElementById('submit-err');
+    const btn       = document.getElementById('submit-btn');
+    const honeypot  = document.getElementById('hp-website').value;
+
+    if (honeypot) {
+      hideProgress();
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-confirm').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      errEl.classList.add('show'); emailEl.classList.add('error'); return;
+    }
+    if (isPersonalEmail(email)) {
+      errEl.classList.add('show'); emailEl.classList.add('error'); return;
+    }
+    errEl.classList.remove('show'); emailEl.classList.remove('error');
+
+    answers.email = email;
+
+    const payload = {
+      email,
+      study: 'ai-sales-2026',
+      responses: {
+        a1_org_type:            answers.a1              || '',
+        a2_role:                answers.a2              || '',
+        a3_sales_team_size:     answers.a3              || '',
+        b1_ai_uses:             (answers.b1 || []).join('; '),
+        b2_ai_tools:            (answers.b2 || []).join('; '),
+        b3_ai_impact:           answers.b3              || '',
+        b4_ai_best_area:        answers.b4              || '',
+        c1_barrier:             answers.c1              || '',
+        c2_competitor_position: answers.c2              || '',
+        c3_confidence_driver:   answers.c3              || '',
+        d1_biggest_impact:      answers.d1              || '',
+        d2_future_outlook:      answers.d2              || '',
+      }
+    };
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Submitting…';
+    submitErr.textContent = '';
+    submitErr.classList.remove('show');
+
+    try {
+      const res = await fetch('/api/subscribe-ib-ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Server error ' + res.status);
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-confirm').classList.add('active');
+      hideProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      btn.innerHTML = 'Submit &amp; get the report →';
+      submitErr.textContent = 'Something went wrong — please try again or email info@ironbenchmark.com';
+      submitErr.classList.add('show');
+    }
+  }
+
+  /* ── INIT ── */
+  hideProgress();
+</script>
+</body>
+</html>
