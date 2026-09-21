@@ -468,6 +468,27 @@
       border-radius: 3px;
       border: 1px solid #B2D9C1;
     }
+    .email-error {
+      display: none;
+      color: #B03A2E;
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    .email-error.show { display: block; }
+    .email-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: -2px;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── FOOTER ── */
     footer {
@@ -579,7 +600,7 @@
           </div>
           <div class="study-card-meta-row">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>5 minutes · 15 questions</span>
+            <span>5 minutes · 17 questions</span>
           </div>
         </div>
         <a href="/survey" class="study-card-cta">Take the Survey &rarr;</a>
@@ -597,7 +618,7 @@
           </div>
           <div class="study-card-meta-row">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>5 minutes · 13 questions</span>
+            <span>5 minutes · 12 questions</span>
           </div>
         </div>
         <a href="/ai-sales" class="study-card-cta">Take the Survey &rarr;</a>
@@ -616,7 +637,7 @@
           </div>
           <div class="study-card-meta-row">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>7 minutes · 16 questions</span>
+            <span>5 minutes · 16 questions</span>
           </div>
         </div>
         <a href="/dealer-response" class="study-card-cta">Take the Survey &rarr;</a>
@@ -705,11 +726,12 @@
           required
           autocomplete="email"
         >
-        <button type="submit" class="email-submit">Notify Me</button>
+        <button type="submit" class="email-submit" id="earlyAccessSubmit">Notify Me</button>
       </form>
       <div class="email-success" id="emailSuccess">
         ✓ You're on the list. We'll email you when each report is ready.
       </div>
+      <div class="email-error" id="emailError" role="alert"></div>
       <p class="email-note">No spam. Unsubscribe anytime. Your email is only used to deliver the reports.</p>
     </div>
   </section>
@@ -737,16 +759,36 @@
     }
 
     // ── EMAIL FORM ──
-    function handleEmailSubmit(e) {
+    async function handleEmailSubmit(e) {
       e.preventDefault();
-      const email = document.getElementById('earlyAccessEmail').value;
+
+      const input = document.getElementById('earlyAccessEmail');
+      const btn   = document.getElementById('earlyAccessSubmit');
+      const err   = document.getElementById('emailError');
+      const email = input.value.trim();
       if (!email) return;
 
-      // TODO: Replace with Beehiiv form submission or API call
-      console.log('Email captured:', email);
+      err.classList.remove('show');
+      btn.disabled  = true;
+      btn.innerHTML = '<span class="spinner"></span>Adding…';
 
-      document.querySelector('.email-form').style.display = 'none';
-      document.getElementById('emailSuccess').style.display = 'block';
+      try {
+        const res = await fetch('/api/subscribe-ib-notify', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email, source: 'homepage' }),
+        });
+        if (!res.ok) throw new Error('Server error ' + res.status);
+
+        document.querySelector('.email-form').style.display = 'none';
+        document.getElementById('emailSuccess').style.display = 'block';
+      } catch (error) {
+        console.error(error);
+        btn.disabled    = false;
+        btn.textContent = 'Notify Me';
+        err.textContent = 'Something went wrong — please try again, or email info@ironbenchmark.com';
+        err.classList.add('show');
+      }
     }
   </script>
 

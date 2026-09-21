@@ -1225,21 +1225,40 @@
   function populateConfirmStudies() {
     const block   = document.getElementById('confirm-studies-block');
     const fwdLine = document.getElementById('confirm-fwd-line');
-    let html = '<p><strong>IronBenchmark has two other open studies — both free for respondents:</strong></p>';
 
-    if (orgType === 'dealer') {
-      html += `<p style="margin-top:10px;"><a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage customer communications across phone, email, web, text, WhatsApp, and social — and the downstream impact on deals and reputation.</p>`;
-      html += `<p style="margin-top:8px;"><a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, and where the industry is headed.</p>`;
-      fwdLine.textContent = 'Know a fellow dealer or marketing leader who\'d want this data? Forward them: ironbenchmark.com/survey';
-    } else if (orgType === 'oem') {
-      html += `<p style="margin-top:10px;"><a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, competitor confidence gap, and where the industry is headed.</p>`;
-      fwdLine.textContent = 'Know an OEM or dealer marketing leader who\'d want this data? Forward them: ironbenchmark.com/survey';
-    } else if (orgType === 'agency') {
-      html += `<p style="margin-top:10px;"><a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — how dealers and OEMs are actually adopting AI in their sales process. Useful context for anyone advising equipment clients.</p>`;
-      fwdLine.textContent = 'Know a dealer or OEM contact who\'d want this data? Forward them: ironbenchmark.com/survey';
-    }
+    // The Dealer Response study is dealers-only, so OEM and agency respondents are
+    // offered a shorter list. The heading is derived from what actually gets listed
+    // rather than hardcoded, so it can't promise two studies and then show one.
+    const STUDIES = {
+      dealer: [
+        `<a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage customer communications across phone, email, web, text, WhatsApp, and social — and the downstream impact on deals and reputation.`,
+        `<a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, and where the industry is headed.`,
+      ],
+      oem: [
+        `<a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, competitor confidence gap, and where the industry is headed.`,
+      ],
+      agency: [
+        `<a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — how dealers and OEMs are actually adopting AI in their sales process. Useful context for anyone advising equipment clients.`,
+      ],
+    };
 
-    block.innerHTML = html;
+    const FWD_LINES = {
+      dealer: 'Know a fellow dealer or marketing leader who\'d want this data? Forward them: ironbenchmark.com/survey',
+      oem:    'Know an OEM or dealer marketing leader who\'d want this data? Forward them: ironbenchmark.com/survey',
+      agency: 'Know a dealer or OEM contact who\'d want this data? Forward them: ironbenchmark.com/survey',
+    };
+
+    const studies = STUDIES[orgType] || [];
+    fwdLine.textContent = FWD_LINES[orgType] || '';
+
+    if (!studies.length) { block.innerHTML = ''; block.style.display = 'none'; return; }
+
+    const heading = studies.length > 1
+      ? 'IronBenchmark has two other open studies — both free for respondents:'
+      : 'IronBenchmark has one other open study — free for respondents:';
+
+    block.innerHTML = `<p><strong>${heading}</strong></p>` +
+      studies.map((s, i) => `<p style="margin-top:${i === 0 ? 10 : 8}px;">${s}</p>`).join('');
   }
 
   /* ── INIT ── */

@@ -26,6 +26,69 @@ export default async function handler(req, res) {
 
   const r = responses || {};
 
+  const STUDY        = 'state-of-marketing-2026';
+  const ARCHIVE_TO   = process.env.ARCHIVE_EMAIL || 'info@ironbenchmark.com';
+  const submissionId = STUDY + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+  const submittedAt  = new Date().toISOString();
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+
+  // Durable record of the raw submission.
+  //
+  // Beehiiv is a mailing list, not a datastore. When it rejects a write — bad key,
+  // quota exhausted, an unrecognised custom field, a previously unsubscribed address
+  // — the answers would otherwise survive only as a log line. This archive is sent
+  // regardless of whether Beehiiv accepted the subscriber, and the handler reports
+  // failure to the client only when BOTH have failed.
+  async function archiveSubmission(beehiivStatus) {
+    const record = {
+      submissionId,
+      submittedAt,
+      study: STUDY,
+      email,
+      region: region || '',
+      responses: r,
+    };
+
+    const rows = Object.entries(record.responses).map(([k, v]) =>
+      '<tr><td style="padding:4px 14px 4px 0;color:#6B7C88;vertical-align:top;white-space:nowrap;">' + esc(k) +
+      '</td><td style="padding:4px 0;color:#1A2F3E;">' + esc(v) + '</td></tr>'
+    ).join('');
+
+    const archiveRes = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from:    'IronBenchmark Archive <info@ironbenchmark.com>',
+        to:      [ARCHIVE_TO],
+        subject: '[' + STUDY + '] ' + email + ' — ' + submissionId,
+        html:
+          '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;color:#1A2F3E;">' +
+          '<p><strong>' + esc(email) + '</strong> · ' + esc(submittedAt) + '</p>' +
+          '<p>Beehiiv: ' + esc(beehiivStatus) + '</p>' +
+          '<table style="border-collapse:collapse;">' + rows + '</table>' +
+          '<p style="margin-top:20px;color:#6B7C88;">Machine-readable copy below — parse between the markers to rebuild the dataset.</p>' +
+          '<pre style="background:#F5F3EF;padding:12px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">' +
+          '--- IRONBENCHMARK-JSON-START ---\n' + esc(JSON.stringify(record)) + '\n--- IRONBENCHMARK-JSON-END ---' +
+          '</pre></div>',
+      }),
+    });
+
+    if (!archiveRes.ok) {
+      console.error('Archive error:', submissionId, archiveRes.status, await archiveRes.text());
+      return false;
+    }
+    return true;
+  }
+
+  let beehiivOk     = false;
+  let beehiivStatus = 'not attempted';
+
   try {
     // ── 1. Add subscriber to Beehiiv with survey data ─────────────────────────
     const customFields = [
@@ -43,6 +106,7 @@ export default async function handler(req, res) {
       ...(r.q10_best_roi            ? [{ name: 'ib_best_roi',            value: r.q10_best_roi }]              : []),
       ...(r.q11_cost_per_lead       ? [{ name: 'ib_cost_per_lead',       value: r.q11_cost_per_lead }]         : []),
       ...(r.q12_challenge           ? [{ name: 'ib_challenge',           value: r.q12_challenge }]             : []),
+      ...(r.q12b_client_ask         ? [{ name: 'ib_client_ask',         value: r.q12b_client_ask }]           : []),
       ...(r.q13_performance         ? [{ name: 'ib_performance',         value: r.q13_performance }]           : []),
       ...(r.q14_maturity            ? [{ name: 'ib_maturity',            value: r.q14_maturity }]              : []),
       ...(r.q15_crm_usage           ? [{ name: 'ib_crm_usage',           value: r.q15_crm_usage }]             : []),
@@ -71,13 +135,36 @@ export default async function handler(req, res) {
       }
     );
 
+    beehiivOk     = beehiivRes.ok;
+    beehiivStatus = beehiivRes.ok ? 'ok' : 'error ' + beehiivRes.status;
     if (!beehiivRes.ok) {
       const errBody = await beehiivRes.text();
-      console.error('Beehiiv error:', beehiivRes.status, errBody);
-      // Non-fatal — continue to send confirmation email
+      beehiivStatus = 'error ' + beehiivRes.status + ': ' + errBody.slice(0, 300);
+      console.error('Beehiiv error:', submissionId, beehiivRes.status, errBody);
+      // Non-fatal — the archive below is the durable record of this response.
     }
+  } catch (err) {
+    beehiivStatus = 'exception: ' + err.message;
+    console.error('Beehiiv exception:', submissionId, err);
+  }
 
-    // ── 2. Send confirmation email via Resend ────────────────────────────────
+  // ── 2. Durable archive — runs whether or not Beehiiv accepted the write ────
+  let archiveOk = false;
+  try {
+    archiveOk = await archiveSubmission(beehiivStatus);
+  } catch (err) {
+    console.error('Archive exception:', submissionId, err);
+  }
+
+  if (!beehiivOk && !archiveOk) {
+    // Nothing captured the answers, so a client retry is the correct outcome.
+    console.error('Submission lost:', submissionId, email, beehiivStatus);
+    return res.status(500).json({ error: 'Could not record submission' });
+  }
+
+  // ── 3. Confirmation email via Resend — never fatal ────────────────────────
+  let confirmationSent = false;
+  try {
     const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -137,16 +224,17 @@ export default async function handler(req, res) {
       }),
     });
 
+    confirmationSent = resendRes.ok;
     if (!resendRes.ok) {
       const errBody = await resendRes.text();
-      console.error('Resend error:', resendRes.status, errBody);
-      return res.status(500).json({ error: 'Failed to send confirmation email' });
+      console.error('Resend error:', submissionId, resendRes.status, errBody);
+      // The response is already recorded. Failing here would make the client retry
+      // and write a second Beehiiv subscriber for the same person, so report success
+      // and flag the missing confirmation instead.
     }
-
-    return res.status(200).json({ success: true });
-
   } catch (err) {
-    console.error('Unexpected error:', err);
-    return res.status(500).json({ error: 'Unexpected server error' });
+    console.error('Resend exception:', submissionId, err);
   }
+
+  return res.status(200).json({ success: true, submissionId, confirmationSent });
 }
