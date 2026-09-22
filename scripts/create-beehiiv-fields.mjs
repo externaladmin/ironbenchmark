@@ -135,8 +135,37 @@ for (const display of targets) {
     failed++;
   }
   // Beehiiv rate-limits; this is a one-off so there is no reason to rush it.
-  await new Promise((r) => setTimeout(r, 350));
+  await new Promise((r) => setTimeout(r, 500));
 }
 
 console.log(`\ncreated ${created}, skipped ${skipped}, failed ${failed}`);
+
+// A 2xx is not proof. An earlier run reported 48 creations and the publication
+// still listed six, so the only trustworthy check is asking again afterwards.
+if (!DRY) {
+  await new Promise((r) => setTimeout(r, 1500));
+  try {
+    const res = await fetch(
+      `https://api.beehiiv.com/v2/publications/${PUB_ID}/custom_fields?limit=100`,
+      { headers }
+    );
+    if (res.ok) {
+      const body = await res.json();
+      const live = new Set((body.data || []).map((f) => f.display));
+      const missing = names.filter((n) => !live.has(n));
+      console.log(`\nverified against the publication: ${names.length - missing.length}/${names.length} present`);
+      if (missing.length) {
+        console.log(`still missing (${missing.length}): ${missing.join(', ')}`);
+        console.log(`re-run to attempt these again — existing fields are skipped.`);
+        process.exitCode = 1;
+      } else {
+        console.log('all fields the handlers write to now exist.');
+      }
+    } else {
+      console.warn(`\ncould not verify (${res.status}) — check the custom fields page manually.`);
+    }
+  } catch (err) {
+    console.warn(`\ncould not verify (${err.message}) — check the custom fields page manually.`);
+  }
+}
 if (failed) process.exitCode = 1;
