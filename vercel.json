@@ -1,14 +1,43 @@
 {
+  "redirects": [
+    {
+      "source": "/ironbenchmark_survey.html",
+      "destination": "/survey",
+      "permanent": true
+    },
+    {
+      "source": "/ai-sales-survey.html",
+      "destination": "/ai-sales",
+      "permanent": true
+    },
+    {
+      "source": "/dealer-response-survey.html",
+      "destination": "/dealer-response",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/survey", "destination": "/ironbenchmark_survey.html" },
-    { "source": "/ai-sales", "destination": "/ai-sales-survey.html" },
-    { "source": "/dealer-response", "destination": "/dealer-response-survey.html" }
+    {
+      "source": "/survey",
+      "destination": "/ironbenchmark_survey.html"
+    },
+    {
+      "source": "/ai-sales",
+      "destination": "/ai-sales-survey.html"
+    },
+    {
+      "source": "/dealer-response",
+      "destination": "/dealer-response-survey.html"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)\\.(png|svg|ico|jpg|webp)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
       ]
     }
   ]
