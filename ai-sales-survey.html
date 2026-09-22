@@ -213,6 +213,19 @@
     .report-contents li:last-child { margin-bottom: 0; }
     .report-contents li strong { color: var(--navy); font-weight: 600; }
 
+    /* ── RATING ── */
+    .rating-block { margin: 0 0 28px; }
+    .rating-q { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+    .rating-stars { display: flex; justify-content: center; gap: 6px; }
+    .rating-star {
+      background: none; border: none; cursor: pointer; padding: 4px;
+      font-size: 26px; line-height: 1; color: var(--border-dk);
+      transition: color 0.15s, transform 0.1s;
+    }
+    .rating-star:hover, .rating-star.lit { color: var(--bronze); }
+    .rating-star:hover { transform: scale(1.12); }
+    .rating-done { font-size: 14px; color: var(--muted); }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -234,7 +247,7 @@
     /* ── SECTION HEADER ── */
     .section-header { margin-bottom: 36px; }
     .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bronze); margin-bottom: 8px; }
-    .section-title { font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
+    .section-title { margin: 0; font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
     .section-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
 
     /* ── QUESTION BLOCK ── */
@@ -332,7 +345,7 @@
       .topbar { padding: 14px 20px; }
       .progress-wrap { padding: 0 20px 14px; }
       .survey-outer { padding: 32px 16px 64px; }
-      .section-title { font-size: 24px; }
+      .section-title { margin: 0; font-size: 24px; }
       .intro-screen { padding: 40px 16px 64px; }
       .intro-title { font-size: 26px; }
       .email-screen { padding: 32px 16px 64px; }
@@ -403,14 +416,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section A · Who You Are</div>
-      <div class="section-title">Let's start with some context.</div>
+      <h2 class="section-title">Let's start with some context.</h2>
       <div class="section-desc">3 questions · about 60 seconds. Responses are fully anonymous and aggregated. IronBenchmark is independent research — not sponsored by any manufacturer, dealer group, or vendor.</div>
     </div>
 
     <!-- A1 — Org type -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question A1</span>What type of organization do you work for?</div>
-      <div class="options" id="a1-opts">
+      <div class="q-label" id="a1-label"><span class="q-num">Question A1</span>What type of organization do you work for?</div>
+      <div class="options" id="a1-opts" role="group" aria-labelledby="a1-label">
         <label class="opt"><input type="radio" name="a1" value="Equipment dealer (single or multi-location)"><span class="opt-text">Equipment dealer (single or multi-location)</span></label>
         <label class="opt"><input type="radio" name="a1" value="OEM / manufacturer"><span class="opt-text">OEM / manufacturer</span></label>
         <label class="opt"><input type="radio" name="a1" value="Rental company"><span class="opt-text">Rental company</span></label>
@@ -423,8 +436,8 @@
 
     <!-- A2 — Role -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question A2</span>What best describes your role?</div>
-      <div class="options" id="a2-opts">
+      <div class="q-label" id="a2-label"><span class="q-num">Question A2</span>What best describes your role?</div>
+      <div class="options" id="a2-opts" role="group" aria-labelledby="a2-label">
         <label class="opt"><input type="radio" name="a2" value="Owner / Dealer Principal / GM"><span class="opt-text">Owner / Dealer Principal / GM</span></label>
         <label class="opt"><input type="radio" name="a2" value="VP Sales / Sales Director"><span class="opt-text">VP Sales / Sales Director</span></label>
         <label class="opt"><input type="radio" name="a2" value="Regional or Branch Sales Manager"><span class="opt-text">Regional or Branch Sales Manager</span></label>
@@ -437,8 +450,8 @@
 
     <!-- A3 — Sales team size -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question A3</span>How large is your sales team?</div>
-      <div class="options" id="a3-opts">
+      <div class="q-label" id="a3-label"><span class="q-num">Question A3</span>How large is your sales team?</div>
+      <div class="options" id="a3-opts" role="group" aria-labelledby="a3-label">
         <label class="opt"><input type="radio" name="a3" value="Just me / sole operator"><span class="opt-text">Just me / sole operator</span></label>
         <label class="opt"><input type="radio" name="a3" value="2–10 salespeople"><span class="opt-text">2–10 salespeople</span></label>
         <label class="opt"><input type="radio" name="a3" value="11–30 salespeople"><span class="opt-text">11–30 salespeople</span></label>
@@ -463,15 +476,15 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section B · AI in Your Sales Process</div>
-      <div class="section-title">What's actually happening on the ground.</div>
+      <h2 class="section-title">What's actually happening on the ground.</h2>
       <div class="section-desc">4 questions · about 90 seconds. No right or wrong answers — honest data is what makes this report useful.</div>
     </div>
 
     <!-- B1 — AI use cases (multi-select) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question B1</span>Which of the following are you actively using AI for in your sales process today?</div>
+      <div class="q-label" id="b1-label"><span class="q-num">Question B1</span>Which of the following are you actively using AI for in your sales process today?</div>
       <div class="q-hint">Select all that apply</div>
-      <div class="options" id="b1-opts">
+      <div class="options" id="b1-opts" role="group" aria-labelledby="b1-label">
         <label class="opt"><input type="checkbox" name="b1" value="Prospecting and lead identification"><span class="opt-text">Prospecting and lead identification</span></label>
         <label class="opt"><input type="checkbox" name="b1" value="Lead scoring or qualification"><span class="opt-text">Lead scoring or qualification</span></label>
         <label class="opt"><input type="checkbox" name="b1" value="Writing emails, proposals, or follow-up messages"><span class="opt-text">Writing emails, proposals, or follow-up messages</span></label>
@@ -487,9 +500,9 @@
 
     <!-- B2 — Tools (multi-select) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question B2</span>What AI tools or platforms are you currently using?</div>
+      <div class="q-label" id="b2-label"><span class="q-num">Question B2</span>What AI tools or platforms are you currently using?</div>
       <div class="q-hint">Select all that apply</div>
-      <div class="options" id="b2-opts">
+      <div class="options" id="b2-opts" role="group" aria-labelledby="b2-label">
         <label class="opt"><input type="checkbox" name="b2" value="ChatGPT / OpenAI"><span class="opt-text">ChatGPT / OpenAI</span></label>
         <label class="opt"><input type="checkbox" name="b2" value="Google Gemini / Workspace AI"><span class="opt-text">Google Gemini / Workspace AI</span></label>
         <label class="opt"><input type="checkbox" name="b2" value="Microsoft Copilot"><span class="opt-text">Microsoft Copilot</span></label>
@@ -504,8 +517,8 @@
 
     <!-- B3 — Impact -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question B3</span>How would you describe AI's impact on your sales results so far?</div>
-      <div class="options" id="b3-opts">
+      <div class="q-label" id="b3-label"><span class="q-num">Question B3</span>How would you describe AI's impact on your sales results so far?</div>
+      <div class="options" id="b3-opts" role="group" aria-labelledby="b3-label">
         <label class="opt"><input type="radio" name="b3" value="Measurable positive impact on revenue or close rates"><span class="opt-text">Measurable positive impact on revenue or close rates</span></label>
         <label class="opt"><input type="radio" name="b3" value="Productivity gains — same results, less time"><span class="opt-text">Productivity gains — same results, less time</span></label>
         <label class="opt"><input type="radio" name="b3" value="Early days — too soon to measure"><span class="opt-text">Early days — too soon to measure</span></label>
@@ -517,8 +530,8 @@
 
     <!-- B4 — Best area -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question B4</span>Which part of the sales process has AI helped the most?</div>
-      <div class="options" id="b4-opts">
+      <div class="q-label" id="b4-label"><span class="q-num">Question B4</span>Which part of the sales process has AI helped the most?</div>
+      <div class="options" id="b4-opts" role="group" aria-labelledby="b4-label">
         <label class="opt"><input type="radio" name="b4" value="Top of funnel — finding and reaching buyers"><span class="opt-text">Top of funnel — finding and reaching buyers</span></label>
         <label class="opt"><input type="radio" name="b4" value="Middle — nurturing, qualifying, follow-up"><span class="opt-text">Middle — nurturing, qualifying, follow-up</span></label>
         <label class="opt"><input type="radio" name="b4" value="Bottom — proposals, pricing, closing"><span class="opt-text">Bottom — proposals, pricing, closing</span></label>
@@ -543,14 +556,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section C · Barriers &amp; Skepticism</div>
-      <div class="section-title">The honest part of the conversation.</div>
+      <h2 class="section-title">The honest part of the conversation.</h2>
       <div class="section-desc">3 questions · about 60 seconds. This section produces some of the most valuable data in the report — the gap between where the industry thinks it is and where it actually is.</div>
     </div>
 
     <!-- C1 — Biggest barrier -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question C1</span>What's your biggest barrier to adopting or expanding AI in your sales process?</div>
-      <div class="options" id="c1-opts">
+      <div class="q-label" id="c1-label"><span class="q-num">Question C1</span>What's your biggest barrier to adopting or expanding AI in your sales process?</div>
+      <div class="options" id="c1-opts" role="group" aria-labelledby="c1-label">
         <label class="opt"><input type="radio" name="c1" value="Don't know where to start"><span class="opt-text">Don't know where to start</span></label>
         <label class="opt"><input type="radio" name="c1" value="Cost or budget"><span class="opt-text">Cost or budget</span></label>
         <label class="opt"><input type="radio" name="c1" value="Team resistance or adoption challenges"><span class="opt-text">Team resistance or adoption challenges</span></label>
@@ -565,8 +578,8 @@
 
     <!-- C2 — Competitor position -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question C2</span>When it comes to AI in sales — where do you think you stand vs. your competitors?</div>
-      <div class="options" id="c2-opts">
+      <div class="q-label" id="c2-label"><span class="q-num">Question C2</span>When it comes to AI in sales — where do you think you stand vs. your competitors?</div>
+      <div class="options" id="c2-opts" role="group" aria-labelledby="c2-label">
         <label class="opt"><input type="radio" name="c2" value="Well ahead of most"><span class="opt-text">Well ahead of most</span></label>
         <label class="opt"><input type="radio" name="c2" value="Slightly ahead"><span class="opt-text">Slightly ahead</span></label>
         <label class="opt"><input type="radio" name="c2" value="About the same"><span class="opt-text">About the same</span></label>
@@ -578,8 +591,8 @@
 
     <!-- C3 — Confidence driver -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question C3</span>What would most increase your confidence in AI for sales?</div>
-      <div class="options" id="c3-opts">
+      <div class="q-label" id="c3-label"><span class="q-num">Question C3</span>What would most increase your confidence in AI for sales?</div>
+      <div class="options" id="c3-opts" role="group" aria-labelledby="c3-label">
         <label class="opt"><input type="radio" name="c3" value="Seeing proven ROI data from companies like mine"><span class="opt-text">Seeing proven ROI data from companies like mine</span></label>
         <label class="opt"><input type="radio" name="c3" value="A purpose-built tool for equipment dealers / OEMs"><span class="opt-text">A purpose-built tool for equipment dealers / OEMs</span></label>
         <label class="opt"><input type="radio" name="c3" value="Better integration with my existing CRM or DMS"><span class="opt-text">Better integration with my existing CRM or DMS</span></label>
@@ -605,14 +618,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section D · Looking Ahead</div>
-      <div class="section-title">Where this is all heading.</div>
+      <h2 class="section-title">Where this is all heading.</h2>
       <div class="section-desc">2 questions · about 60 seconds. The industry is split on this — your view contributes to one of the most interesting findings in the report.</div>
     </div>
 
     <!-- D1 — Biggest impact area -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question D1</span>Where do you expect AI to have the biggest impact on equipment sales in the next 2 years?</div>
-      <div class="options" id="d1-opts">
+      <div class="q-label" id="d1-label"><span class="q-num">Question D1</span>Where do you expect AI to have the biggest impact on equipment sales in the next 2 years?</div>
+      <div class="options" id="d1-opts" role="group" aria-labelledby="d1-label">
         <label class="opt"><input type="radio" name="d1" value="Finding and reaching buyers before they're actively shopping"><span class="opt-text">Finding and reaching buyers before they're actively shopping</span></label>
         <label class="opt"><input type="radio" name="d1" value="Personalizing outreach at scale"><span class="opt-text">Personalizing outreach at scale</span></label>
         <label class="opt"><input type="radio" name="d1" value="Replacing or augmenting inside sales roles"><span class="opt-text">Replacing or augmenting inside sales roles</span></label>
@@ -626,8 +639,8 @@
 
     <!-- D2 — Future outlook -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question D2</span>In 3 years, AI in heavy equipment sales will be…</div>
-      <div class="options" id="d2-opts">
+      <div class="q-label" id="d2-label"><span class="q-num">Question D2</span>In 3 years, AI in heavy equipment sales will be…</div>
+      <div class="options" id="d2-opts" role="group" aria-labelledby="d2-label">
         <label class="opt"><input type="radio" name="d2" value="A core part of how every sales team operates"><span class="opt-text">A core part of how every sales team operates</span></label>
         <label class="opt"><input type="radio" name="d2" value="Important for large dealers and OEMs, but not small operators"><span class="opt-text">Important for large dealers and OEMs, but not small operators</span></label>
         <label class="opt"><input type="radio" name="d2" value="A nice-to-have for early adopters"><span class="opt-text">A nice-to-have for early adopters</span></label>
@@ -690,6 +703,8 @@
     <div class="confirm-body">Your responses have been recorded. You'll receive the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong> report by email free, ahead of release.</div>
 
     <div class="confirm-studies" id="confirm-studies-block"></div>
+
+    <div class="rating-block" id="rating-block"></div>
 
     <div class="confirm-forward" id="confirm-fwd-line"></div>
 
@@ -890,7 +905,14 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  const PERSONAL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','live.com','msn.com','me.com','mac.com'];
+  const PERSONAL_DOMAINS = [
+    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','ymail.com','rocketmail.com',
+    'hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','icloud.com','me.com',
+    'mac.com','aol.com','proton.me','protonmail.com','pm.me','gmx.com','gmx.net','mail.com',
+    'zoho.com','yandex.com','comcast.net','sbcglobal.net','att.net','verizon.net','cox.net',
+    'bellsouth.net','charter.net','earthlink.net','roadrunner.com','optonline.net',
+  ];
+  const WORK_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
   function isPersonalEmail(email) {
     const domain = email.split('@')[1]?.toLowerCase() || '';
     return PERSONAL_DOMAINS.includes(domain);
@@ -1000,7 +1022,7 @@
     const btn       = document.getElementById('submit-btn');
     const honeypot  = document.getElementById('hp-website').value;
 
-    if (!email || !email.includes('@') || !email.includes('.')) {
+    if (!WORK_EMAIL_RE.test(email)) {
       errEl.classList.add('show'); emailEl.classList.add('error'); return;
     }
     if (isPersonalEmail(email)) {
@@ -1045,6 +1067,7 @@
       if (!res.ok) throw new Error('Server error ' + res.status);
       track('survey_submit');
       storeClear();
+      mountRating();
       populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
@@ -1252,6 +1275,39 @@
     }
     if (done) return;
     nav.parentNode.insertBefore(inlineEmail, nav.nextSibling);
+  }
+
+  /* ══════════════════════════════════════════
+     SURVEY RATING
+
+     Asked after submission, so it costs a respondent nothing and cannot
+     affect completion. Recorded as an analytics event rather than displayed
+     anywhere — a rating is only worth showing once enough real ones exist.
+     ══════════════════════════════════════════ */
+  function mountRating() {
+    const host = document.getElementById('rating-block');
+    if (!host || host.dataset.done) return;
+    host.innerHTML = '<div class="rating-q">How useful was this survey?</div><div class="rating-stars"></div>';
+    const stars = host.querySelector('.rating-stars');
+    for (let i = 1; i <= 5; i++) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'rating-star';
+      b.textContent = '\u2605';
+      b.setAttribute('aria-label', i + ' out of 5');
+      b.addEventListener('mouseenter', () => {
+        [...stars.children].forEach((s, n) => s.classList.toggle('lit', n < i));
+      });
+      b.addEventListener('click', () => {
+        host.dataset.done = '1';
+        track('survey_rating', { rating: i });
+        host.innerHTML = '<div class="rating-done">Thanks \u2014 noted.</div>';
+      });
+      stars.appendChild(b);
+    }
+    stars.addEventListener('mouseleave', () => {
+      [...stars.children].forEach((s) => s.classList.remove('lit'));
+    });
   }
 
   /* ── INIT ── */

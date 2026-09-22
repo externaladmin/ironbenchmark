@@ -31,9 +31,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, study, responses } = req.body || {};
+  const { email: rawEmail, study, responses } = req.body || {};
 
-  if (!email || !email.includes('@')) {
+  // Same rule the browser applies, enforced here too — the browser checks are a
+  // convenience and a direct POST never runs them. Normalising once means every
+  // downstream use (Beehiiv, Resend, the archive) gets the same address.
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+  const email = String(rawEmail || '').trim().toLowerCase();
+  if (!EMAIL_RE.test(email)) {
     return res.status(400).json({ error: 'Valid email required' });
   }
 
