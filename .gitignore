@@ -1,2 +1,7 @@
 .DS_Store
 ironbenchmark_master_plan.md
+
+# Local secrets — never commit. Used by scripts/create-beehiiv-fields.mjs via
+# `node --env-file=.env`, and by nothing that deploys.
+.env
+.env.*
