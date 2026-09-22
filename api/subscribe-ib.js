@@ -58,9 +58,9 @@ export default async function handler(req, res) {
   // script POSTing straight to this endpoint — the case that actually matters. These
   // run server-side, and a hit returns an ordinary success response while writing
   // nothing: a bot that is told it was blocked simply adapts.
-  const hp        = typeof req.body.hp === 'string' ? req.body.hp.trim() : '';
-  const elapsedMs = Number(req.body.elapsedMs) || 0;
-  const clientIp  = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  const hp        = typeof req.body?.hp === 'string' ? req.body.hp.trim() : '';
+  const elapsedMs = Number(req.body?.elapsedMs) || 0;
+  const clientIp  = String(req.headers?.['x-forwarded-for'] || '').split(',')[0].trim();
   const answered  = Object.values(r).filter((v) => typeof v === 'string' && v.trim()).length;
 
   const botReason =
