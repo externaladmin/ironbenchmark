@@ -266,6 +266,11 @@
 
     /* ── RESPONSIVE ── */
     .intro-case { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); }
+    /* same treatment as the section tags used through the survey */
+    .intro-case-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bronze); margin-bottom: 18px;
+    }
     /* The repeat CTA is deliberately lighter — two identical full-weight buttons
        one scroll apart read as a duplication bug rather than a second chance. */
     .btn-ghost {
@@ -278,7 +283,7 @@
     @media (max-width: 540px) {
       /* centred text is fine for a headline, poor for paragraphs in a narrow
          column — ragged on both edges and hard to track line to line */
-      .intro-desc { text-align: left; }
+      .intro-desc, .intro-case-label { text-align: left; }
       .intro-eyebrow { font-size: 10px; letter-spacing: 0.08em; }
       .intro-badges { gap: 8px; margin: 20px 0 28px; }
       .intro-badge { font-size: 11px; padding: 4px 11px; }
@@ -345,6 +350,7 @@
     </div>
 
     <div class="intro-case">
+      <div class="intro-case-label">More information</div>
       <p class="intro-desc">How you respond matters more than it used to. Customers can find information anywhere now — increasingly by asking AI — so your response is one of the few things still in your control.</p>
       <p class="intro-desc">Phone calls and walk-ins are only part of the picture. Customers reach you through web forms, Facebook Messenger, text and listing platforms.</p>
       <p class="intro-desc">A missed inquiry isn't a lost order. It's a lost machine, and every parts and service dollar that machine would have earned for the rest of its life.</p>
