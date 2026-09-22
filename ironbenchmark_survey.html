@@ -180,6 +180,49 @@
     }
     .resume-fresh:hover { color: var(--navy); }
 
+    /* ── INLINE EMAIL CAPTURE ── */
+    .inline-email {
+      margin: 20px 0 0; padding: 16px 18px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; text-align: left;
+    }
+    .inline-email label {
+      display: block; font-size: 14px; font-weight: 600;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    .inline-email label span { font-weight: 400; color: var(--muted); }
+    .inline-email-input {
+      width: 100%; padding: 11px 14px; font-family: var(--sans); font-size: 15px;
+      color: var(--navy); background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .inline-email-input:focus { border-color: var(--bronze); }
+    .inline-email-input::placeholder { color: var(--muted); }
+    .inline-email-note {
+      font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-top: 8px;
+    }
+    .inline-email-done {
+      font-size: 13.5px; color: var(--navy); background: var(--bronze-bg);
+      border-color: var(--bronze); padding: 12px 16px;
+    }
+
+    /* ── WHAT'S IN THE REPORT ── */
+    .report-contents {
+      background: var(--white); border-left: 4px solid var(--bronze);
+      border-radius: 0 10px 10px 0; padding: 18px 22px;
+      margin: 0 0 20px; text-align: left;
+    }
+    .report-contents-title {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bronze); margin-bottom: 12px;
+    }
+    .report-contents ul { margin: 0; padding-left: 18px; }
+    .report-contents li {
+      font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 7px;
+    }
+    .report-contents li:last-child { margin-bottom: 0; }
+    .report-contents li strong { color: var(--navy); font-weight: 600; }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -1550,6 +1593,7 @@
       if (el) { el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
     });
 
+    mountInlineEmail();
     if (data.screen === 'screen-email') {
       hideProgress();
       document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
@@ -1567,6 +1611,7 @@
   goTo = function (screenId, progIdx) {
     goToUnsaved(screenId, progIdx);
     storeSave();
+    mountInlineEmail();
   };
 
   // Save on anything that changes an answer, and after any navigation click.
@@ -1605,8 +1650,74 @@
     });
   })();
 
+  /* ══════════════════════════════════════════
+     INLINE EMAIL CAPTURE (optional)
+
+     Sits under Continue from the first section on, so an address can be given
+     at any point rather than only at the end. Entirely optional and never
+     blocking: Continue behaves the same whether it is filled or not, which is
+     why it sits here rather than as a gate between sections — a gate would
+     cost starts, and this cannot.
+
+     Once given it disappears and pre-fills the final screen, so nobody types
+     it twice. The wording promises only what actually happens: the report on
+     completion, and a reminder if they do not finish.
+     ══════════════════════════════════════════ */
+  const INLINE_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+
+  const inlineEmail = document.createElement('div');
+  inlineEmail.className = 'inline-email';
+  inlineEmail.innerHTML =
+    '<label for="inline-email-input">Add your email now <span>(optional)</span></label>' +
+    '<input type="email" id="inline-email-input" class="inline-email-input" placeholder="you@yourdealership.com" autocomplete="email">' +
+    '<p class="inline-email-note">So we can send the report the moment you finish — and remind you if you don\'t.</p>';
+
+  function inlineEmailCapture(value) {
+    answers.emailEarly = value;
+    const final = document.getElementById('final-email');
+    if (final && !final.value) final.value = value;
+    inlineEmail.className = 'inline-email inline-email-done';
+    inlineEmail.textContent = '✓ We\'ll send the report to ' + value + '. You can change it at the end.';
+    track('early_email_captured');
+    storeSave();
+  }
+
+  inlineEmail.addEventListener('change', (e) => {
+    if (!e.target.classList.contains('inline-email-input')) return;
+    const value = e.target.value.trim();
+    if (INLINE_EMAIL_RE.test(value)) inlineEmailCapture(value);
+  });
+
+  function mountInlineEmail() {
+    const active = document.querySelector('.screen.active');
+    const done   = !!answers.emailEarly;
+
+    // Carry a restored address through to the final screen.
+    if (done) {
+      const final = document.getElementById('final-email');
+      if (final && !final.value) final.value = answers.emailEarly;
+    }
+
+    // Not on the intro, the email screen or the confirmation — only the
+    // question sections, which are the ones with a nav row.
+    const nav = active && active.querySelector('.nav-row');
+    if (!active || !nav || active.id === 'screen-email' || active.id === 'screen-confirm') {
+      if (inlineEmail.parentNode) inlineEmail.remove();
+      return;
+    }
+    // Shown until an address is given; the confirmation replaces it in place
+    // and then it stops appearing.
+    if (done && inlineEmail.classList.contains('inline-email-done') && inlineEmail.parentNode) {
+      inlineEmail.remove();
+      return;
+    }
+    if (done) return;
+    nav.parentNode.insertBefore(inlineEmail, nav.nextSibling);
+  }
+
   /* ── INIT ── */
   hideProgress();
+  mountInlineEmail();
 </script>
 </body>
 </html>
