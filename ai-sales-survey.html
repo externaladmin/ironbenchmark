@@ -150,6 +150,26 @@
     .status-offer svg { margin-top: 4px; }
     .status-offer .deadline { color: var(--red); font-weight: 600; }
 
+    /* ── RESUME BAR ── */
+    .resume-bar {
+      max-width: 460px; margin: 0 auto 18px; padding: 14px 18px;
+      background: var(--bronze-bg); border: 1px solid var(--bronze);
+      border-radius: 10px; text-align: left;
+    }
+    .resume-text { font-size: 14px; color: var(--navy); line-height: 1.5; margin-bottom: 10px; }
+    .resume-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .resume-go {
+      font-family: var(--sans); font-size: 14px; font-weight: 600; color: #fff;
+      background: var(--navy); border: none; border-radius: 6px;
+      padding: 9px 16px; cursor: pointer;
+    }
+    .resume-go:hover { background: #264D38; }
+    .resume-fresh {
+      font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 9px 6px;
+    }
+    .resume-fresh:hover { color: var(--navy); }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -981,6 +1001,7 @@
       });
       if (!res.ok) throw new Error('Server error ' + res.status);
       track('survey_submit');
+      storeClear();
       populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
@@ -994,6 +1015,134 @@
       submitErr.classList.add('show');
     }
   }
+
+  /* ══════════════════════════════════════════
+     ANSWER PERSISTENCE
+
+     A refresh, a stray back-button or a phone call mid-survey used to wipe
+     every answer with no way back. Progress is kept in localStorage on the
+     respondent's own device — nothing is sent anywhere — and cleared the
+     moment the survey is submitted. Every access is guarded: with storage
+     blocked or full, the survey behaves exactly as it did before.
+     ══════════════════════════════════════════ */
+  const STORE_KEY = 'ironbenchmark:' + STUDY_ID;
+  const STORE_TTL = 7 * 24 * 60 * 60 * 1000;
+  const INTRO_ID  = 'screen-intro';
+
+  function storeRead() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data || !data.savedAt || Date.now() - data.savedAt > STORE_TTL) {
+        localStorage.removeItem(STORE_KEY);
+        return null;
+      }
+      return data;
+    } catch (e) { return null; }
+  }
+
+  function storeSave() {
+    try {
+      const fields = {};
+      document.querySelectorAll('input[type="text"], input[type="email"], select').forEach((el) => {
+        if (el.id && el.value && !el.closest('.hp-field')) fields[el.id] = el.value;
+      });
+      const checked = [...document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked')]
+        .map((el) => [el.name, el.value]);
+      const segs   = [...document.querySelectorAll('.prog-seg')];
+      const active = document.querySelector('.screen.active');
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        savedAt:   Date.now(),
+        startedAt: typeof startedAt !== 'undefined' ? startedAt : Date.now(),
+        answers:   answers,
+        fields:    fields,
+        checked:   checked,
+        screen:    active ? active.id : null,
+        progIdx:   segs.findIndex((s) => s.classList.contains('active')),
+        orgType:   typeof orgType !== 'undefined' ? orgType : null,
+      }));
+    } catch (e) { /* storage unavailable — the survey still works, just without resume */ }
+  }
+
+  function storeClear() {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  }
+
+  function storeRestore(data) {
+    // Org type first: the marketing study renders its options from it, so the
+    // inputs those answers refer to do not exist until this has run.
+    if (typeof orgType !== 'undefined' && data.orgType) {
+      orgType = data.orgType;
+      if (typeof renderAllDynamic === 'function') renderAllDynamic();
+    }
+    Object.assign(answers, data.answers || {});
+    if (data.startedAt && typeof startedAt !== 'undefined') startedAt = data.startedAt;
+
+    Object.entries(data.fields || {}).forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = value;
+    });
+    (data.checked || []).forEach((pair) => {
+      const el = [...document.querySelectorAll('input[name="' + pair[0] + '"]')]
+        .find((x) => x.value === pair[1]);
+      if (el) { el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
+    });
+
+    if (data.screen === 'screen-email') {
+      hideProgress();
+      document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+      document.getElementById('screen-email').classList.add('active');
+      window.scrollTo({ top: 0 });
+    } else if (data.screen && document.getElementById(data.screen)) {
+      goTo(data.screen, typeof data.progIdx === 'number' ? data.progIdx : 0);
+    }
+    track('survey_resumed', { screen: data.screen });
+  }
+
+  // Save on the screen transition itself, not just the click that caused it —
+  // a programmatic move would otherwise leave the stored screen a step behind.
+  const goToUnsaved = goTo;
+  goTo = function (screenId, progIdx) {
+    goToUnsaved(screenId, progIdx);
+    storeSave();
+  };
+
+  // Save on anything that changes an answer, and after any navigation click.
+  document.addEventListener('change', storeSave);
+  document.addEventListener('input', storeSave);
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('button')) setTimeout(storeSave, 0);
+  });
+
+  // Offer to resume only if they actually got past the intro.
+  (function offerResume() {
+    const saved = storeRead();
+    if (!saved || !saved.screen || saved.screen === INTRO_ID) return;
+
+    const anchor = document.querySelector('#' + INTRO_ID + ' .btn-next');
+    if (!anchor) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'resume-bar';
+    bar.innerHTML =
+      '<div class="resume-text">You have answers saved on this device from an earlier visit.</div>' +
+      '<div class="resume-actions">' +
+        '<button type="button" class="resume-go">Pick up where you left off →</button>' +
+        '<button type="button" class="resume-fresh">Start over</button>' +
+      '</div>';
+    anchor.parentNode.insertBefore(bar, anchor);
+
+    bar.querySelector('.resume-go').addEventListener('click', () => {
+      bar.remove();
+      storeRestore(saved);
+    });
+    bar.querySelector('.resume-fresh').addEventListener('click', () => {
+      storeClear();
+      bar.remove();
+      track('survey_restarted');
+    });
+  })();
 
   /* ── INIT ── */
   hideProgress();
