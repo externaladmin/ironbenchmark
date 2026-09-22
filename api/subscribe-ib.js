@@ -163,6 +163,27 @@ export default async function handler(req, res) {
   }
 
   // ── 3. Confirmation email via Resend — never fatal ────────────────────────
+  //
+  // This study has three audiences (dealer / OEM / agency), so the parts of the
+  // email that address the reader are chosen from org_type. A single generic line
+  // necessarily talks past two thirds of respondents.
+  const ORG = ['dealer', 'oem', 'agency'].includes(r.org_type) ? r.org_type : 'dealer';
+
+  const FORWARD_LINE = {
+    dealer: 'Know another dealer marketing leader who\'d benefit from early access? Forward them the survey — the more practitioners who contribute, the stronger the data for everyone.',
+    oem:    'Know another OEM marketing leader — or a dealer in your network — who\'d benefit from early access? Forward them the survey — the more practitioners who contribute, the stronger the data for everyone.',
+    agency: 'Know another agency lead working equipment accounts, or a dealer or OEM client who\'d benefit? Forward them the survey — the more practitioners who contribute, the stronger the data for everyone.',
+  }[ORG];
+
+  // The Dealer Response study is dealers-only, so it is offered to dealers alone
+  // and the heading counts whatever actually gets listed.
+  const AI_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/ai-sales" style="color:#1A2F3E;">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, and the competitor confidence gap.</li>';
+  const DR_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/dealer-response" style="color:#1A2F3E;">The Dealer Response Report 2026</a> — how dealers manage customer communications across every channel, and the downstream impact on deals and reputation.</li>';
+  const OTHER_STUDIES = ORG === 'dealer' ? [DR_STUDY, AI_STUDY] : [AI_STUDY];
+  const STUDIES_HEADING = OTHER_STUDIES.length > 1
+    ? 'IronBenchmark has two other open studies — both free for respondents:'
+    : 'IronBenchmark has one other open study — free for respondents:';
+
   let confirmationSent = false;
   try {
     const resendRes = await fetch('https://api.resend.com/emails', {
@@ -174,7 +195,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from:    'IronBenchmark <info@ironbenchmark.com>',
         to:      [email],
-        subject: "You're in — 2026 IronBenchmark Report",
+        subject: "You're in — Heavy Equipment State of Marketing 2026",
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1A2F3E; background: #F5F3EF;">
 
@@ -185,7 +206,7 @@ export default async function handler(req, res) {
             <h1 style="font-size: 22px; font-weight: 700; margin: 0 0 14px; line-height: 1.3;">You're in. The report is coming your way.</h1>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 20px; font-size: 15px;">
-              As a contributor to the 2026 IronBenchmark Report, you'll receive the full findings before public release — delivered to your inbox within 60 days of survey close.
+              As a contributor to <strong>Heavy Equipment State of Marketing 2026</strong>, you'll receive the full findings before public release — delivered to your inbox when it publishes.
             </p>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 24px; font-size: 15px;">
@@ -210,14 +231,21 @@ export default async function handler(req, res) {
             </div>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 24px; font-size: 14px;">
-              Know another dealer or OEM marketing leader who'd benefit from early access? Forward them the survey — the more practitioners who contribute, the stronger the data for everyone.
+              ${FORWARD_LINE}
             </p>
+
+            <p style="color: #444; line-height: 1.7; margin: 0 0 12px; font-size: 14px;">
+              ${STUDIES_HEADING}
+            </p>
+            <ul style="font-size: 14px; color: #444; line-height: 1.7; padding-left: 20px; margin: 0 0 24px;">
+              ${OTHER_STUDIES.join('')}
+            </ul>
 
             <hr style="border: none; border-top: 1px solid #DDD9D2; margin: 24px 0;" />
             <p style="font-size: 12px; color: #999; margin: 0; line-height: 1.6;">
-              IronBenchmark · Independent research for heavy equipment marketing leaders<br>
+              IronBenchmark · Independent research for the equipment industry — no sponsors<br>
               <a href="https://ironbenchmark.com" style="color: #1A2F3E;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1A2F3E;">info@ironbenchmark.com</a><br>
-              You're receiving this because you completed the 2026 IronBenchmark survey.
+              You're receiving this because you completed the Heavy Equipment State of Marketing 2026 survey.
             </p>
           </div>
         `,

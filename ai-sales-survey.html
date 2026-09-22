@@ -546,17 +546,9 @@
     <div class="confirm-title">You're in. Thank you.</div>
     <div class="confirm-body">Your responses have been recorded. You'll receive the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong> report by email when it publishes — free, before public release.</div>
 
-    <div class="confirm-studies">
-      <p><strong>IronBenchmark has two other open studies — both free for respondents:</strong></p>
-      <p style="margin-top:10px;">
-        <a href="/survey">Heavy Equipment State of Marketing 2026</a> — budget allocation, cost-per-lead benchmarks, digital adoption, and what channels are actually delivering ROI across the industry.
-      </p>
-      <p style="margin-top:8px;">
-        <a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage multi-channel customer communications and what it's costing them in deals and reputation. Dealer-focused.
-      </p>
-    </div>
+    <div class="confirm-studies" id="confirm-studies-block"></div>
 
-    <div class="confirm-forward">Know someone in equipment sales who'd want to see this data? Forward them the link: <strong>ironbenchmark.com/ai-sales</strong></div>
+    <div class="confirm-forward" id="confirm-fwd-line"></div>
 
     <a href="/" class="confirm-home">← Back to IronBenchmark.com</a>
   </div>
@@ -706,6 +698,33 @@
   }
 
   /* ══════════════════════════════════════════
+     CONFIRMATION CROSS-PROMO (audience-qualified)
+
+     This study takes dealers, OEMs, rental, auction and marketplace respondents.
+     The Dealer Response Report is dealers-only, so pointing a rental or auction
+     respondent at it sends them to a survey that screens them out. Offer it to
+     dealers alone, and derive the heading from what actually gets listed.
+     ══════════════════════════════════════════ */
+  function populateConfirmStudies() {
+    const isDealer = /^Equipment dealer/.test(answers.a1 || '');
+
+    const SOM = `<a href="/survey">Heavy Equipment State of Marketing 2026</a> — budget allocation, cost-per-lead benchmarks, digital adoption, and what channels are actually delivering ROI across the industry.`;
+    const DR  = `<a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage multi-channel customer communications and what it's costing them in deals and reputation.`;
+
+    const studies = isDealer ? [SOM, DR] : [SOM];
+    const heading = studies.length > 1
+      ? 'IronBenchmark has two other open studies — both free for respondents:'
+      : 'IronBenchmark has one other open study — free for respondents:';
+
+    document.getElementById('confirm-studies-block').innerHTML =
+      `<p><strong>${heading}</strong></p>` +
+      studies.map((x, i) => `<p style="margin-top:${i === 0 ? 10 : 8}px;">${x}</p>`).join('');
+
+    document.getElementById('confirm-fwd-line').innerHTML =
+      `Know someone in equipment sales who'd want to see this data? Forward them the link: <strong>ironbenchmark.com/ai-sales</strong>`;
+  }
+
+  /* ══════════════════════════════════════════
      SUBMIT
      ══════════════════════════════════════════ */
   async function submitSurvey() {
@@ -718,6 +737,7 @@
 
     if (honeypot) {
       hideProgress();
+      populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -765,6 +785,7 @@
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Server error ' + res.status);
+      populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
       hideProgress();

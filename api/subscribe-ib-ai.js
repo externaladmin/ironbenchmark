@@ -154,6 +154,20 @@ export default async function handler(req, res) {
   }
 
   // ── 3. Confirmation email via Resend — never fatal ────────────────────────
+  //
+  // This study accepts dealers, OEMs, rental, auction and marketplace respondents,
+  // but The Dealer Response Report is dealers-only — offering it to a rental or
+  // auction respondent sends them to a survey that screens them out. Gate on the
+  // org type they gave in A1 and let the heading count what is actually listed.
+  const IS_DEALER = /^Equipment dealer/.test(r.a1_org_type || '');
+
+  const SOM_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/survey" style="color:#1A2F3E;">Heavy Equipment State of Marketing 2026</a> — budget allocation, channel ROI, and digital maturity across dealers, OEMs and agencies.</li>';
+  const DR_STUDY  = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/dealer-response" style="color:#1A2F3E;">The Dealer Response Report 2026</a> — how dealers manage customer communications across every channel and the downstream impact on deals.</li>';
+  const OTHER_STUDIES = IS_DEALER ? [SOM_STUDY, DR_STUDY] : [SOM_STUDY];
+  const STUDIES_HEADING = OTHER_STUDIES.length > 1
+    ? 'IronBenchmark has two other open studies — both free for respondents:'
+    : 'IronBenchmark has one other open study — free for respondents:';
+
   let confirmationSent = false;
   try {
     const resendRes = await fetch('https://api.resend.com/emails', {
@@ -201,11 +215,10 @@ export default async function handler(req, res) {
             </div>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 16px; font-size: 14px;">
-              IronBenchmark has two other open studies — both free for respondents:
+              ${STUDIES_HEADING}
             </p>
             <ul style="font-size: 14px; color: #444; line-height: 1.9; padding-left: 20px; margin: 0 0 24px;">
-              <li><a href="https://ironbenchmark.com/survey" style="color: #1A2F3E;">Heavy Equipment State of Marketing 2026</a> — budget allocation, channel ROI, and digital maturity for dealer and OEM marketing leaders.</li>
-              <li><a href="https://ironbenchmark.com/dealer-response" style="color: #1A2F3E;">The Dealer Response Report 2026</a> — how dealers manage customer communications across every channel and the downstream impact on deals. (Dealers only.)</li>
+              ${OTHER_STUDIES.join('')}
             </ul>
 
             <hr style="border: none; border-top: 1px solid #DDD9D2; margin: 24px 0;" />
