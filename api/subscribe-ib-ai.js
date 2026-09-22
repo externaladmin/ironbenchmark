@@ -159,6 +159,9 @@ export default async function handler(req, res) {
       ...(r.c3_confidence_driver  ? [{ name: 'ibai_confidence_driver',  value: r.c3_confidence_driver }]  : []),
       ...(r.d1_biggest_impact     ? [{ name: 'ibai_biggest_impact',     value: r.d1_biggest_impact }]     : []),
       ...(r.d2_future_outlook     ? [{ name: 'ibai_future_outlook',     value: r.d2_future_outlook }]     : []),
+      // Flips the flag /api/partial sets, so the abandonment segment in Beehiiv
+      // drops anyone who came back and finished.
+      { name: 'ib_completed', value: 'yes' },
     ];
 
     const beehiivRes = await fetch(

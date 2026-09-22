@@ -1635,6 +1635,7 @@
     goToUnsaved(screenId, progIdx);
     storeSave();
     mountInlineEmail();
+    sendPartial();
   };
 
   // Save on anything that changes an answer, and after any navigation click.
@@ -1703,6 +1704,7 @@
     inlineEmail.textContent = '✓ We\'ll send the report to ' + value + '. You can change it at the end.';
     track('early_email_captured');
     storeSave();
+    sendPartial();
   }
 
   inlineEmail.addEventListener('change', (e) => {
@@ -1769,6 +1771,34 @@
     stars.addEventListener('mouseleave', () => {
       [...stars.children].forEach((s) => s.classList.remove('lit'));
     });
+  }
+
+
+  /* ══════════════════════════════════════════
+     PARTIAL PROGRESS
+
+     Only ever runs once an address has actually been given. Fire-and-forget:
+     a failure here must never affect the survey, so nothing is awaited and
+     nothing is surfaced.
+     ══════════════════════════════════════════ */
+  function sendPartial() {
+    if (!answers.emailEarly) return;
+    const segs    = [...document.querySelectorAll('.prog-seg')];
+    const section = segs.findIndex((x) => x.classList.contains('active')) + 1;
+    try {
+      fetch('/api/partial', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          email:     answers.emailEarly,
+          study:     STUDY_ID,
+          section:   section,
+          hp:        document.getElementById('hp-website') ? document.getElementById('hp-website').value : '',
+          elapsedMs: Date.now() - startedAt,
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (e) { /* never let this affect the survey */ }
   }
 
   /* ── INIT ── */

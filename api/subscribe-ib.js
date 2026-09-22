@@ -168,6 +168,9 @@ export default async function handler(req, res) {
       ...(r.q15_crm_usage           ? [{ name: 'ib_crm_usage',           value: r.q15_crm_usage }]             : []),
       ...(r.q16_lead_response       ? [{ name: 'ib_lead_response',       value: r.q16_lead_response }]         : []),
       ...(r.q17_buyer_visibility    ? [{ name: 'ib_buyer_visibility',    value: r.q17_buyer_visibility }]      : []),
+      // Flips the flag /api/partial sets, so the abandonment segment in Beehiiv
+      // drops anyone who came back and finished.
+      { name: 'ib_completed', value: 'yes' },
     ];
 
     const beehiivRes = await fetch(

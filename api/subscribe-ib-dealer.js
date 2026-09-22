@@ -163,6 +163,9 @@ export default async function handler(req, res) {
       ...(r.q14_google_rating    ? [{ name: 'ibdr_google_rating',     value: r.q14_google_rating }]    : []),
       ...(r.q15_review_monitoring? [{ name: 'ibdr_review_monitoring', value: r.q15_review_monitoring }]: []),
       ...(r.q16_review_asking    ? [{ name: 'ibdr_review_asking',     value: r.q16_review_asking }]    : []),
+      // Flips the flag /api/partial sets, so the abandonment segment in Beehiiv
+      // drops anyone who came back and finished.
+      { name: 'ib_completed', value: 'yes' },
     ];
 
     const beehiivRes = await fetch(
