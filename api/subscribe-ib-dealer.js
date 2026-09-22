@@ -163,8 +163,9 @@ export default async function handler(req, res) {
       ...(r.q12_hardest_challenge? [{ name: 'ibdr_hardest_challenge', value: r.q12_hardest_challenge }]: []),
       ...(r.q13_lost_deal        ? [{ name: 'ibdr_lost_deal',         value: r.q13_lost_deal }]        : []),
       ...(r.q14_google_rating    ? [{ name: 'ibdr_google_rating',     value: r.q14_google_rating }]    : []),
-      ...(r.q15_review_monitoring? [{ name: 'ibdr_review_monitoring', value: r.q15_review_monitoring }]: []),
-      ...(r.q16_review_asking    ? [{ name: 'ibdr_review_asking',     value: r.q16_review_asking }]    : []),
+      ...(r.q15_rating_value     ? [{ name: 'ibdr_rating_value',      value: r.q15_rating_value }]     : []),
+      ...(r.q16_review_monitoring? [{ name: 'ibdr_review_monitoring', value: r.q16_review_monitoring }]: []),
+      ...(r.q17_review_asking    ? [{ name: 'ibdr_review_asking',     value: r.q17_review_asking }]    : []),
       // Flips the flag /api/partial sets, so the abandonment segment in Beehiiv
       // drops anyone who came back and finished.
       { name: 'ib_completed', value: 'yes' },
