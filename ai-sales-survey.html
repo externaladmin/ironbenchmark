@@ -88,6 +88,40 @@
       border-radius: 20px; padding: 5px 14px;
     }
 
+    /* ── LIVE STUDY STATUS ── */
+    .intro-status {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; margin: 0 0 30px;
+    }
+    .status-row {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13px; color: var(--muted); line-height: 1.5;
+    }
+    .status-row strong { color: var(--navy); font-weight: 600; }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+      background: var(--bronze);
+      animation: statuspulse 2s ease-in-out infinite;
+    }
+    @keyframes statuspulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.45; transform: scale(0.82); }
+    }
+    .status-row svg {
+      width: 13px; height: 13px; flex-shrink: 0;
+      stroke: var(--bronze); fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .status-row.closing svg    { stroke: var(--red); }
+    .status-row.closing strong { color: var(--red); }
+
+    .intro-offer {
+      font-size: 14px; color: var(--navy); line-height: 1.6;
+      max-width: 460px; margin: 0 auto 18px;
+    }
+    .intro-offer strong { font-weight: 600; }
+    .intro-offer .deadline { color: var(--red); font-weight: 600; }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -248,6 +282,21 @@
       <span class="intro-badge">No vendor angle</span>
       <span class="intro-badge">Free report for respondents</span>
     </div>
+    <!-- Live study status. Both rows stay hidden until the constants at the top
+         of the script below are set to real values, so nothing unverified ships. -->
+    <div class="intro-status" id="intro-status" style="display:none;">
+      <div class="status-row" id="status-count" style="display:none;">
+        <span class="status-dot"></span>
+        <span><strong id="status-count-n">0</strong><span id="status-count-label"></span></span>
+      </div>
+      <div class="status-row" id="status-deadline" style="display:none;">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span id="status-deadline-text"></span>
+      </div>
+    </div>
+
+    <p class="intro-offer" id="intro-offer" style="display:none;"></p>
+
     <button class="btn-next" onclick="startSurvey()" style="width:100%;padding:15px;font-size:16px;">Start the survey →</button>
     <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only &nbsp;·&nbsp; Anonymous and aggregated &nbsp;·&nbsp; Independent research — no sponsors</p>
   </div>
@@ -560,13 +609,78 @@
   /* ══════════════════════════════════════════
      STATE
      ══════════════════════════════════════════ */
-  // Price of the report for non-contributors. Single source of truth — change it
-  // only here; it renders into the intro paragraph.
+  /* ══════════════════════════════════════════
+     LIVE STUDY STATUS  ← set these two values
+
+     Both rows stay hidden until these hold real values, so the page never
+     shows a respondent a number that isn't true.
+
+       RESPONDENTS  — actual completed responses. Count them from the Beehiiv
+                      tag "ironbenchmark-ai-2026-respondent" and
+                      update this weekly. 0 hides the row.
+       FIELD_CLOSES — the real date fielding ends, as 'YYYY-MM-DD'. An empty
+                      string hides the row, and so does a date already past.
+     ══════════════════════════════════════════ */
+  const RESPONDENTS  = 0;
+  const FIELD_CLOSES = '2026-10-16';
+
+  // Price of the report for non-contributors. Single source of truth — it renders
+  // into the intro paragraph and the line above the CTA, so change it only here.
   const REPORT_PRICE = '$180';
 
-  (function renderPrice() {
-    const el = document.getElementById('price-inline');
-    if (el) el.textContent = REPORT_PRICE;
+  (function renderStudyStatus() {
+    let shown = false;
+
+    if (RESPONDENTS > 0) {
+      document.getElementById('status-count-n').textContent = RESPONDENTS;
+      document.getElementById('status-count-label').textContent = RESPONDENTS === 1
+        ? ' industry professional has contributed so far'
+        : ' industry professionals have contributed so far';
+      document.getElementById('status-count').style.display = '';
+      shown = true;
+    }
+
+    if (FIELD_CLOSES) {
+      // Calendar-day difference, not elapsed time — otherwise the closing day
+      // itself reads as "tomorrow" and every count sits one day high.
+      const close = new Date(FIELD_CLOSES + 'T00:00:00');
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const days  = Math.round((close - today) / 86400000);
+      if (!isNaN(days) && days >= 0) {
+        const row = document.getElementById('status-deadline');
+        // Pure urgency here; the offer line above the CTA carries the date and terms,
+        // so repeating the full date in both would just read as padding.
+        document.getElementById('status-deadline-text').innerHTML =
+          days === 0 ? '<strong>Closes today</strong>'
+          : days === 1 ? '<strong>Closes tomorrow</strong>'
+          : '<strong>' + days + ' days left</strong> to contribute';
+        if (days <= 7) row.classList.add('closing');
+        row.style.display = '';
+        shown = true;
+      }
+    }
+
+    // Offer line above the CTA — deadline and price from the constants above, so
+    // the two levers stay joined and the price lives in exactly one place.
+    const priceEl = document.getElementById('price-inline');
+    if (priceEl) priceEl.textContent = REPORT_PRICE;
+
+    const offer = document.getElementById('intro-offer');
+    if (offer) {
+      if (FIELD_CLOSES) {
+        const close = new Date(FIELD_CLOSES + 'T23:59:59');
+        const open  = close - new Date() >= 0;
+        const pretty = close.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+        offer.innerHTML = open
+          ? '5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
+          : 'Responses for this study have closed. The report is available to non-contributors for ' + REPORT_PRICE + '.';
+      } else {
+        offer.innerHTML = '5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
+      }
+      offer.style.display = '';
+    }
+
+    if (shown) document.getElementById('intro-status').style.display = '';
   })();
 
   const answers = {};
