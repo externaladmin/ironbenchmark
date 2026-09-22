@@ -191,13 +191,13 @@ export default async function handler(req, res) {
             <h1 style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 400; color: #1C3A2A; margin: 0 0 14px; line-height: 1.25;">You're on the list.</h1>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 20px; font-size: 15px;">
-              We'll email you each IronBenchmark 2026 report the day it publishes — no newsletter, no vendor pitch, just the data.
+              We'll tell you the moment each IronBenchmark 2026 report publishes, and share other industry insights along the way. No vendor pitch — just the data.
             </p>
 
             <div style="background: #fff; border-left: 4px solid #C9A84C; padding: 16px 20px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
-              <p style="margin: 0 0 8px; font-size: 14px; color: #C9A84C; font-weight: 600;">Want the reports earlier?</p>
+              <p style="margin: 0 0 8px; font-size: 14px; color: #C9A84C; font-weight: 600;">Want a report free?</p>
               <p style="margin: 0; font-size: 13px; color: #444; line-height: 1.7;">
-                Respondents receive each report before public release. All three studies are open now:
+                Contributors receive their report free and ahead of release — everyone else buys a copy on publication. All three studies are open now:
               </p>
               <ul style="margin: 8px 0 0; padding-left: 20px; font-size: 13px; color: #444; line-height: 1.9;">
                 <li><a href="https://ironbenchmark.com/survey" style="color: #1C3A2A;">Heavy Equipment State of Marketing 2026</a></li>
