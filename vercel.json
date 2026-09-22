@@ -1,24 +1,15 @@
 {
-  "routes": [
+  "rewrites": [
+    { "source": "/survey", "destination": "/ironbenchmark_survey.html" },
+    { "source": "/ai-sales", "destination": "/ai-sales-survey.html" },
+    { "source": "/dealer-response", "destination": "/dealer-response-survey.html" }
+  ],
+  "headers": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/survey",
-      "dest": "/ironbenchmark_survey.html"
-    },
-    {
-      "src": "/ai-sales",
-      "dest": "/ai-sales-survey.html"
-    },
-    {
-      "src": "/dealer-response",
-      "dest": "/dealer-response-survey.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)\\.(png|svg|ico|jpg|webp)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
     }
   ]
 }
