@@ -122,6 +122,7 @@ export default async function handler(req, res) {
   let beehiivOk     = false;
   let beehiivStatus = 'not attempted';
   let tagsOk        = false;
+  let fieldWarnings = null;
 
   // ── 1. Add to Beehiiv ──────────────────────────────────────────────────────
   try {
@@ -156,10 +157,16 @@ export default async function handler(req, res) {
       let created = null;
       try { created = await beehiivRes.json(); } catch (e) { /* empty body */ }
 
-      const warnings = created?.data?.warnings || created?.warnings;
-      if (warnings && warnings.length) {
+      const warnings = created?.data?.warnings || created?.warnings || [];
+      if (warnings.length) {
         console.warn('Beehiiv warnings:', submissionId, JSON.stringify(warnings));
       }
+      // Returned as well as logged: a discarded custom field is otherwise
+      // indistinguishable from a stored one, which hid 51 missing fields.
+      fieldWarnings = warnings
+        .map((w) => (typeof w === 'string' ? w : w.message || JSON.stringify(w)))
+        .join(' | ')
+        .slice(0, 400);
 
       const existingTags = (created?.data?.tags || [])
         .map((t) => (typeof t === 'string' ? t : t?.name))
@@ -277,5 +284,6 @@ export default async function handler(req, res) {
   return res.status(200).json({
     success: true, submissionId, confirmationSent,
     beehiivOk, tagsOk, archiveOk, archiveStatus, confirmStatus,
+    fieldWarnings: fieldWarnings || null,
   });
 }
