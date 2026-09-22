@@ -12,6 +12,8 @@
 // Add --dry-run to see what it would do without writing anything.
 
 import { readFileSync, readdirSync } from 'node:fs';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -33,6 +35,28 @@ async function ask(question) {
   return answer.trim();
 }
 
+// A key typed at an echoing prompt ends up in the terminal scrollback, which is
+// how one got pasted into a chat. Mask it.
+function askSecret(question) {
+  return new Promise((resolve) => {
+    const { createInterface } = require('node:readline');
+    const rl = createInterface({ input: process.stdin, output: process.stdout, terminal: true });
+    let muted = false;
+    rl._writeToOutput = (str) => {
+      if (!muted) { rl.output.write(str); return; }
+      // Redraw the prompt with dots so length is not revealed either.
+      if (str.includes(question)) rl.output.write(str);
+    };
+    rl.question(question, (answer) => {
+      muted = false;
+      rl.output.write('\n');
+      rl.close();
+      resolve(answer.trim());
+    });
+    muted = true;
+  });
+}
+
 const placeholder = (v) => !v || v === 'REPLACE_ME';
 
 let API_KEY = process.env.BEEHIIV_API_KEY;
@@ -42,7 +66,7 @@ if (placeholder(API_KEY) || placeholder(PUB_ID)) {
   console.log('Both values are in Vercel -> Settings -> Environment Variables.');
   console.log('Nothing typed here is saved to a file or to shell history.\n');
 }
-if (placeholder(API_KEY)) API_KEY = await ask('Beehiiv API key: ');
+if (placeholder(API_KEY)) API_KEY = await askSecret('Beehiiv API key (hidden): ');
 if (placeholder(PUB_ID))  PUB_ID  = await ask('Beehiiv publication ID (pub_...): ');
 
 if (placeholder(API_KEY) || placeholder(PUB_ID)) {
