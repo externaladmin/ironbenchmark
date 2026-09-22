@@ -64,12 +64,22 @@
       letter-spacing: -0.3px;
     }
     .topbar-wordmark span { color: var(--bronze); }
-    .topbar-tag {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+    .topbar-cta {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      /* navy on bronze, not white on bronze — white gives roughly 1.9:1 here */
+      color: var(--navy);
+      background: var(--bronze);
+      padding: 9px 20px;
+      border-radius: 3px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .topbar-cta:hover {
+      background: var(--bronze-lt);
+      transform: translateY(-1px);
     }
 
     /* ── HERO ── */
@@ -537,7 +547,7 @@
     }
     @media (max-width: 620px) {
       .topbar { padding: 14px 20px; }
-      .topbar-tag { display: none; }
+      .topbar-cta { font-size: 12px; padding: 8px 14px; }
       .hero { padding: 52px 24px 40px; }
       .studies-section { padding: 52px 24px 64px; }
       .why-section { padding: 52px 24px; }
@@ -556,7 +566,7 @@
   <!-- TOPBAR -->
   <header class="topbar">
     <div class="topbar-wordmark">Iron<span>Benchmark</span></div>
-    <div class="topbar-tag">Three Studies &middot; 2026</div>
+    <a href="#subscribe" class="topbar-cta">Subscribe</a>
   </header>
 
   <!-- HERO -->
@@ -582,7 +592,7 @@
   </div>
 
   <!-- THREE STUDIES -->
-  <section class="studies-section">
+  <section class="studies-section" id="studies">
     <div class="section-label">Open Now</div>
     <h2>Three blind spots. Three studies.</h2>
     <p class="section-intro">Each study is original, independent, and free for respondents. Pick the one that fits your role — or take all three.</p>
@@ -716,7 +726,7 @@
   </section>
 
   <!-- EARLY ACCESS EMAIL -->
-  <section class="access-section">
+  <section class="access-section" id="subscribe">
     <div class="access-inner">
       <div class="section-label" style="text-align:center;">Not taking a survey?</div>
       <h2>Be first to know when each report publishes.</h2>
@@ -741,7 +751,7 @@
         ✓ You're on the list. We'll email you when each report is ready.
       </div>
       <div class="email-error" id="emailError" role="alert"></div>
-      <p class="email-note">No spam. Unsubscribe anytime. Your email is only used to deliver the reports.</p>
+      <p class="email-note">No spam. Unsubscribe anytime. Your email is only used to let you know when research publishes.</p>
     </div>
   </section>
 
