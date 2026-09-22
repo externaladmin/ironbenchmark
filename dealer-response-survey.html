@@ -1283,9 +1283,9 @@
   const inlineEmail = document.createElement('div');
   inlineEmail.className = 'inline-email';
   inlineEmail.innerHTML =
-    '<label for="inline-email-input">Add your email now <span>(optional)</span></label>' +
+    '<label for="inline-email-input">Add your email to get the report when it publishes <span>(optional)</span></label>' +
     '<input type="email" id="inline-email-input" class="inline-email-input" placeholder="you@yourdealership.com" autocomplete="email">' +
-    '<p class="inline-email-note">So we can send you the report when it publishes — and remind you if you don\'t finish.</p>';
+    '<p class="inline-email-note">We\'ll also remind you if you don\'t finish.</p>';
 
   function inlineEmailCapture(value) {
     answers.emailEarly = value;
