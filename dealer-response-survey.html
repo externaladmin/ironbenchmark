@@ -265,6 +265,13 @@
 
     /* ── RESPONSIVE ── */
     .intro-case { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); }
+    /* The repeat CTA is deliberately lighter — two identical full-weight buttons
+       one scroll apart read as a duplication bug rather than a second chance. */
+    .btn-ghost {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid var(--border-dk);
+    }
+    .btn-ghost:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
     .intro-hook { font-size: 16px; }
 
     @media (max-width: 540px) {
@@ -309,7 +316,7 @@
   <div class="intro-screen">
     <div class="intro-eyebrow">IronBenchmark · Independent Research · <span style="white-space:nowrap">Dealer-Focused</span></div>
     <h1 class="intro-title">The Dealer Response Report 2026</h1>
-    <p class="intro-desc intro-hook">Your dealership has a number for almost everything — absorption rate, parts margin, labor utilization. Everything except what happens when a customer tries to reach you.</p>
+    <p class="intro-desc intro-hook">Your dealership has a number for almost everything — absorption rate, parts margin, labor utilization. What happens when a customer tries to reach you probably isn't one of them.</p>
     <!-- Live study status. Both rows stay hidden until the constants at the top
          of the script below are set to real values, so nothing unverified ships. -->
     <div class="intro-status" id="intro-status" style="display:none;">
@@ -335,12 +342,13 @@
     </div>
 
     <div class="intro-case">
-      <p class="intro-desc">And the front door has moved. Phone calls and walk-ins are now only part of it — web forms, Facebook Messenger, text, WhatsApp, listing platforms.</p>
-      <p class="intro-desc">A missed inquiry here isn't a lost order. It's a lost machine, and every parts and service dollar that machine would have earned for the rest of its life.</p>
+      <p class="intro-desc">How you respond matters more than it used to. Customers can find information anywhere now — increasingly by asking AI — so your response is one of the few things still in your control.</p>
+      <p class="intro-desc">Phone calls and walk-ins are only part of the picture. Customers reach you through web forms, Facebook Messenger, text and listing platforms.</p>
+      <p class="intro-desc">A missed inquiry isn't a lost order. It's a lost machine, and every parts and service dollar that machine would have earned for the rest of its life.</p>
       <p class="intro-desc">Nobody has published what good looks like, so there's nothing to measure yourself against. This study builds that benchmark — the first one. 16 questions. About 5 minutes.</p>
       <p class="intro-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
 
-      <button class="btn-next" onclick="startSurvey()" style="width:100%;padding:15px;font-size:16px;margin-top:8px;">Start the survey →</button>
+      <button class="btn-next btn-ghost" onclick="startSurvey()" style="width:100%;padding:14px;font-size:15px;margin-top:8px;">Start the survey →</button>
     </div>
 
     <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">Equipment dealers only &nbsp;·&nbsp; Anonymous and aggregated &nbsp;·&nbsp; Independent research — no sponsors</p>
