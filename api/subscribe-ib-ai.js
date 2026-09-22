@@ -42,6 +42,11 @@ export default async function handler(req, res) {
   // — the answers would otherwise survive only as a log line. This archive is sent
   // regardless of whether Beehiiv accepted the subscriber, and the handler reports
   // failure to the client only when BOTH have failed.
+  // HTTP status of each Resend call, surfaced in the response so a delivery
+  // failure can be diagnosed without digging through runtime logs.
+  let archiveStatus = null;
+  let confirmStatus = null;
+
   async function archiveSubmission(beehiivStatus) {
     const record = {
       submissionId,
@@ -78,6 +83,7 @@ export default async function handler(req, res) {
       }),
     });
 
+    archiveStatus = archiveRes.status;
     if (!archiveRes.ok) {
       console.error('Archive error:', submissionId, archiveRes.status, await archiveRes.text());
       return false;
@@ -233,6 +239,7 @@ export default async function handler(req, res) {
     });
 
     confirmationSent = resendRes.ok;
+    confirmStatus = resendRes.status;
     if (!resendRes.ok) {
       const errBody = await resendRes.text();
       console.error('Resend error:', submissionId, resendRes.status, errBody);
@@ -244,5 +251,8 @@ export default async function handler(req, res) {
     console.error('Resend exception:', submissionId, err);
   }
 
-  return res.status(200).json({ success: true, submissionId, confirmationSent });
+  return res.status(200).json({
+    success: true, submissionId, confirmationSent,
+    beehiivOk, archiveOk, archiveStatus, confirmStatus,
+  });
 }

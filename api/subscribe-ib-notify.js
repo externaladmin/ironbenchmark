@@ -36,6 +36,11 @@ export default async function handler(req, res) {
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
 
+  // HTTP status of each Resend call, surfaced in the response so a delivery
+  // failure can be diagnosed without digging through runtime logs.
+  let archiveStatus = null;
+  let confirmStatus = null;
+
   // Same rule as the survey handlers: Beehiiv is a mailing list, not a datastore,
   // so keep an independent copy of every signup.
   async function archiveSignup(beehiivStatus) {
@@ -62,6 +67,7 @@ export default async function handler(req, res) {
       }),
     });
 
+    archiveStatus = archiveRes.status;
     if (!archiveRes.ok) {
       console.error('Archive error:', submissionId, archiveRes.status, await archiveRes.text());
       return false;
@@ -169,6 +175,7 @@ export default async function handler(req, res) {
     });
 
     confirmationSent = resendRes.ok;
+    confirmStatus = resendRes.status;
     if (!resendRes.ok) {
       const errBody = await resendRes.text();
       console.error('Resend error:', submissionId, resendRes.status, errBody);
@@ -177,5 +184,8 @@ export default async function handler(req, res) {
     console.error('Resend exception:', submissionId, err);
   }
 
-  return res.status(200).json({ success: true, submissionId, confirmationSent });
+  return res.status(200).json({
+    success: true, submissionId, confirmationSent,
+    beehiivOk, archiveOk, archiveStatus, confirmStatus,
+  });
 }
