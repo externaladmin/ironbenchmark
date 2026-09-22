@@ -241,7 +241,7 @@ export default async function handler(req, res) {
             <h1 style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 400; color: #1C3A2A; margin: 0 0 14px; line-height: 1.25;">Thank you — the report is coming your way.</h1>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 20px; font-size: 15px;">
-              As a contributor to the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong>, you'll receive the full findings before public release — delivered to your inbox when it publishes.
+              As a contributor to the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong>, you'll receive the full findings ahead of release — delivered to your inbox when it publishes.
             </p>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 24px; font-size: 15px;">

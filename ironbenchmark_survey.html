@@ -243,6 +243,7 @@
     <div class="org-eyebrow">Heavy Equipment State of Marketing 2026</div>
     <h1 class="org-title">Who are you in the industry?</h1>
     <p class="org-desc">We'll tailor a handful of questions to your role so the data is as accurate and useful as possible. Takes about 5 minutes.</p>
+    <p class="org-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
 
     <div class="org-cards" id="org-opts">
       <label class="org-card">
@@ -599,7 +600,7 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-title">Last step — get the report.</div>
-      <div class="section-desc">As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report free — delivered to your inbox before public release.</div>
+      <div class="section-desc">As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report free, delivered ahead of release.</div>
     </div>
 
     <!-- Work email -->
@@ -667,7 +668,7 @@
     </div>
     <div class="confirm-title">Thank you.</div>
     <div class="confirm-body">
-      Your responses have been recorded. You'll receive the full <strong>Heavy Equipment State of Marketing 2026</strong> report free when it publishes — before public release.
+      Your responses have been recorded. You'll receive the full <strong>Heavy Equipment State of Marketing 2026</strong> report free, ahead of release.
     </div>
     <div class="confirm-studies" id="confirm-studies-block">
       <!-- populated by populateConfirmStudies() based on org type -->
@@ -679,6 +680,15 @@
 
 
 <script>
+  // Price of the report for non-contributors. Single source of truth — change it
+  // only here; it renders into the intro paragraph.
+  const REPORT_PRICE = '$180';
+
+  (function renderPrice() {
+    const el = document.getElementById('price-inline');
+    if (el) el.textContent = REPORT_PRICE;
+  })();
+
   const answers = {};
 
   // Stamped when the survey actually begins, sent with the submission so the
