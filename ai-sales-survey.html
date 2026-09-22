@@ -649,6 +649,12 @@
                       string hides the row, and so does a date already past.
      ══════════════════════════════════════════ */
   const RESPONDENTS  = 0;
+
+  // The date that count started from, as 'YYYY-MM-DD'. The wording beside the
+  // number is derived from it, so the label can never claim a shorter window
+  // than the figure actually covers — set both together or neither.
+  const RESPONDENTS_SINCE = '';
+
   const FIELD_CLOSES = '2026-10-16';
 
   // Price of the report for non-contributors. Single source of truth — it renders
@@ -658,13 +664,24 @@
   (function renderStudyStatus() {
     let shown = false;
 
-    if (RESPONDENTS > 0) {
-      document.getElementById('status-count-n').textContent = RESPONDENTS;
-      document.getElementById('status-count-label').textContent = RESPONDENTS === 1
-        ? ' industry professional has contributed so far'
-        : ' industry professionals have contributed so far';
-      document.getElementById('status-count').style.display = '';
-      shown = true;
+    if (RESPONDENTS > 0 && RESPONDENTS_SINCE) {
+      const since = new Date(RESPONDENTS_SINCE + 'T00:00:00');
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const days  = Math.max(0, Math.round((today - since) / 86400000));
+
+      // Past a month it is no longer momentum, it is a total — and a figure that
+      // old is probably stale, so say nothing rather than something misleading.
+      if (!isNaN(days) && days <= 31) {
+        const window = days <= 1 ? 'in the last 24 hours'
+                     : days <= 7 ? 'in the past week'
+                     : 'in the past ' + days + ' days';
+        document.getElementById('status-count-n').textContent = RESPONDENTS;
+        document.getElementById('status-count-label').textContent = RESPONDENTS === 1
+          ? ' industry professional contributed ' + window
+          : ' industry professionals contributed ' + window;
+        document.getElementById('status-count').style.display = '';
+        shown = true;
+      }
     }
 
     if (FIELD_CLOSES) {
