@@ -15,15 +15,40 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const API_KEY = process.env.BEEHIIV_API_KEY;
-const PUB_ID  = process.env.BEEHIIV_PUBLICATION_ID;
-const DRY     = process.argv.includes('--dry-run');
+const DRY = process.argv.includes('--dry-run');
 
-if (!API_KEY || !PUB_ID) {
-  console.error('Set BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID in the environment.');
-  console.error('Both are already in your Vercel project settings.');
+// Credentials come from the environment if they are set, and are otherwise
+// asked for. Typing them at a prompt keeps them out of shell history, which
+// passing them on the command line does not.
+async function ask(question) {
+  const { createInterface } = await import('node:readline/promises');
+  const rl = createInterface({ input: process.stdin, output: process.stdout });
+  const answer = await rl.question(question);
+  rl.close();
+  return answer.trim();
+}
+
+const placeholder = (v) => !v || v === 'REPLACE_ME';
+
+let API_KEY = process.env.BEEHIIV_API_KEY;
+let PUB_ID  = process.env.BEEHIIV_PUBLICATION_ID;
+
+if (placeholder(API_KEY) || placeholder(PUB_ID)) {
+  console.log('Both values are in Vercel -> Settings -> Environment Variables.');
+  console.log('Nothing typed here is saved to a file or to shell history.\n');
+}
+if (placeholder(API_KEY)) API_KEY = await ask('Beehiiv API key: ');
+if (placeholder(PUB_ID))  PUB_ID  = await ask('Beehiiv publication ID (pub_...): ');
+
+if (placeholder(API_KEY) || placeholder(PUB_ID)) {
+  console.error('\nBoth values are required.');
   process.exit(1);
 }
+if (!PUB_ID.startsWith('pub_')) {
+  console.error(`\nThat publication ID does not start with "pub_" — check it before continuing.`);
+  process.exit(1);
+}
+console.log('');
 
 const apiDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'api');
 const wanted = new Set();
@@ -50,6 +75,10 @@ try {
     const body = await res.json();
     for (const f of body.data || []) existing.add(f.display);
     console.log(`already present: ${existing.size ? [...existing].join(', ') : 'none'}\n`);
+  } else if (res.status === 401) {
+    console.error(`The API key was rejected (401). Nothing was created.`);
+    console.error(`Check it against Vercel, or create a new one in Beehiiv under Settings -> API.`);
+    process.exit(1);
   } else {
     console.warn(`could not list existing fields (${res.status}) — will attempt all\n`);
   }
