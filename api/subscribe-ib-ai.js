@@ -179,7 +179,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from:    'IronBenchmark <info@ironbenchmark.com>',
         to:      [email],
-        subject: "You're in — AI in Heavy Equipment Sales: 2026 Benchmark",
+        subject: "Confirmed — AI in Heavy Equipment Sales: 2026 Benchmark",
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1A2F3E; background: #F5F3EF;">
 
@@ -187,7 +187,7 @@ export default async function handler(req, res) {
               <span style="font-size: 20px; font-weight: 700; color: #1A2F3E; letter-spacing: -0.02em;">Iron<span style="color: #C47B2E;">Benchmark</span></span>
             </div>
 
-            <h1 style="font-size: 22px; font-weight: 700; margin: 0 0 14px; line-height: 1.3;">You're in. The report is coming your way.</h1>
+            <h1 style="font-size: 22px; font-weight: 700; margin: 0 0 14px; line-height: 1.3;">Thank you — the report is coming your way.</h1>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 20px; font-size: 15px;">
               As a contributor to the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong>, you'll receive the full findings before public release — delivered to your inbox when it publishes.
