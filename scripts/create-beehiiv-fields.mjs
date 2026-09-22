@@ -15,7 +15,12 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DRY = process.argv.includes('--dry-run');
+const DRY     = process.argv.includes('--dry-run');
+const VERBOSE = process.argv.includes('--verbose');
+// --only NAME limits the run to a single field, for diagnosing what the API
+// actually returns without making 48 calls to find out.
+const onlyArg = process.argv.indexOf('--only');
+const ONLY    = onlyArg > -1 ? process.argv[onlyArg + 1] : null;
 
 // Credentials come from the environment if they are set, and are otherwise
 // asked for. Typing them at a prompt keeps them out of shell history, which
@@ -96,7 +101,12 @@ try {
 }
 
 let created = 0, skipped = 0, failed = 0;
-for (const display of names) {
+const targets = ONLY ? names.filter((n) => n === ONLY) : names;
+if (ONLY && !targets.length) {
+  console.error(`No field named "${ONLY}" is referenced by the handlers.`);
+  process.exit(1);
+}
+for (const display of targets) {
   if (existing.has(display)) {
     console.log(`  skip    ${display}`);
     skipped++;
@@ -113,7 +123,8 @@ for (const display of names) {
       { method: 'POST', headers, body: JSON.stringify({ kind: 'string', display }) }
     );
     if (res.ok) {
-      console.log(`  created ${display}`);
+      const body = await res.text();
+      console.log(`  created ${display}${VERBOSE ? `  [${res.status}] ${body.slice(0, 300)}` : ''}`);
       created++;
     } else {
       console.log(`  FAILED  ${display} — ${res.status} ${(await res.text()).slice(0, 120)}`);
