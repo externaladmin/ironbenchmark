@@ -100,11 +100,11 @@ export default async function handler(req, res) {
         to:      [ARCHIVE_TO],
         subject: '[' + STUDY + '] ' + address + ' — ' + submissionId,
         html:
-          '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;color:#1A2F3E;">' +
+          '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;color:#1C3A2A;">' +
           '<p><strong>' + esc(address) + '</strong> · ' + esc(submittedAt) + '</p>' +
           '<p>Source: ' + esc(record.source) + '</p>' +
           '<p>Beehiiv: ' + esc(beehiivStatus) + '</p>' +
-          '<pre style="background:#F5F3EF;padding:12px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">' +
+          '<pre style="background:#F6F4EE;padding:12px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">' +
           '--- IRONBENCHMARK-JSON-START ---\n' + esc(JSON.stringify(record)) + '\n--- IRONBENCHMARK-JSON-END ---' +
           '</pre></div>',
       }),
@@ -182,34 +182,38 @@ export default async function handler(req, res) {
         to:      [address],
         subject: "You're on the list — IronBenchmark 2026 reports",
         html: `
-          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1A2F3E; background: #F5F3EF;">
+          <div style="font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1C3A2A; background: #F6F4EE;">
 
             <div style="margin-bottom: 28px;">
-              <span style="font-size: 20px; font-weight: 700; color: #1A2F3E; letter-spacing: -0.02em;">Iron<span style="color: #C47B2E;">Benchmark</span></span>
+              <span style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 24px; color: #1C3A2A; letter-spacing: -0.02em;">Iron<span style="color: #C9A84C;">Benchmark</span></span>
             </div>
 
-            <h1 style="font-size: 22px; font-weight: 700; margin: 0 0 14px; line-height: 1.3;">You're on the list.</h1>
+            <h1 style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 400; color: #1C3A2A; margin: 0 0 14px; line-height: 1.25;">You're on the list.</h1>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 20px; font-size: 15px;">
               We'll email you each IronBenchmark 2026 report the day it publishes — no newsletter, no vendor pitch, just the data.
             </p>
 
-            <div style="background: #fff; border-left: 4px solid #C47B2E; padding: 16px 20px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
-              <p style="margin: 0 0 8px; font-size: 14px; color: #C47B2E; font-weight: 600;">Want the reports earlier?</p>
+            <div style="background: #fff; border-left: 4px solid #C9A84C; padding: 16px 20px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
+              <p style="margin: 0 0 8px; font-size: 14px; color: #C9A84C; font-weight: 600;">Want the reports earlier?</p>
               <p style="margin: 0; font-size: 13px; color: #444; line-height: 1.7;">
                 Respondents receive each report before public release. All three studies are open now:
               </p>
               <ul style="margin: 8px 0 0; padding-left: 20px; font-size: 13px; color: #444; line-height: 1.9;">
-                <li><a href="https://ironbenchmark.com/survey" style="color: #1A2F3E;">Heavy Equipment State of Marketing 2026</a></li>
-                <li><a href="https://ironbenchmark.com/ai-sales" style="color: #1A2F3E;">AI in Heavy Equipment Sales: 2026 Benchmark</a></li>
-                <li><a href="https://ironbenchmark.com/dealer-response" style="color: #1A2F3E;">The Dealer Response Report 2026</a> (dealers only)</li>
+                <li><a href="https://ironbenchmark.com/survey" style="color: #1C3A2A;">Heavy Equipment State of Marketing 2026</a></li>
+                <li><a href="https://ironbenchmark.com/ai-sales" style="color: #1C3A2A;">AI in Heavy Equipment Sales: 2026 Benchmark</a></li>
+                <li><a href="https://ironbenchmark.com/dealer-response" style="color: #1C3A2A;">The Dealer Response Report 2026</a> (dealers only)</li>
               </ul>
             </div>
 
-            <hr style="border: none; border-top: 1px solid #DDD9D2; margin: 24px 0;" />
-            <p style="font-size: 12px; color: #999; margin: 0; line-height: 1.6;">
+            <p style="font-size: 13px; color: #5A7060; line-height: 1.6; margin: 0 0 20px;">
+              We also share other IronBenchmark research and industry insights from time to time. You can opt out of those whenever you like — there's an unsubscribe link in every one.
+            </p>
+
+            <hr style="border: none; border-top: 1px solid #D8D5C8; margin: 24px 0;" />
+            <p style="font-size: 12px; color: #5A7060; margin: 0; line-height: 1.6;">
               IronBenchmark · Independent research for the equipment industry — no sponsors<br>
-              <a href="https://ironbenchmark.com" style="color: #1A2F3E;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1A2F3E;">info@ironbenchmark.com</a><br>
+              <a href="https://ironbenchmark.com" style="color: #1C3A2A;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1C3A2A;">info@ironbenchmark.com</a><br>
               You're receiving this because you asked to be notified when the IronBenchmark 2026 reports publish.
             </p>
           </div>

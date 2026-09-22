@@ -102,8 +102,8 @@ export default async function handler(req, res) {
     };
 
     const rows = Object.entries(record.responses).map(([k, v]) =>
-      '<tr><td style="padding:4px 14px 4px 0;color:#6B7C88;vertical-align:top;white-space:nowrap;">' + esc(k) +
-      '</td><td style="padding:4px 0;color:#1A2F3E;">' + esc(v) + '</td></tr>'
+      '<tr><td style="padding:4px 14px 4px 0;color:#5A7060;vertical-align:top;white-space:nowrap;">' + esc(k) +
+      '</td><td style="padding:4px 0;color:#1C3A2A;">' + esc(v) + '</td></tr>'
     ).join('');
 
     const archiveRes = await fetch('https://api.resend.com/emails', {
@@ -117,12 +117,12 @@ export default async function handler(req, res) {
         to:      [ARCHIVE_TO],
         subject: '[' + STUDY + '] ' + email + ' — ' + submissionId,
         html:
-          '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;color:#1A2F3E;">' +
+          '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;color:#1C3A2A;">' +
           '<p><strong>' + esc(email) + '</strong> · ' + esc(submittedAt) + '</p>' +
           '<p>Beehiiv: ' + esc(beehiivStatus) + '</p>' +
           '<table style="border-collapse:collapse;">' + rows + '</table>' +
-          '<p style="margin-top:20px;color:#6B7C88;">Machine-readable copy below — parse between the markers to rebuild the dataset.</p>' +
-          '<pre style="background:#F5F3EF;padding:12px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">' +
+          '<p style="margin-top:20px;color:#5A7060;">Machine-readable copy below — parse between the markers to rebuild the dataset.</p>' +
+          '<pre style="background:#F6F4EE;padding:12px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">' +
           '--- IRONBENCHMARK-JSON-START ---\n' + esc(JSON.stringify(record)) + '\n--- IRONBENCHMARK-JSON-END ---' +
           '</pre></div>',
       }),
@@ -212,8 +212,8 @@ export default async function handler(req, res) {
   // org type they gave in A1 and let the heading count what is actually listed.
   const IS_DEALER = /^Equipment dealer/.test(r.a1_org_type || '');
 
-  const SOM_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/survey" style="color:#1A2F3E;">Heavy Equipment State of Marketing 2026</a> — budget allocation, channel ROI, and digital maturity across dealers, OEMs and agencies.</li>';
-  const DR_STUDY  = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/dealer-response" style="color:#1A2F3E;">The Dealer Response Report 2026</a> — how dealers manage customer communications across every channel and the downstream impact on deals.</li>';
+  const SOM_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/survey" style="color:#1C3A2A;">Heavy Equipment State of Marketing 2026</a> — budget allocation, channel ROI, and digital maturity across dealers, OEMs and agencies.</li>';
+  const DR_STUDY  = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/dealer-response" style="color:#1C3A2A;">The Dealer Response Report 2026</a> — how dealers manage customer communications across every channel and the downstream impact on deals.</li>';
   const OTHER_STUDIES = IS_DEALER ? [SOM_STUDY, DR_STUDY] : [SOM_STUDY];
   const STUDIES_HEADING = OTHER_STUDIES.length > 1
     ? 'IronBenchmark has two other open studies — both free for respondents:'
@@ -232,13 +232,13 @@ export default async function handler(req, res) {
         to:      [email],
         subject: "Confirmed — AI in Heavy Equipment Sales: 2026 Benchmark",
         html: `
-          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1A2F3E; background: #F5F3EF;">
+          <div style="font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1C3A2A; background: #F6F4EE;">
 
             <div style="margin-bottom: 28px;">
-              <span style="font-size: 20px; font-weight: 700; color: #1A2F3E; letter-spacing: -0.02em;">Iron<span style="color: #C47B2E;">Benchmark</span></span>
+              <span style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 24px; color: #1C3A2A; letter-spacing: -0.02em;">Iron<span style="color: #C9A84C;">Benchmark</span></span>
             </div>
 
-            <h1 style="font-size: 22px; font-weight: 700; margin: 0 0 14px; line-height: 1.3;">Thank you — the report is coming your way.</h1>
+            <h1 style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 400; color: #1C3A2A; margin: 0 0 14px; line-height: 1.25;">Thank you — the report is coming your way.</h1>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 20px; font-size: 15px;">
               As a contributor to the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong>, you'll receive the full findings before public release — delivered to your inbox when it publishes.
@@ -248,8 +248,8 @@ export default async function handler(req, res) {
               This is the first benchmark on AI adoption in construction, agricultural, and industrial equipment sales — real data on what tools are in use, where adoption stalls, and how confident practitioners are about their position versus competitors.
             </p>
 
-            <div style="background: #fff; border-left: 4px solid #C47B2E; padding: 16px 20px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
-              <p style="margin: 0; font-size: 14px; color: #C47B2E; font-weight: 600;">What's in the report</p>
+            <div style="background: #fff; border-left: 4px solid #C9A84C; padding: 16px 20px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
+              <p style="margin: 0; font-size: 14px; color: #C9A84C; font-weight: 600;">What's in the report</p>
               <ul style="margin: 8px 0 0; padding-left: 20px; font-size: 13px; color: #444; line-height: 1.7;">
                 <li>AI tool adoption rates — what's actually in use across the industry</li>
                 <li>Top use cases — where AI is delivering vs. where it's falling flat</li>
@@ -259,11 +259,6 @@ export default async function handler(req, res) {
               </ul>
             </div>
 
-            <div style="background: #EEF3F7; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px;">
-              <p style="margin: 0; font-size: 13px; color: #6B7C88; line-height: 1.5;">
-                🔒 <strong style="color: #1A2F3E;">Your data is private.</strong> No individual responses are shared or used for sales targeting. All findings are anonymized and aggregated.
-              </p>
-            </div>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 16px; font-size: 14px;">
               ${STUDIES_HEADING}
@@ -272,10 +267,14 @@ export default async function handler(req, res) {
               ${OTHER_STUDIES.join('')}
             </ul>
 
-            <hr style="border: none; border-top: 1px solid #DDD9D2; margin: 24px 0;" />
-            <p style="font-size: 12px; color: #999; margin: 0; line-height: 1.6;">
+            <p style="font-size: 13px; color: #5A7060; line-height: 1.6; margin: 0 0 20px;">
+              We also share other IronBenchmark research and industry insights from time to time. You can opt out of those whenever you like — there's an unsubscribe link in every one.
+            </p>
+
+            <hr style="border: none; border-top: 1px solid #D8D5C8; margin: 24px 0;" />
+            <p style="font-size: 12px; color: #5A7060; margin: 0; line-height: 1.6;">
               IronBenchmark · Independent research for the equipment industry — no sponsors<br>
-              <a href="https://ironbenchmark.com" style="color: #1A2F3E;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1A2F3E;">info@ironbenchmark.com</a><br>
+              <a href="https://ironbenchmark.com" style="color: #1C3A2A;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1C3A2A;">info@ironbenchmark.com</a><br>
               You're receiving this because you completed the AI in Heavy Equipment Sales: 2026 Benchmark survey.
             </p>
           </div>

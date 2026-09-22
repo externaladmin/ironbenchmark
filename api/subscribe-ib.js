@@ -103,8 +103,8 @@ export default async function handler(req, res) {
     };
 
     const rows = Object.entries(record.responses).map(([k, v]) =>
-      '<tr><td style="padding:4px 14px 4px 0;color:#6B7C88;vertical-align:top;white-space:nowrap;">' + esc(k) +
-      '</td><td style="padding:4px 0;color:#1A2F3E;">' + esc(v) + '</td></tr>'
+      '<tr><td style="padding:4px 14px 4px 0;color:#5A7060;vertical-align:top;white-space:nowrap;">' + esc(k) +
+      '</td><td style="padding:4px 0;color:#1C3A2A;">' + esc(v) + '</td></tr>'
     ).join('');
 
     const archiveRes = await fetch('https://api.resend.com/emails', {
@@ -118,12 +118,12 @@ export default async function handler(req, res) {
         to:      [ARCHIVE_TO],
         subject: '[' + STUDY + '] ' + email + ' — ' + submissionId,
         html:
-          '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;color:#1A2F3E;">' +
+          '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;color:#1C3A2A;">' +
           '<p><strong>' + esc(email) + '</strong> · ' + esc(submittedAt) + '</p>' +
           '<p>Beehiiv: ' + esc(beehiivStatus) + '</p>' +
           '<table style="border-collapse:collapse;">' + rows + '</table>' +
-          '<p style="margin-top:20px;color:#6B7C88;">Machine-readable copy below — parse between the markers to rebuild the dataset.</p>' +
-          '<pre style="background:#F5F3EF;padding:12px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">' +
+          '<p style="margin-top:20px;color:#5A7060;">Machine-readable copy below — parse between the markers to rebuild the dataset.</p>' +
+          '<pre style="background:#F6F4EE;padding:12px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">' +
           '--- IRONBENCHMARK-JSON-START ---\n' + esc(JSON.stringify(record)) + '\n--- IRONBENCHMARK-JSON-END ---' +
           '</pre></div>',
       }),
@@ -228,8 +228,8 @@ export default async function handler(req, res) {
 
   // The Dealer Response study is dealers-only, so it is offered to dealers alone
   // and the heading counts whatever actually gets listed.
-  const AI_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/ai-sales" style="color:#1A2F3E;">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, and the competitor confidence gap.</li>';
-  const DR_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/dealer-response" style="color:#1A2F3E;">The Dealer Response Report 2026</a> — how dealers manage customer communications across every channel, and the downstream impact on deals and reputation.</li>';
+  const AI_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/ai-sales" style="color:#1C3A2A;">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first benchmark on AI adoption in equipment sales. Tool usage, barriers, and the competitor confidence gap.</li>';
+  const DR_STUDY = '<li style="margin-bottom:6px;"><a href="https://ironbenchmark.com/dealer-response" style="color:#1C3A2A;">The Dealer Response Report 2026</a> — how dealers manage customer communications across every channel, and the downstream impact on deals and reputation.</li>';
   const OTHER_STUDIES = ORG === 'dealer' ? [DR_STUDY, AI_STUDY] : [AI_STUDY];
   const STUDIES_HEADING = OTHER_STUDIES.length > 1
     ? 'IronBenchmark has two other open studies — both free for respondents:'
@@ -248,13 +248,13 @@ export default async function handler(req, res) {
         to:      [email],
         subject: "Confirmed — Heavy Equipment State of Marketing 2026",
         html: `
-          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1A2F3E; background: #F5F3EF;">
+          <div style="font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1C3A2A; background: #F6F4EE;">
 
             <div style="margin-bottom: 28px;">
-              <span style="font-size: 20px; font-weight: 700; color: #1A2F3E; letter-spacing: -0.02em;">Iron<span style="color: #C47B2E;">Benchmark</span></span>
+              <span style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 24px; color: #1C3A2A; letter-spacing: -0.02em;">Iron<span style="color: #C9A84C;">Benchmark</span></span>
             </div>
 
-            <h1 style="font-size: 22px; font-weight: 700; margin: 0 0 14px; line-height: 1.3;">Thank you — the report is coming your way.</h1>
+            <h1 style="font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 400; color: #1C3A2A; margin: 0 0 14px; line-height: 1.25;">Thank you — the report is coming your way.</h1>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 20px; font-size: 15px;">
               As a contributor to <strong>Heavy Equipment State of Marketing 2026</strong>, you'll receive the full findings before public release — delivered to your inbox when it publishes.
@@ -264,8 +264,8 @@ export default async function handler(req, res) {
               The report covers budget allocation benchmarks, channel ROI rankings, trade show spend analysis, and digital maturity across the industry — data from real practitioners, not analysts.
             </p>
 
-            <div style="background: #fff; border-left: 4px solid #C47B2E; padding: 16px 20px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
-              <p style="margin: 0; font-size: 14px; color: #C47B2E; font-weight: 600;">What's in the report</p>
+            <div style="background: #fff; border-left: 4px solid #C9A84C; padding: 16px 20px; border-radius: 0 8px 8px 0; margin-bottom: 24px;">
+              <p style="margin: 0; font-size: 14px; color: #C9A84C; font-weight: 600;">What's in the report</p>
               <ul style="margin: 8px 0 0; padding-left: 20px; font-size: 13px; color: #444; line-height: 1.7;">
                 <li>Channel budget allocation — how your peers are spending</li>
                 <li>Best ROI by channel — ranked by respondents</li>
@@ -275,11 +275,6 @@ export default async function handler(req, res) {
               </ul>
             </div>
 
-            <div style="background: #EEF3F7; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px;">
-              <p style="margin: 0; font-size: 13px; color: #6B7C88; line-height: 1.5;">
-                🔒 <strong style="color: #1A2F3E;">Your data is private.</strong> No individual responses are shared or used for sales targeting. All findings are anonymized and aggregated.
-              </p>
-            </div>
 
             <p style="color: #444; line-height: 1.7; margin: 0 0 24px; font-size: 14px;">
               ${FORWARD_LINE}
@@ -292,10 +287,14 @@ export default async function handler(req, res) {
               ${OTHER_STUDIES.join('')}
             </ul>
 
-            <hr style="border: none; border-top: 1px solid #DDD9D2; margin: 24px 0;" />
-            <p style="font-size: 12px; color: #999; margin: 0; line-height: 1.6;">
+            <p style="font-size: 13px; color: #5A7060; line-height: 1.6; margin: 0 0 20px;">
+              We also share other IronBenchmark research and industry insights from time to time. You can opt out of those whenever you like — there's an unsubscribe link in every one.
+            </p>
+
+            <hr style="border: none; border-top: 1px solid #D8D5C8; margin: 24px 0;" />
+            <p style="font-size: 12px; color: #5A7060; margin: 0; line-height: 1.6;">
               IronBenchmark · Independent research for the equipment industry — no sponsors<br>
-              <a href="https://ironbenchmark.com" style="color: #1A2F3E;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1A2F3E;">info@ironbenchmark.com</a><br>
+              <a href="https://ironbenchmark.com" style="color: #1C3A2A;">ironbenchmark.com</a> · <a href="mailto:info@ironbenchmark.com" style="color: #1C3A2A;">info@ironbenchmark.com</a><br>
               You're receiving this because you completed the Heavy Equipment State of Marketing 2026 survey.
             </p>
           </div>
