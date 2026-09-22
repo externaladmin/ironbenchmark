@@ -31,16 +31,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
-  <!-- GA4 placeholder -->
-  <!--
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VBXRBRSE2N"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-VBXRBRSE2N');
   </script>
-  -->
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -795,6 +793,22 @@
   </footer>
 
   <script>
+    // ── ANALYTICS ──
+    function track(name, params) {
+      try {
+        if (typeof gtag === 'function') gtag('event', name, params || {});
+      } catch (e) { /* never let analytics break the page */ }
+    }
+    document.querySelectorAll('.study-card').forEach(card => {
+      const cta = card.querySelector('.study-card-cta');
+      if (!cta) return;
+      cta.addEventListener('click', () => track('study_card_click', {
+        study: cta.getAttribute('href'),
+        title: card.querySelector('h3')?.textContent.trim(),
+      }));
+    });
+    document.querySelector('.topbar-cta')?.addEventListener('click', () => track('topbar_subscribe_click'));
+
     // ── RESPONDENT COUNTERS ──
     // Update these numbers weekly. Counter strip hides automatically when all are 0.
     const RESPONDENT_COUNT_MARKETING = 0;  // State of Marketing survey
@@ -838,6 +852,7 @@
         });
         if (!res.ok) throw new Error('Server error ' + res.status);
 
+        track('subscribe', { source: 'homepage' });
         document.querySelector('.email-form').style.display = 'none';
         document.getElementById('emailSuccess').style.display = 'block';
       } catch (error) {

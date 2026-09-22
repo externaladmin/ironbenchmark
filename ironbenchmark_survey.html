@@ -31,9 +31,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
-  <!-- GA4 placeholder -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VBXRBRSE2N"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VBXRBRSE2N');
+  </script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -825,6 +830,20 @@
     if (shown) document.getElementById('intro-status').style.display = '';
   })();
 
+  /* ══════════════════════════════════════════
+     ANALYTICS — funnel events
+
+     Pageviews alone cannot tell you which question lost a respondent. These
+     fire on each validated step, so drop-off is visible per section. Guarded
+     so the survey still works with analytics blocked or absent.
+     ══════════════════════════════════════════ */
+  const STUDY_ID = 'state-of-marketing-2026';
+  function track(name, params) {
+    try {
+      if (typeof gtag === 'function') gtag('event', name, Object.assign({ study: STUDY_ID }, params || {}));
+    } catch (e) { /* never let analytics break a submission */ }
+  }
+
   const answers = {};
 
   // Stamped when the survey actually begins, sent with the submission so the
@@ -1205,6 +1224,7 @@
     answers.org_type = orgType;
     startedAt = Date.now();
     renderAllDynamic();
+    track('survey_start', { org_type: orgType });
     goTo('screen-a', 0);
   }
 
@@ -1238,6 +1258,7 @@
 
     answers.q6_brand = document.getElementById('q6-brand').value.trim();
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 1, section_name: 'About You' });
     goTo('screen-b', 1);
   }
 
@@ -1251,6 +1272,7 @@
     const q9 = getChecked('q9');
     if (!q9.length) { showErr('q9-err'); valid = false; } else { hideErr('q9-err'); answers.q9 = q9; }
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 2, section_name: 'Where Your Budget Goes' });
     goTo('screen-c', 2);
   }
 
@@ -1269,6 +1291,7 @@
       hideErr('q12b-err'); answers.q12b = '';
     }
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 3, section_name: 'Performance & Challenges' });
     goTo('screen-d', 3);
   }
 
@@ -1280,6 +1303,8 @@
       if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 4 });
+    track('reached_email_step');
     hideProgress();
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('screen-email').classList.add('active');
@@ -1348,6 +1373,7 @@
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Server error ' + res.status);
+      track('survey_submit');
       populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
