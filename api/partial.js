@@ -87,7 +87,7 @@ export default async function handler(req, res) {
 
   try {
     const beehiivRes = await fetch(
-      `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions`,
+      `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions?expand[]=tags`,
       {
         method: 'POST',
         headers: {
@@ -128,6 +128,10 @@ export default async function handler(req, res) {
       .join(' | ')
       .slice(0, 400);
 
+    const existingTags = (created?.data?.tags || [])
+      .map((t) => (typeof t === 'string' ? t : t?.name))
+      .filter(Boolean);
+
     const subId = created?.data?.id;
     if (subId) {
       try {
@@ -139,7 +143,7 @@ export default async function handler(req, res) {
               'Content-Type':  'application/json',
               'Authorization': `Bearer ${BEEHIIV_API_KEY}`,
             },
-            body: JSON.stringify({ tags: [prefix + '-partial'] }),
+            body: JSON.stringify({ tags: [...new Set([...existingTags, prefix + '-partial'])] }),
           }
         );
         tagsOk = tagRes.ok;
