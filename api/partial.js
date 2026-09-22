@@ -79,6 +79,11 @@ export default async function handler(req, res) {
   }
 
   const prefix = STUDIES[study];
+  const CUSTOM_FIELDS = [
+    { name: 'ib_partial_study',   value: study },
+    { name: 'ib_partial_section', value: String(section || '') },
+    { name: 'ib_completed',       value: 'no' },
+  ];
 
   try {
     const beehiivRes = await fetch(
@@ -96,11 +101,7 @@ export default async function handler(req, res) {
           utm_source:          'ironbenchmark',
           utm_medium:          'survey-partial',
           utm_campaign:        study,
-          custom_fields: [
-            { name: 'ib_partial_study',   value: study },
-            { name: 'ib_partial_section', value: String(section || '') },
-            { name: 'ib_completed',       value: 'no' },
-          ],
+          custom_fields: CUSTOM_FIELDS,
         }),
       }
     );
@@ -116,10 +117,16 @@ export default async function handler(req, res) {
     let created = null;
     try { created = await beehiivRes.json(); } catch (e) { /* empty body */ }
 
-    const warnings = created?.data?.warnings || created?.warnings;
-    if (warnings && warnings.length) {
+    const warnings = created?.data?.warnings || created?.warnings || [];
+    if (warnings.length) {
       console.warn('Partial beehiiv warnings:', email, JSON.stringify(warnings));
     }
+    // Beehiiv drops custom fields it does not recognise and only says so here,
+    // so the message is returned too — a name mismatch is otherwise invisible.
+    const warningText = warnings
+      .map((w) => (typeof w === 'string' ? w : w.message || JSON.stringify(w)))
+      .join(' | ')
+      .slice(0, 400);
 
     const subId = created?.data?.id;
     if (subId) {
@@ -144,7 +151,7 @@ export default async function handler(req, res) {
       console.error('Partial: no subscription id returned', email);
     }
 
-    return res.status(200).json({ success: true, beehiivOk: true, tagsOk, beehiivStatus: 200 });
+    return res.status(200).json({ success: true, beehiivOk: true, tagsOk, beehiivStatus: 200, warnings: warningText || null, fieldsSent: CUSTOM_FIELDS.map((f) => f.name) });
   } catch (err) {
     console.error('Partial exception:', email, err);
     return res.status(200).json({ success: true, beehiivOk: false });
