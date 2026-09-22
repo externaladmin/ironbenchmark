@@ -468,6 +468,7 @@
       border-radius: 3px;
       border: 1px solid #B2D9C1;
     }
+    .hp-field { display: none !important; visibility: hidden; }
     .email-error {
       display: none;
       color: #B03A2E;
@@ -730,6 +731,10 @@
           required
           autocomplete="email"
         >
+        <div class="hp-field" aria-hidden="true">
+          <label for="hp-company">Company</label>
+          <input type="text" id="hp-company" name="company" tabindex="-1" autocomplete="off">
+        </div>
         <button type="submit" class="email-submit" id="earlyAccessSubmit">Notify Me</button>
       </form>
       <div class="email-success" id="emailSuccess">
@@ -763,6 +768,10 @@
     }
 
     // ── EMAIL FORM ──
+    // Sent with the signup so the server can reject fills that happen faster than
+    // a person could have read the page.
+    const pageLoadedAt = Date.now();
+
     async function handleEmailSubmit(e) {
       e.preventDefault();
 
@@ -780,7 +789,12 @@
         const res = await fetch('/api/subscribe-ib-notify', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ email, source: 'homepage' }),
+          body:    JSON.stringify({
+            email,
+            source: 'homepage',
+            hp: document.getElementById('hp-company').value,
+            elapsedMs: Date.now() - pageLoadedAt,
+          }),
         });
         if (!res.ok) throw new Error('Server error ' + res.status);
 

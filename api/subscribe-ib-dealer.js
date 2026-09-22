@@ -4,12 +4,34 @@
 // - Sends confirmation email via Resend
 // - Stores all 16-question responses as custom fields for analysis
 
+// Best-effort per-IP rate limiting. Serverless instances are ephemeral and run in
+// parallel, so this map is per-instance rather than global — it raises the cost of
+// naive flooding, it does not guarantee a ceiling. A shared store would be needed
+// for that, and is the right upgrade if this ever sees real abuse.
+const RECENT      = new Map();
+const RATE_MAX    = 6;
+const RATE_WINDOW = 10 * 60 * 1000;
+
+function rateLimited(ip) {
+  if (!ip) return false;
+  const now  = Date.now();
+  const hits = (RECENT.get(ip) || []).filter((t) => now - t < RATE_WINDOW);
+  hits.push(now);
+  RECENT.set(ip, hits);
+  if (RECENT.size > 2000) {
+    for (const [k, v] of RECENT) {
+      if (!v.some((t) => now - t < RATE_WINDOW)) RECENT.delete(k);
+    }
+  }
+  return hits.length > RATE_MAX;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, study, responses } = req.body;
+  const { email, study, responses } = req.body || {};
 
   if (!email || !email.includes('@')) {
     return res.status(400).json({ error: 'Valid email required' });
@@ -30,6 +52,29 @@ export default async function handler(req, res) {
   const ARCHIVE_TO   = process.env.ARCHIVE_EMAIL || 'info@ironbenchmark.com';
   const submissionId = STUDY + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
   const submittedAt  = new Date().toISOString();
+
+  // ── Bot filter ─────────────────────────────────────────────────────────────
+  // The honeypot used to be checked in the browser only, which does nothing about a
+  // script POSTing straight to this endpoint — the case that actually matters. These
+  // run server-side, and a hit returns an ordinary success response while writing
+  // nothing: a bot that is told it was blocked simply adapts.
+  const hp        = typeof req.body.hp === 'string' ? req.body.hp.trim() : '';
+  const elapsedMs = Number(req.body.elapsedMs) || 0;
+  const clientIp  = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  const answered  = Object.values(r).filter((v) => typeof v === 'string' && v.trim()).length;
+
+  const botReason =
+      hp                                   ? 'honeypot filled'
+    : (elapsedMs > 0 && elapsedMs < 15000) ? 'completed in ' + elapsedMs + 'ms'
+    : (answered < 4)                       ? 'only ' + answered + ' answers'
+    : rateLimited(clientIp)                ? 'rate limit'
+    : null;
+
+  if (botReason) {
+    console.warn('Discarded submission:', submissionId, botReason, clientIp);
+    return res.status(200).json({ success: true, submissionId, confirmationSent: false });
+  }
+
 
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]

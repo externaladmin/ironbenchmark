@@ -723,6 +723,10 @@
      ══════════════════════════════════════════ */
   const answers = {};
 
+  // Stamped when the survey actually begins, sent with the submission so the
+  // server can reject fills that completed faster than a human could read them.
+  let startedAt = Date.now();
+
   /* ══════════════════════════════════════════
      PROGRESS
      ══════════════════════════════════════════ */
@@ -795,6 +799,7 @@
      ══════════════════════════════════════════ */
 
   function startSurvey() {
+    startedAt = Date.now();
     goTo('screen-1', 0);
   }
 
@@ -866,14 +871,6 @@
     const btn       = document.getElementById('submit-btn');
     const honeypot  = document.getElementById('hp-website').value;
 
-    if (honeypot) {
-      hideProgress();
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('screen-confirm').classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
     if (!email || !email.includes('@') || !email.includes('.')) {
       errEl.classList.add('show'); emailEl.classList.add('error'); return;
     }
@@ -887,6 +884,8 @@
     const payload = {
       email,
       study: 'dealer-response-2026',
+      hp: honeypot,
+      elapsedMs: Date.now() - startedAt,
       responses: {
         q1_role:                answers.q1              || '',
         q2_locations:           answers.q2              || '',
