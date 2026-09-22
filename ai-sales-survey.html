@@ -5,13 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IronBenchmark — AI in Heavy Equipment Sales: 2026 Benchmark</title>
   <meta name="description" content="The first benchmark on AI adoption in construction, agricultural, and industrial equipment sales. 5 minutes. Free report for all respondents.">
+  <link rel="canonical" href="https://www.ironbenchmark.com/ai-sales">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#1C3A2A">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="IronBenchmark">
+  <meta property="og:url" content="https://www.ironbenchmark.com/ai-sales">
+  <meta property="og:title" content="AI in Heavy Equipment Sales: 2026 Benchmark — IronBenchmark">
+  <meta property="og:description" content="The first benchmark on AI adoption in equipment sales: tool usage, barriers and the competitor confidence gap. 12 questions, five minutes.">
+  <meta property="og:image" content="https://www.ironbenchmark.com/og-ai-sales.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="AI in Heavy Equipment Sales: 2026 Benchmark — IronBenchmark">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI in Heavy Equipment Sales: 2026 Benchmark — IronBenchmark">
+  <meta name="twitter:description" content="The first benchmark on AI adoption in equipment sales: tool usage, barriers and the competitor confidence gap. 12 questions, five minutes.">
+  <meta name="twitter:image" content="https://www.ironbenchmark.com/og-ai-sales.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
-  <!-- GA4 placeholder -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VBXRBRSE2N"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VBXRBRSE2N');
+  </script>
 
   <!-- API: POST to /api/subscribe-ib-ai — create api/subscribe-ib-ai.js (mirror of subscribe-ib.js, study tag: 'ai-sales-2026') -->
 
@@ -87,6 +114,40 @@
       background: var(--white); border: 1.5px solid var(--border);
       border-radius: 20px; padding: 5px 14px;
     }
+
+    /* ── LIVE STUDY STATUS ── */
+    .intro-status {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; margin: 0 0 30px;
+    }
+    .status-row {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13px; color: var(--muted); line-height: 1.5;
+    }
+    .status-row strong { color: var(--navy); font-weight: 600; }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+      background: var(--bronze);
+      animation: statuspulse 2s ease-in-out infinite;
+    }
+    @keyframes statuspulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.45; transform: scale(0.82); }
+    }
+    .status-row svg {
+      width: 13px; height: 13px; flex-shrink: 0;
+      stroke: var(--bronze); fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .status-row.closing svg    { stroke: var(--red); }
+    .status-row.closing strong { color: var(--red); }
+
+    .intro-offer {
+      font-size: 14px; color: var(--navy); line-height: 1.6;
+      max-width: 460px; margin: 0 auto 18px;
+    }
+    .intro-offer strong { font-weight: 600; }
+    .intro-offer .deadline { color: var(--red); font-weight: 600; }
 
     /* ── PROGRESS BAR ── */
     .progress-wrap {
@@ -218,7 +279,7 @@
 
 <nav class="topbar">
   <a href="/" class="topbar-brand">Iron<span>Benchmark</span></a>
-  <a href="/" class="topbar-back">← Back to site</a>
+  <a href="/#studies" class="topbar-back">All studies</a>
 </nav>
 
 <div class="progress-wrap" id="progress-wrap" style="display:none;">
@@ -240,13 +301,29 @@
     <div class="intro-eyebrow">IronBenchmark · Independent Research</div>
     <h1 class="intro-title">AI in Heavy Equipment Sales:<br>2026 Benchmark</h1>
     <p class="intro-desc">AI is moving fast. Nobody knows how fast it's moving in <em>this</em> industry — until now. This is the first benchmark study on AI adoption specifically in construction, agricultural, and industrial equipment sales.</p>
-    <p class="intro-desc">13 questions. About 5 minutes. You'll receive the full report free when it publishes.</p>
+    <p class="intro-desc">12 questions. About 5 minutes.</p>
+    <p class="intro-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
     <div class="intro-badges">
       <span class="intro-badge">Dealers · OEMs · Rental · Auction</span>
       <span class="intro-badge">Fully anonymous</span>
       <span class="intro-badge">No vendor angle</span>
       <span class="intro-badge">Free report for respondents</span>
     </div>
+    <!-- Live study status. Both rows stay hidden until the constants at the top
+         of the script below are set to real values, so nothing unverified ships. -->
+    <div class="intro-status" id="intro-status" style="display:none;">
+      <div class="status-row" id="status-count" style="display:none;">
+        <span class="status-dot"></span>
+        <span><strong id="status-count-n">0</strong><span id="status-count-label"></span></span>
+      </div>
+      <div class="status-row" id="status-deadline" style="display:none;">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span id="status-deadline-text"></span>
+      </div>
+    </div>
+
+    <p class="intro-offer" id="intro-offer" style="display:none;"></p>
+
     <button class="btn-next" onclick="startSurvey()" style="width:100%;padding:15px;font-size:16px;">Start the survey →</button>
     <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only &nbsp;·&nbsp; Anonymous and aggregated &nbsp;·&nbsp; Independent research — no sponsors</p>
   </div>
@@ -508,7 +585,7 @@
   <div class="email-screen">
     <div class="section-tag" style="margin-bottom:12px;">Almost done</div>
     <div class="email-screen-title">Where should we send your copy of the report?</div>
-    <div class="email-screen-desc">The <em>AI in Heavy Equipment Sales: 2026 Benchmark</em> report will be emailed to you free when it publishes — before public release. Enter your work email below.</div>
+    <div class="email-screen-desc">The <em>AI in Heavy Equipment Sales: 2026 Benchmark</em> report will be emailed to you free, ahead of release. Enter your work email below.</div>
 
     <!-- Honeypot -->
     <div class="hp-field" aria-hidden="true">
@@ -543,20 +620,12 @@
     <div class="confirm-icon">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l6 6L22 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
-    <div class="confirm-title">You're in. Thank you.</div>
-    <div class="confirm-body">Your responses have been recorded. You'll receive the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong> report by email when it publishes — free, before public release.</div>
+    <div class="confirm-title">Thank you.</div>
+    <div class="confirm-body">Your responses have been recorded. You'll receive the <strong>AI in Heavy Equipment Sales: 2026 Benchmark</strong> report by email free, ahead of release.</div>
 
-    <div class="confirm-studies">
-      <p><strong>IronBenchmark has two other open studies — both free for respondents:</strong></p>
-      <p style="margin-top:10px;">
-        <a href="/survey">Heavy Equipment State of Marketing 2026</a> — budget allocation, cost-per-lead benchmarks, digital adoption, and what channels are actually delivering ROI across the industry.
-      </p>
-      <p style="margin-top:8px;">
-        <a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage multi-channel customer communications and what it's costing them in deals and reputation. Dealer-focused.
-      </p>
-    </div>
+    <div class="confirm-studies" id="confirm-studies-block"></div>
 
-    <div class="confirm-forward">Know someone in equipment sales who'd want to see this data? Forward them the link: <strong>ironbenchmark.com/ai-sales</strong></div>
+    <div class="confirm-forward" id="confirm-fwd-line"></div>
 
     <a href="/" class="confirm-home">← Back to IronBenchmark.com</a>
   </div>
@@ -567,7 +636,99 @@
   /* ══════════════════════════════════════════
      STATE
      ══════════════════════════════════════════ */
+  /* ══════════════════════════════════════════
+     LIVE STUDY STATUS  ← set these two values
+
+     Both rows stay hidden until these hold real values, so the page never
+     shows a respondent a number that isn't true.
+
+       RESPONDENTS  — actual completed responses. Count them from the Beehiiv
+                      tag "ironbenchmark-ai-2026-respondent" and
+                      update this weekly. 0 hides the row.
+       FIELD_CLOSES — the real date fielding ends, as 'YYYY-MM-DD'. An empty
+                      string hides the row, and so does a date already past.
+     ══════════════════════════════════════════ */
+  const RESPONDENTS  = 0;
+  const FIELD_CLOSES = '2026-10-16';
+
+  // Price of the report for non-contributors. Single source of truth — it renders
+  // into the intro paragraph and the line above the CTA, so change it only here.
+  const REPORT_PRICE = '$180';
+
+  (function renderStudyStatus() {
+    let shown = false;
+
+    if (RESPONDENTS > 0) {
+      document.getElementById('status-count-n').textContent = RESPONDENTS;
+      document.getElementById('status-count-label').textContent = RESPONDENTS === 1
+        ? ' industry professional has contributed so far'
+        : ' industry professionals have contributed so far';
+      document.getElementById('status-count').style.display = '';
+      shown = true;
+    }
+
+    if (FIELD_CLOSES) {
+      // Calendar-day difference, not elapsed time — otherwise the closing day
+      // itself reads as "tomorrow" and every count sits one day high.
+      const close = new Date(FIELD_CLOSES + 'T00:00:00');
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const days  = Math.round((close - today) / 86400000);
+      if (!isNaN(days) && days >= 0) {
+        const row = document.getElementById('status-deadline');
+        // Pure urgency here; the offer line above the CTA carries the date and terms,
+        // so repeating the full date in both would just read as padding.
+        document.getElementById('status-deadline-text').innerHTML =
+          days === 0 ? '<strong>Closes today</strong>'
+          : days === 1 ? '<strong>Closes tomorrow</strong>'
+          : '<strong>' + days + ' days left</strong> to contribute';
+        if (days <= 7) row.classList.add('closing');
+        row.style.display = '';
+        shown = true;
+      }
+    }
+
+    // Offer line above the CTA — deadline and price from the constants above, so
+    // the two levers stay joined and the price lives in exactly one place.
+    const priceEl = document.getElementById('price-inline');
+    if (priceEl) priceEl.textContent = REPORT_PRICE;
+
+    const offer = document.getElementById('intro-offer');
+    if (offer) {
+      if (FIELD_CLOSES) {
+        const close = new Date(FIELD_CLOSES + 'T23:59:59');
+        const open  = close - new Date() >= 0;
+        const pretty = close.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+        offer.innerHTML = open
+          ? '5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
+          : 'Responses for this study have closed. The report is available to non-contributors for ' + REPORT_PRICE + '.';
+      } else {
+        offer.innerHTML = '5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
+      }
+      offer.style.display = '';
+    }
+
+    if (shown) document.getElementById('intro-status').style.display = '';
+  })();
+
+  /* ══════════════════════════════════════════
+     ANALYTICS — funnel events
+
+     Pageviews alone cannot tell you which question lost a respondent. These
+     fire on each validated step, so drop-off is visible per section. Guarded
+     so the survey still works with analytics blocked or absent.
+     ══════════════════════════════════════════ */
+  const STUDY_ID = 'ai-sales-2026';
+  function track(name, params) {
+    try {
+      if (typeof gtag === 'function') gtag('event', name, Object.assign({ study: STUDY_ID }, params || {}));
+    } catch (e) { /* never let analytics break a submission */ }
+  }
+
   const answers = {};
+
+  // Stamped when the survey actually begins, sent with the submission so the
+  // server can reject fills that completed faster than a human could read them.
+  let startedAt = Date.now();
 
   /* ══════════════════════════════════════════
      PROGRESS
@@ -651,6 +812,8 @@
      ══════════════════════════════════════════ */
 
   function startSurvey() {
+    startedAt = Date.now();
+    track('survey_start');
     goTo('screen-a', 0);
   }
 
@@ -661,6 +824,7 @@
       if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 1, section_name: 'Who You Are' });
     goTo('screen-b', 1);
   }
 
@@ -679,6 +843,7 @@
     });
 
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 2, section_name: 'AI in Your Sales Process' });
     goTo('screen-c', 2);
   }
 
@@ -689,6 +854,7 @@
       if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 3, section_name: 'Barriers & Skepticism' });
     goTo('screen-d', 3);
   }
 
@@ -699,10 +865,39 @@
       if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    track('section_complete', { section: 4 });
+    track('reached_email_step');
     hideProgress();
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('screen-email').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ══════════════════════════════════════════
+     CONFIRMATION CROSS-PROMO (audience-qualified)
+
+     This study takes dealers, OEMs, rental, auction and marketplace respondents.
+     The Dealer Response Report is dealers-only, so pointing a rental or auction
+     respondent at it sends them to a survey that screens them out. Offer it to
+     dealers alone, and derive the heading from what actually gets listed.
+     ══════════════════════════════════════════ */
+  function populateConfirmStudies() {
+    const isDealer = /^Equipment dealer/.test(answers.a1 || '');
+
+    const SOM = `<a href="/survey">Heavy Equipment State of Marketing 2026</a> — budget allocation, cost-per-lead benchmarks, digital adoption, and what channels are actually delivering ROI across the industry.`;
+    const DR  = `<a href="/dealer-response">The Dealer Response Report 2026</a> — how dealers manage multi-channel customer communications and what it's costing them in deals and reputation.`;
+
+    const studies = isDealer ? [SOM, DR] : [SOM];
+    const heading = studies.length > 1
+      ? 'IronBenchmark has two other open studies — both free for respondents:'
+      : 'IronBenchmark has one other open study — free for respondents:';
+
+    document.getElementById('confirm-studies-block').innerHTML =
+      `<p><strong>${heading}</strong></p>` +
+      studies.map((x, i) => `<p style="margin-top:${i === 0 ? 10 : 8}px;">${x}</p>`).join('');
+
+    document.getElementById('confirm-fwd-line').innerHTML =
+      `Know someone in equipment sales who'd want to see this data? Forward them the link: <strong>ironbenchmark.com/ai-sales</strong>`;
   }
 
   /* ══════════════════════════════════════════
@@ -715,14 +910,6 @@
     const submitErr = document.getElementById('submit-err');
     const btn       = document.getElementById('submit-btn');
     const honeypot  = document.getElementById('hp-website').value;
-
-    if (honeypot) {
-      hideProgress();
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('screen-confirm').classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
 
     if (!email || !email.includes('@') || !email.includes('.')) {
       errEl.classList.add('show'); emailEl.classList.add('error'); return;
@@ -737,6 +924,8 @@
     const payload = {
       email,
       study: 'ai-sales-2026',
+      hp: honeypot,
+      elapsedMs: Date.now() - startedAt,
       responses: {
         a1_org_type:            answers.a1              || '',
         a2_role:                answers.a2              || '',
@@ -765,6 +954,8 @@
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Server error ' + res.status);
+      track('survey_submit');
+      populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
       hideProgress();

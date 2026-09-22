@@ -5,20 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IronBenchmark — Independent Research for Equipment Dealers &amp; OEMs</title>
   <meta name="description" content="IronBenchmark publishes original benchmark data for the construction, agricultural, and industrial equipment industry. Three studies. No sponsors. Free for respondents.">
+  <link rel="canonical" href="https://www.ironbenchmark.com/">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#1C3A2A">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="IronBenchmark">
+  <meta property="og:url" content="https://www.ironbenchmark.com/">
+  <meta property="og:title" content="IronBenchmark — Independent Research for Equipment Dealers & OEMs">
+  <meta property="og:description" content="Original benchmark data for the construction, agricultural, and industrial equipment industry. Three studies. No sponsors. Free for contributors.">
+  <meta property="og:image" content="https://www.ironbenchmark.com/og-home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="IronBenchmark — Independent Research for Equipment Dealers & OEMs">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="IronBenchmark — Independent Research for Equipment Dealers & OEMs">
+  <meta name="twitter:description" content="Original benchmark data for the construction, agricultural, and industrial equipment industry. Three studies. No sponsors. Free for contributors.">
+  <meta name="twitter:image" content="https://www.ironbenchmark.com/og-home.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
-  <!-- GA4 placeholder -->
-  <!--
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VBXRBRSE2N"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-VBXRBRSE2N');
   </script>
-  -->
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,12 +84,22 @@
       letter-spacing: -0.3px;
     }
     .topbar-wordmark span { color: var(--bronze); }
-    .topbar-tag {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+    .topbar-cta {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      /* navy on bronze, not white on bronze — white gives roughly 1.9:1 here */
+      color: var(--navy);
+      background: var(--bronze);
+      padding: 9px 20px;
+      border-radius: 3px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .topbar-cta:hover {
+      background: var(--bronze-lt);
+      transform: translateY(-1px);
     }
 
     /* ── HERO ── */
@@ -468,6 +498,28 @@
       border-radius: 3px;
       border: 1px solid #B2D9C1;
     }
+    .hp-field { display: none !important; visibility: hidden; }
+    .email-error {
+      display: none;
+      color: #B03A2E;
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    .email-error.show { display: block; }
+    .email-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: -2px;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── FOOTER ── */
     footer {
@@ -515,7 +567,7 @@
     }
     @media (max-width: 620px) {
       .topbar { padding: 14px 20px; }
-      .topbar-tag { display: none; }
+      .topbar-cta { font-size: 12px; padding: 8px 14px; }
       .hero { padding: 52px 24px 40px; }
       .studies-section { padding: 52px 24px 64px; }
       .why-section { padding: 52px 24px; }
@@ -534,7 +586,7 @@
   <!-- TOPBAR -->
   <header class="topbar">
     <div class="topbar-wordmark">Iron<span>Benchmark</span></div>
-    <div class="topbar-tag">Three Studies &middot; 2026</div>
+    <a href="#subscribe" class="topbar-cta">Subscribe</a>
   </header>
 
   <!-- HERO -->
@@ -560,7 +612,7 @@
   </div>
 
   <!-- THREE STUDIES -->
-  <section class="studies-section">
+  <section class="studies-section" id="studies">
     <div class="section-label">Open Now</div>
     <h2>Three blind spots. Three studies.</h2>
     <p class="section-intro">Each study is original, independent, and free for respondents. Pick the one that fits your role — or take all three.</p>
@@ -579,7 +631,11 @@
           </div>
           <div class="study-card-meta-row">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>5 minutes · 15 questions</span>
+            <span>5 minutes · 17 questions</span>
+          </div>
+          <div class="study-card-meta-row">
+            <svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+            <span>Responses close Friday, October 16</span>
           </div>
         </div>
         <a href="/survey" class="study-card-cta">Take the Survey &rarr;</a>
@@ -597,7 +653,11 @@
           </div>
           <div class="study-card-meta-row">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>5 minutes · 13 questions</span>
+            <span>5 minutes · 12 questions</span>
+          </div>
+          <div class="study-card-meta-row">
+            <svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+            <span>Responses close Friday, October 16</span>
           </div>
         </div>
         <a href="/ai-sales" class="study-card-cta">Take the Survey &rarr;</a>
@@ -616,7 +676,11 @@
           </div>
           <div class="study-card-meta-row">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>7 minutes · 16 questions</span>
+            <span>5 minutes · 16 questions</span>
+          </div>
+          <div class="study-card-meta-row">
+            <svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+            <span>Responses close Friday, October 2</span>
           </div>
         </div>
         <a href="/dealer-response" class="study-card-cta">Take the Survey &rarr;</a>
@@ -661,7 +725,7 @@
           </div>
           <div class="why-item-body">
             <h4>Free for everyone who responds</h4>
-            <p>Each report is sent to respondents before it's publicly released — at no cost, with no upsell. Anonymous and aggregated. Individual responses are never shared or sold.</p>
+            <p>Contributors get the full report free, ahead of release — everyone else pays for a copy. Anonymous and aggregated. Individual responses are never shared or sold.</p>
           </div>
         </div>
 
@@ -690,11 +754,11 @@
   </section>
 
   <!-- EARLY ACCESS EMAIL -->
-  <section class="access-section">
+  <section class="access-section" id="subscribe">
     <div class="access-inner">
-      <div class="section-label" style="text-align:center;">Not ready to take a survey?</div>
-      <h2>Get the reports when they publish.</h2>
-      <p>Drop your email and we'll send you each IronBenchmark report the day it goes live — before public release. No newsletter. No vendor pitch. Just the data.</p>
+      <div class="section-label" style="text-align:center;">Not taking a survey?</div>
+      <h2>Industry insights, plus every report as it publishes.</h2>
+      <p>Periodic data and findings from across the equipment industry, and word the moment each IronBenchmark report goes live. Contributors receive their report free and ahead of release — everyone else can buy a copy. No vendor pitch. Just the data.</p>
 
       <form class="email-form" id="earlyAccessForm" onsubmit="handleEmailSubmit(event)">
         <input
@@ -705,12 +769,17 @@
           required
           autocomplete="email"
         >
-        <button type="submit" class="email-submit">Notify Me</button>
+        <div class="hp-field" aria-hidden="true">
+          <label for="hp-company">Company</label>
+          <input type="text" id="hp-company" name="company" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="email-submit" id="earlyAccessSubmit">Notify Me</button>
       </form>
       <div class="email-success" id="emailSuccess">
         ✓ You're on the list. We'll email you when each report is ready.
       </div>
-      <p class="email-note">No spam. Unsubscribe anytime. Your email is only used to deliver the reports.</p>
+      <div class="email-error" id="emailError" role="alert"></div>
+      <p class="email-note">No spam. Unsubscribe anytime. Your email is only used to let you know when research publishes.</p>
     </div>
   </section>
 
@@ -724,6 +793,22 @@
   </footer>
 
   <script>
+    // ── ANALYTICS ──
+    function track(name, params) {
+      try {
+        if (typeof gtag === 'function') gtag('event', name, params || {});
+      } catch (e) { /* never let analytics break the page */ }
+    }
+    document.querySelectorAll('.study-card').forEach(card => {
+      const cta = card.querySelector('.study-card-cta');
+      if (!cta) return;
+      cta.addEventListener('click', () => track('study_card_click', {
+        study: cta.getAttribute('href'),
+        title: card.querySelector('h3')?.textContent.trim(),
+      }));
+    });
+    document.querySelector('.topbar-cta')?.addEventListener('click', () => track('topbar_subscribe_click'));
+
     // ── RESPONDENT COUNTERS ──
     // Update these numbers weekly. Counter strip hides automatically when all are 0.
     const RESPONDENT_COUNT_MARKETING = 0;  // State of Marketing survey
@@ -737,16 +822,46 @@
     }
 
     // ── EMAIL FORM ──
-    function handleEmailSubmit(e) {
+    // Sent with the signup so the server can reject fills that happen faster than
+    // a person could have read the page.
+    const pageLoadedAt = Date.now();
+
+    async function handleEmailSubmit(e) {
       e.preventDefault();
-      const email = document.getElementById('earlyAccessEmail').value;
+
+      const input = document.getElementById('earlyAccessEmail');
+      const btn   = document.getElementById('earlyAccessSubmit');
+      const err   = document.getElementById('emailError');
+      const email = input.value.trim();
       if (!email) return;
 
-      // TODO: Replace with Beehiiv form submission or API call
-      console.log('Email captured:', email);
+      err.classList.remove('show');
+      btn.disabled  = true;
+      btn.innerHTML = '<span class="spinner"></span>Adding…';
 
-      document.querySelector('.email-form').style.display = 'none';
-      document.getElementById('emailSuccess').style.display = 'block';
+      try {
+        const res = await fetch('/api/subscribe-ib-notify', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({
+            email,
+            source: 'homepage',
+            hp: document.getElementById('hp-company').value,
+            elapsedMs: Date.now() - pageLoadedAt,
+          }),
+        });
+        if (!res.ok) throw new Error('Server error ' + res.status);
+
+        track('subscribe', { source: 'homepage' });
+        document.querySelector('.email-form').style.display = 'none';
+        document.getElementById('emailSuccess').style.display = 'block';
+      } catch (error) {
+        console.error(error);
+        btn.disabled    = false;
+        btn.textContent = 'Notify Me';
+        err.textContent = 'Something went wrong — please try again, or email info@ironbenchmark.com';
+        err.classList.add('show');
+      }
     }
   </script>
 
