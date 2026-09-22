@@ -167,7 +167,7 @@ export default async function handler(req, res) {
     ];
 
     const beehiivRes = await fetch(
-      `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions`,
+      `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions?expand[]=tags`,
       {
         method: 'POST',
         headers: {
@@ -207,6 +207,10 @@ export default async function handler(req, res) {
         console.warn('Beehiiv warnings:', submissionId, JSON.stringify(warnings));
       }
 
+      const existingTags = (created?.data?.tags || [])
+        .map((t) => (typeof t === 'string' ? t : t?.name))
+        .filter(Boolean);
+
       const subId = created?.data?.id;
       if (!subId) {
         console.error('Beehiiv: no subscription id returned', submissionId);
@@ -220,7 +224,10 @@ export default async function handler(req, res) {
                 'Content-Type':  'application/json',
                 'Authorization': `Bearer ${BEEHIIV_API_KEY}`,
               },
-              body: JSON.stringify({ tags: BEEHIIV_TAGS }),
+              // The tags endpoint replaces the set rather than adding to it, so a
+              // completion would otherwise wipe the partial tag — and any other
+              // tag the subscriber already carried. Post the union instead.
+              body: JSON.stringify({ tags: [...new Set([...existingTags, ...BEEHIIV_TAGS])] }),
             }
           );
           tagsOk = tagRes.ok;
