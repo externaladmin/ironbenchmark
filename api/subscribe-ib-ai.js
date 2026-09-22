@@ -54,6 +54,7 @@ export default async function handler(req, res) {
   const r = responses || {};
 
   const STUDY        = 'ai-sales-2026';
+  const BEEHIIV_TAGS = ['ironbenchmark-ai-2026-respondent'];
   const ARCHIVE_TO   = process.env.ARCHIVE_EMAIL || 'info@ironbenchmark.com';
   const submissionId = STUDY + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
   const submittedAt  = new Date().toISOString();
@@ -143,6 +144,7 @@ export default async function handler(req, res) {
 
   let beehiivOk     = false;
   let beehiivStatus = 'not attempted';
+  let tagsOk        = false;
 
   try {
     // ── 1. Add subscriber to Beehiiv with survey data ─────────────────────────
@@ -179,7 +181,6 @@ export default async function handler(req, res) {
           utm_source:          'ironbenchmark',
           utm_medium:          'survey',
           utm_campaign:        'ai-sales-2026',
-          tags:                ['ironbenchmark-ai-2026-respondent'],
           custom_fields:       customFields,
         }),
       }
@@ -192,6 +193,44 @@ export default async function handler(req, res) {
       beehiivStatus = 'error ' + beehiivRes.status + ': ' + errBody.slice(0, 300);
       console.error('Beehiiv error:', submissionId, beehiivRes.status, errBody);
       // Non-fatal — the archive below is the durable record of this response.
+    } else {
+      // The create endpoint does not accept tags — passing them there had them
+      // silently discarded, so no subscriber was ever tagged. They need their
+      // own call against the id the create returns.
+      let created = null;
+      try { created = await beehiivRes.json(); } catch (e) { /* body already consumed or empty */ }
+
+      // The same endpoint drops custom fields that do not exist on the
+      // publication, and only says so in a warning nobody was reading.
+      const warnings = created?.data?.warnings || created?.warnings;
+      if (warnings && warnings.length) {
+        console.warn('Beehiiv warnings:', submissionId, JSON.stringify(warnings));
+      }
+
+      const subId = created?.data?.id;
+      if (!subId) {
+        console.error('Beehiiv: no subscription id returned', submissionId);
+      } else {
+        try {
+          const tagRes = await fetch(
+            `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions/${subId}/tags`,
+            {
+              method:  'POST',
+              headers: {
+                'Content-Type':  'application/json',
+                'Authorization': `Bearer ${BEEHIIV_API_KEY}`,
+              },
+              body: JSON.stringify({ tags: BEEHIIV_TAGS }),
+            }
+          );
+          tagsOk = tagRes.ok;
+          if (!tagRes.ok) {
+            console.error('Beehiiv tag error:', submissionId, tagRes.status, await tagRes.text());
+          }
+        } catch (err) {
+          console.error('Beehiiv tag exception:', submissionId, err);
+        }
+      }
     }
   } catch (err) {
     beehiivStatus = 'exception: ' + err.message;
@@ -305,6 +344,6 @@ export default async function handler(req, res) {
 
   return res.status(200).json({
     success: true, submissionId, confirmationSent,
-    beehiivOk, archiveOk, archiveStatus, confirmStatus,
+    beehiivOk, tagsOk, archiveOk, archiveStatus, confirmStatus,
   });
 }

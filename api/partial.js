@@ -96,7 +96,6 @@ export default async function handler(req, res) {
           utm_source:          'ironbenchmark',
           utm_medium:          'survey-partial',
           utm_campaign:        study,
-          tags:                [prefix + '-partial'],
           custom_fields: [
             { name: 'ib_partial_study',   value: study },
             { name: 'ib_partial_section', value: String(section || '') },
@@ -112,7 +111,40 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, beehiivOk: false, beehiivStatus: beehiivRes.status });
     }
 
-    return res.status(200).json({ success: true, beehiivOk: true, beehiivStatus: 200 });
+    // Tags are not accepted by the create endpoint and need their own call.
+    let tagsOk = false;
+    let created = null;
+    try { created = await beehiivRes.json(); } catch (e) { /* empty body */ }
+
+    const warnings = created?.data?.warnings || created?.warnings;
+    if (warnings && warnings.length) {
+      console.warn('Partial beehiiv warnings:', email, JSON.stringify(warnings));
+    }
+
+    const subId = created?.data?.id;
+    if (subId) {
+      try {
+        const tagRes = await fetch(
+          `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions/${subId}/tags`,
+          {
+            method:  'POST',
+            headers: {
+              'Content-Type':  'application/json',
+              'Authorization': `Bearer ${BEEHIIV_API_KEY}`,
+            },
+            body: JSON.stringify({ tags: [prefix + '-partial'] }),
+          }
+        );
+        tagsOk = tagRes.ok;
+        if (!tagRes.ok) console.error('Partial tag error:', email, tagRes.status, await tagRes.text());
+      } catch (err) {
+        console.error('Partial tag exception:', email, err);
+      }
+    } else {
+      console.error('Partial: no subscription id returned', email);
+    }
+
+    return res.status(200).json({ success: true, beehiivOk: true, tagsOk, beehiivStatus: 200 });
   } catch (err) {
     console.error('Partial exception:', email, err);
     return res.status(200).json({ success: true, beehiivOk: false });

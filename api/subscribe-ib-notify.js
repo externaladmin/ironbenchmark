@@ -50,6 +50,7 @@ export default async function handler(req, res) {
   }
 
   const STUDY        = 'early-access';
+  const BEEHIIV_TAGS = ['ironbenchmark-early-access'];
   const ARCHIVE_TO   = process.env.ARCHIVE_EMAIL || 'info@ironbenchmark.com';
   const submissionId = STUDY + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
   const submittedAt  = new Date().toISOString();
@@ -120,6 +121,7 @@ export default async function handler(req, res) {
 
   let beehiivOk     = false;
   let beehiivStatus = 'not attempted';
+  let tagsOk        = false;
 
   // ── 1. Add to Beehiiv ──────────────────────────────────────────────────────
   try {
@@ -138,7 +140,6 @@ export default async function handler(req, res) {
           utm_source:          'ironbenchmark',
           utm_medium:          'homepage',
           utm_campaign:        'early-access',
-          tags:                ['ironbenchmark-early-access'],
         }),
       }
     );
@@ -149,6 +150,41 @@ export default async function handler(req, res) {
       const errBody = await beehiivRes.text();
       beehiivStatus = 'error ' + beehiivRes.status + ': ' + errBody.slice(0, 300);
       console.error('Beehiiv error:', submissionId, beehiivRes.status, errBody);
+    } else {
+      // The create endpoint does not accept tags — passing them there had them
+      // silently discarded, so no subscriber was ever tagged.
+      let created = null;
+      try { created = await beehiivRes.json(); } catch (e) { /* empty body */ }
+
+      const warnings = created?.data?.warnings || created?.warnings;
+      if (warnings && warnings.length) {
+        console.warn('Beehiiv warnings:', submissionId, JSON.stringify(warnings));
+      }
+
+      const subId = created?.data?.id;
+      if (!subId) {
+        console.error('Beehiiv: no subscription id returned', submissionId);
+      } else {
+        try {
+          const tagRes = await fetch(
+            `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions/${subId}/tags`,
+            {
+              method:  'POST',
+              headers: {
+                'Content-Type':  'application/json',
+                'Authorization': `Bearer ${BEEHIIV_API_KEY}`,
+              },
+              body: JSON.stringify({ tags: BEEHIIV_TAGS }),
+            }
+          );
+          tagsOk = tagRes.ok;
+          if (!tagRes.ok) {
+            console.error('Beehiiv tag error:', submissionId, tagRes.status, await tagRes.text());
+          }
+        } catch (err) {
+          console.error('Beehiiv tag exception:', submissionId, err);
+        }
+      }
     }
   } catch (err) {
     beehiivStatus = 'exception: ' + err.message;
@@ -233,6 +269,6 @@ export default async function handler(req, res) {
 
   return res.status(200).json({
     success: true, submissionId, confirmationSent,
-    beehiivOk, archiveOk, archiveStatus, confirmStatus,
+    beehiivOk, tagsOk, archiveOk, archiveStatus, confirmStatus,
   });
 }
