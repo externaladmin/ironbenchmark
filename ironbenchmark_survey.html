@@ -350,7 +350,7 @@
         </div>
       </div>
 
-      <button class="btn-next" onclick="goToA()" style="width:100%;padding:15px;">Start the survey →</button>
+      <button class="btn-next" onclick="goToA()" style="width:100%;padding:15px;">Start the 5-minute survey →</button>
     </div>
     <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only · Anonymous and aggregated · Independent research — no sponsors</p>
   </div>
@@ -832,6 +832,11 @@
     const priceEl = document.getElementById('price-inline');
     if (priceEl) priceEl.textContent = REPORT_PRICE;
 
+    // Counted from the page itself rather than written down, so it cannot drift
+    // out of step with the questions actually asked.
+    const qCount = [...document.querySelectorAll('.q-num')]
+      .filter((el) => /^Question/i.test(el.textContent)).length;
+
     const offer = document.getElementById('intro-offer-text');
     if (offer) {
       if (FIELD_CLOSES) {
@@ -839,10 +844,10 @@
         const open  = close - new Date() >= 0;
         const pretty = close.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
         offer.innerHTML = open
-          ? '5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
+          ? qCount + ' questions · 5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
           : 'Responses for this study have closed. The report is available to non-contributors for ' + REPORT_PRICE + '.';
       } else {
-        offer.innerHTML = '5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
+        offer.innerHTML = qCount + ' questions · 5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
       }
       document.getElementById('intro-offer').style.display = '';
       shown = true;
