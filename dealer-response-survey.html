@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IronBenchmark — The Dealer Response Report 2026</title>
-  <meta name="description" content="How equipment dealers manage customer communications across every channel — and the reputation gap it creates. 5 minutes. Free report for all respondents.">
+  <meta name="description" content="Your dealership has a number for almost everything — except what happens when a customer tries to reach you. The first benchmark on dealer response. 16 questions, five minutes, free for contributors.">
   <link rel="canonical" href="https://www.ironbenchmark.com/dealer-response">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -150,6 +150,82 @@
     .status-offer svg { margin-top: 4px; }
     .status-offer .deadline { color: var(--red); font-weight: 600; }
 
+    /* ── RESUME BAR ── */
+    .resume-bar {
+      max-width: 460px; margin: 0 auto 18px; padding: 14px 18px;
+      background: var(--bronze-bg); border: 1px solid var(--bronze);
+      border-radius: 10px; text-align: left;
+    }
+    .resume-text { font-size: 14px; color: var(--navy); line-height: 1.5; margin-bottom: 10px; }
+    .resume-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .resume-go {
+      font-family: var(--sans); font-size: 14px; font-weight: 600; color: #fff;
+      background: var(--navy); border: none; border-radius: 6px;
+      padding: 9px 16px; cursor: pointer;
+    }
+    .resume-go:hover { background: #264D38; }
+    .resume-fresh {
+      font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 9px 6px;
+    }
+    .resume-fresh:hover { color: var(--navy); }
+
+    /* ── INLINE EMAIL CAPTURE ── */
+    .inline-email {
+      margin: 20px 0 0; padding: 16px 18px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; text-align: left;
+    }
+    .inline-email label {
+      display: block; font-size: 14px; font-weight: 600;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    .inline-email label span { font-weight: 400; color: var(--muted); }
+    .inline-email-input {
+      width: 100%; padding: 11px 14px; font-family: var(--sans); font-size: 15px;
+      color: var(--navy); background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .inline-email-input:focus { border-color: var(--bronze); }
+    .inline-email-input::placeholder { color: var(--muted); }
+    .inline-email-note {
+      font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-top: 8px;
+    }
+    .inline-email-done {
+      font-size: 13.5px; color: var(--navy); background: var(--bronze-bg);
+      border-color: var(--bronze); padding: 12px 16px;
+    }
+
+    /* ── WHAT'S IN THE REPORT ── */
+    .report-contents {
+      background: var(--white); border-left: 4px solid var(--bronze);
+      border-radius: 0 10px 10px 0; padding: 18px 22px;
+      margin: 0 0 20px; text-align: left;
+    }
+    .report-contents-title {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bronze); margin-bottom: 12px;
+    }
+    .report-contents ul { margin: 0; padding-left: 18px; }
+    .report-contents li {
+      font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 7px;
+    }
+    .report-contents li:last-child { margin-bottom: 0; }
+    .report-contents li strong { color: var(--navy); font-weight: 600; }
+
+    /* ── RATING ── */
+    .rating-block { margin: 0 0 28px; }
+    .rating-q { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+    .rating-stars { display: flex; justify-content: center; gap: 6px; }
+    .rating-star {
+      background: none; border: none; cursor: pointer; padding: 4px;
+      font-size: 26px; line-height: 1; color: var(--border-dk);
+      transition: color 0.15s, transform 0.1s;
+    }
+    .rating-star:hover, .rating-star.lit { color: var(--bronze); }
+    .rating-star:hover { transform: scale(1.12); }
+    .rating-done { font-size: 14px; color: var(--muted); }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -171,7 +247,7 @@
     /* ── SECTION HEADER ── */
     .section-header { margin-bottom: 36px; }
     .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bronze); margin-bottom: 8px; }
-    .section-title { font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
+    .section-title { margin: 0; font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
     .section-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
 
     /* ── QUESTION BLOCK ── */
@@ -290,7 +366,7 @@
       .topbar { padding: 14px 20px; }
       .progress-wrap { padding: 0 20px 14px; }
       .survey-outer { padding: 32px 16px 64px; }
-      .section-title { font-size: 24px; }
+      .section-title { margin: 0; font-size: 24px; }
       .intro-screen { padding: 40px 16px 64px; }
       .intro-title { font-size: 26px; }
       .email-screen { padding: 32px 16px 64px; }
@@ -355,6 +431,17 @@
       <p class="intro-desc">Phone calls and walk-ins are only part of the picture. Customers reach you through web forms, Facebook Messenger, text and listing platforms.</p>
       <p class="intro-desc">A missed inquiry isn't a lost order. It's a lost machine, and every parts and service dollar that machine would have earned for the rest of its life.</p>
       <p class="intro-desc">Nobody has published what good looks like, so there's nothing to measure yourself against. This study builds that benchmark — the first one. 16 questions. About 5 minutes.</p>
+      <div class="report-contents">
+        <div class="report-contents-title">What's in the report</div>
+        <ul>
+          <li><strong>Channel coverage</strong> — which dealers are active on which channels</li>
+          <li><strong>Response speed benchmarks</strong> — average first-response times by channel</li>
+          <li><strong>Who owns the lead</strong> — how dealers assign and manage incoming inquiries</li>
+          <li><strong>Follow-up behavior</strong> — what happens after a quote goes out</li>
+          <li><strong>Reputation management</strong> — how dealers monitor and generate reviews</li>
+        </ul>
+      </div>
+
       <p class="intro-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
 
       <button class="btn-next btn-ghost" onclick="startSurvey()" style="width:100%;padding:14px;font-size:15px;margin-top:8px;">Start the 5-minute survey →</button>
@@ -372,14 +459,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 1 · About You</div>
-      <div class="section-title">Let's start with some context.</div>
+      <h2 class="section-title">Let's start with some context.</h2>
       <div class="section-desc">4 questions · about 60 seconds. All responses are anonymous and aggregated. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
     </div>
 
     <!-- Q1 — Role -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 1</span>What best describes your role?</div>
-      <div class="options" id="q1-opts">
+      <div class="q-label" id="q1-label"><span class="q-num">Question 1</span>What best describes your role?</div>
+      <div class="options" id="q1-opts" role="group" aria-labelledby="q1-label">
         <label class="opt"><input type="radio" name="q1" value="Dealer Principal / Owner"><span class="opt-text">Dealer Principal / Owner</span></label>
         <label class="opt"><input type="radio" name="q1" value="General Manager"><span class="opt-text">General Manager</span></label>
         <label class="opt"><input type="radio" name="q1" value="Sales Manager"><span class="opt-text">Sales Manager</span></label>
@@ -393,8 +480,8 @@
 
     <!-- Q2 — Locations -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 2</span>How many locations does your dealership operate?</div>
-      <div class="options" id="q2-opts">
+      <div class="q-label" id="q2-label"><span class="q-num">Question 2</span>How many locations does your dealership operate?</div>
+      <div class="options" id="q2-opts" role="group" aria-labelledby="q2-label">
         <label class="opt"><input type="radio" name="q2" value="1 location"><span class="opt-text">1 location</span></label>
         <label class="opt"><input type="radio" name="q2" value="2–5 locations"><span class="opt-text">2–5 locations</span></label>
         <label class="opt"><input type="radio" name="q2" value="6–15 locations"><span class="opt-text">6–15 locations</span></label>
@@ -433,15 +520,15 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 2 · How Customers Reach You</div>
-      <div class="section-title">The channels your customers are using.</div>
+      <h2 class="section-title">The channels your customers are using.</h2>
       <div class="section-desc">3 questions · about 60 seconds. This section maps where the inbound volume is actually coming from — and whether dealers have visibility into it.</div>
     </div>
 
     <!-- Q5 — Channels (multi-select) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 5</span>Through which channels are customers and prospects actively contacting your dealership today?</div>
+      <div class="q-label" id="q5-label"><span class="q-num">Question 5</span>Through which channels are customers and prospects actively contacting your dealership today?</div>
       <div class="q-hint">Select all that apply</div>
-      <div class="options" id="q5-opts">
+      <div class="options" id="q5-opts" role="group" aria-labelledby="q5-label">
         <label class="opt"><input type="checkbox" name="q5" value="Phone call"><span class="opt-text">Phone call</span></label>
         <label class="opt"><input type="checkbox" name="q5" value="Walk-in (lot or showroom)"><span class="opt-text">Walk-in (lot or showroom)</span></label>
         <label class="opt"><input type="checkbox" name="q5" value="Email"><span class="opt-text">Email</span></label>
@@ -457,8 +544,8 @@
 
     <!-- Q6 — Primary channel -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 6</span>Which of those channels drives the most inbound contact?</div>
-      <div class="options" id="q6-opts">
+      <div class="q-label" id="q6-label"><span class="q-num">Question 6</span>Which of those channels drives the most inbound contact?</div>
+      <div class="options" id="q6-opts" role="group" aria-labelledby="q6-label">
         <label class="opt"><input type="radio" name="q6" value="Phone call"><span class="opt-text">Phone call</span></label>
         <label class="opt"><input type="radio" name="q6" value="Walk-in"><span class="opt-text">Walk-in</span></label>
         <label class="opt"><input type="radio" name="q6" value="Email"><span class="opt-text">Email</span></label>
@@ -474,8 +561,8 @@
 
     <!-- Q7 — Volume visibility -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 7</span>Do you actually know how many inbound inquiries your dealership receives in a typical week?</div>
-      <div class="options" id="q7-opts">
+      <div class="q-label" id="q7-label"><span class="q-num">Question 7</span>Do you actually know how many inbound inquiries your dealership receives in a typical week?</div>
+      <div class="options" id="q7-opts" role="group" aria-labelledby="q7-label">
         <label class="opt"><input type="radio" name="q7" value="Yes — we track this and have a reliable number"><span class="opt-text">Yes — we track this and have a reliable number</span></label>
         <label class="opt"><input type="radio" name="q7" value="Roughly — general sense but we don't track it formally"><span class="opt-text">Roughly — general sense but we don't track it formally</span></label>
         <label class="opt"><input type="radio" name="q7" value="Honestly, no — we don't have visibility into total inbound volume"><span class="opt-text">Honestly, no — we don't have visibility into total inbound volume</span></label>
@@ -498,14 +585,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 3 · How You Handle It</div>
-      <div class="section-title">What happens when the inquiry comes in.</div>
+      <h2 class="section-title">What happens when the inquiry comes in.</h2>
       <div class="section-desc">6 questions · about 90 seconds. No right answers here — the value in this study is in the honest data, including the uncomfortable parts.</div>
     </div>
 
     <!-- Q8 — Who responds to digital -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 8</span>When a customer contacts you through a digital channel — website form, Facebook message, email — who is responsible for responding?</div>
-      <div class="options" id="q8-opts">
+      <div class="q-label" id="q8-label"><span class="q-num">Question 8</span>When a customer contacts you through a digital channel — website form, Facebook message, email — who is responsible for responding?</div>
+      <div class="options" id="q8-opts" role="group" aria-labelledby="q8-label">
         <label class="opt"><input type="radio" name="q8" value="A dedicated person (BDC, admin, or receptionist)"><span class="opt-text">A dedicated person (BDC, admin, or receptionist)</span></label>
         <label class="opt"><input type="radio" name="q8" value="Whoever sees it first"><span class="opt-text">Whoever sees it first</span></label>
         <label class="opt"><input type="radio" name="q8" value="Salespeople individually — each handles their own"><span class="opt-text">Salespeople individually — each handles their own</span></label>
@@ -517,8 +604,8 @@
 
     <!-- Q9 — Response speed -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 9</span>How quickly does your team typically respond to a digital inquiry?</div>
-      <div class="options" id="q9-opts">
+      <div class="q-label" id="q9-label"><span class="q-num">Question 9</span>How quickly does your team typically respond to a digital inquiry?</div>
+      <div class="options" id="q9-opts" role="group" aria-labelledby="q9-label">
         <label class="opt"><input type="radio" name="q9" value="Within 1 hour"><span class="opt-text">Within 1 hour</span></label>
         <label class="opt"><input type="radio" name="q9" value="Same business day"><span class="opt-text">Same business day</span></label>
         <label class="opt"><input type="radio" name="q9" value="Within 1–2 business days"><span class="opt-text">Within 1–2 business days</span></label>
@@ -530,8 +617,8 @@
 
     <!-- Q10 — Salesperson leaving -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 10</span>When a salesperson leaves your dealership, what typically happens to their open customer conversations and leads?</div>
-      <div class="options" id="q10-opts">
+      <div class="q-label" id="q10-label"><span class="q-num">Question 10</span>When a salesperson leaves your dealership, what typically happens to their open customer conversations and leads?</div>
+      <div class="options" id="q10-opts" role="group" aria-labelledby="q10-label">
         <label class="opt"><input type="radio" name="q10" value="We have a clear handoff process — manager reviews and reassigns everything"><span class="opt-text">We have a clear handoff process — manager reviews and reassigns everything</span></label>
         <label class="opt"><input type="radio" name="q10" value="Most things get picked up, but some probably fall through"><span class="opt-text">Most things get picked up, but some probably fall through</span></label>
         <label class="opt"><input type="radio" name="q10" value="It's pretty inconsistent — depends on the situation"><span class="opt-text">It's pretty inconsistent — depends on the situation</span></label>
@@ -542,8 +629,8 @@
 
     <!-- Q11 — Quote follow-up ownership -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 11</span>After a quote or proposal goes out — who owns the follow-up?</div>
-      <div class="options" id="q11-opts">
+      <div class="q-label" id="q11-label"><span class="q-num">Question 11</span>After a quote or proposal goes out — who owns the follow-up?</div>
+      <div class="options" id="q11-opts" role="group" aria-labelledby="q11-label">
         <label class="opt"><input type="radio" name="q11" value="The salesperson who sent it — entirely their call"><span class="opt-text">The salesperson who sent it — entirely their call</span></label>
         <label class="opt"><input type="radio" name="q11" value="Sales manager follows up if nothing happens within a set time"><span class="opt-text">Sales manager follows up if nothing happens within a set time</span></label>
         <label class="opt"><input type="radio" name="q11" value="CRM reminders or automation triggers follow-up"><span class="opt-text">CRM reminders or automation triggers follow-up</span></label>
@@ -555,8 +642,8 @@
 
     <!-- Q12 — Biggest challenge -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 12</span>What's your biggest challenge managing communications across multiple channels?</div>
-      <div class="options" id="q12-opts">
+      <div class="q-label" id="q12-label"><span class="q-num">Question 12</span>What's your biggest challenge managing communications across multiple channels?</div>
+      <div class="options" id="q12-opts" role="group" aria-labelledby="q12-label">
         <label class="opt"><input type="radio" name="q12" value="Keeping track of all the places messages come from"><span class="opt-text">Keeping track of all the places messages come from</span></label>
         <label class="opt"><input type="radio" name="q12" value="Response speed — we can't always get back fast enough"><span class="opt-text">Response speed — we can't always get back fast enough</span></label>
         <label class="opt"><input type="radio" name="q12" value="Knowing which inquiries are serious buyers vs. tire kickers"><span class="opt-text">Knowing which inquiries are serious buyers vs. tire kickers</span></label>
@@ -569,8 +656,8 @@
 
     <!-- Q13 — Lost deal -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 13</span>Has your dealership lost a deal — or nearly lost one — because a customer message wasn't seen or responded to in time?</div>
-      <div class="options" id="q13-opts">
+      <div class="q-label" id="q13-label"><span class="q-num">Question 13</span>Has your dealership lost a deal — or nearly lost one — because a customer message wasn't seen or responded to in time?</div>
+      <div class="options" id="q13-opts" role="group" aria-labelledby="q13-label">
         <label class="opt"><input type="radio" name="q13" value="Yes, definitely — I can think of specific examples"><span class="opt-text">Yes, definitely — I can think of specific examples</span></label>
         <label class="opt"><input type="radio" name="q13" value="Probably — I suspect it's happened but we don't always know"><span class="opt-text">Probably — I suspect it's happened but we don't always know</span></label>
         <label class="opt"><input type="radio" name="q13" value="Not that I'm aware of"><span class="opt-text">Not that I'm aware of</span></label>
@@ -594,14 +681,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 4 · Reputation</div>
-      <div class="section-title">What customers find when they look you up.</div>
+      <h2 class="section-title">What customers find when they look you up.</h2>
       <div class="section-desc">3 questions · about 60 seconds. Your online reputation is being shaped whether you're managing it or not. This section benchmarks how actively dealers are in the conversation.</div>
     </div>
 
     <!-- Q14 — Google rating awareness -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 14</span>Do you know your current Google star rating?</div>
-      <div class="options" id="q14-opts">
+      <div class="q-label" id="q14-label"><span class="q-num">Question 14</span>Do you know your current Google star rating?</div>
+      <div class="options" id="q14-opts" role="group" aria-labelledby="q14-label">
         <label class="opt"><input type="radio" name="q14" value="Yes — I know it right now without looking it up"><span class="opt-text">Yes — I know it right now without looking it up</span></label>
         <label class="opt"><input type="radio" name="q14" value="Yes — I checked recently"><span class="opt-text">Yes — I checked recently</span></label>
         <label class="opt"><input type="radio" name="q14" value="Roughly, but I haven't looked in a while"><span class="opt-text">Roughly, but I haven't looked in a while</span></label>
@@ -612,8 +699,8 @@
 
     <!-- Q15 — Review monitoring -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 15</span>Do you actively monitor and respond to your online reviews?</div>
-      <div class="options" id="q15-opts">
+      <div class="q-label" id="q15-label"><span class="q-num">Question 15</span>Do you actively monitor and respond to your online reviews?</div>
+      <div class="options" id="q15-opts" role="group" aria-labelledby="q15-label">
         <label class="opt"><input type="radio" name="q15" value="Yes — I check regularly and respond to most reviews"><span class="opt-text">Yes — I check regularly and respond to most reviews</span></label>
         <label class="opt"><input type="radio" name="q15" value="Occasionally — when something flags or a bad one comes in"><span class="opt-text">Occasionally — when something flags or a bad one comes in</span></label>
         <label class="opt"><input type="radio" name="q15" value="We have alerts set up but rarely act on them"><span class="opt-text">We have alerts set up but rarely act on them</span></label>
@@ -624,8 +711,8 @@
 
     <!-- Q16 — Asking for reviews -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 16</span>How do you currently ask satisfied customers to leave a review?</div>
-      <div class="options" id="q16-opts">
+      <div class="q-label" id="q16-label"><span class="q-num">Question 16</span>How do you currently ask satisfied customers to leave a review?</div>
+      <div class="options" id="q16-opts" role="group" aria-labelledby="q16-label">
         <label class="opt"><input type="radio" name="q16" value="We have a consistent process — most customers get asked"><span class="opt-text">We have a consistent process — most customers get asked</span></label>
         <label class="opt"><input type="radio" name="q16" value="We ask, but it's sporadic and depends on the salesperson"><span class="opt-text">We ask, but it's sporadic and depends on the salesperson</span></label>
         <label class="opt"><input type="radio" name="q16" value="We rely on customers to leave reviews on their own"><span class="opt-text">We rely on customers to leave reviews on their own</span></label>
@@ -696,6 +783,8 @@
         <a href="/ai-sales">AI in Heavy Equipment Sales: 2026 Benchmark</a> — the first study on AI adoption in equipment sales. Tool usage, barriers, competitor confidence gap, and where the industry is headed.
       </p>
     </div>
+
+    <div class="rating-block" id="rating-block"></div>
 
     <div class="confirm-forward">Know a fellow dealer who'd want to see this data? Forward them the link: <strong>ironbenchmark.com/dealer-response</strong></div>
 
@@ -886,7 +975,14 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  const PERSONAL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','live.com','msn.com','me.com','mac.com'];
+  const PERSONAL_DOMAINS = [
+    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','ymail.com','rocketmail.com',
+    'hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','icloud.com','me.com',
+    'mac.com','aol.com','proton.me','protonmail.com','pm.me','gmx.com','gmx.net','mail.com',
+    'zoho.com','yandex.com','comcast.net','sbcglobal.net','att.net','verizon.net','cox.net',
+    'bellsouth.net','charter.net','earthlink.net','roadrunner.com','optonline.net',
+  ];
+  const WORK_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
   function isPersonalEmail(email) {
     const domain = email.split('@')[1]?.toLowerCase() || '';
     return PERSONAL_DOMAINS.includes(domain);
@@ -975,7 +1071,7 @@
     const btn       = document.getElementById('submit-btn');
     const honeypot  = document.getElementById('hp-website').value;
 
-    if (!email || !email.includes('@') || !email.includes('.')) {
+    if (!WORK_EMAIL_RE.test(email)) {
       errEl.classList.add('show'); emailEl.classList.add('error'); return;
     }
     if (isPersonalEmail(email)) {
@@ -1023,6 +1119,8 @@
       });
       if (!res.ok) throw new Error('Server error ' + res.status);
       track('survey_submit');
+      storeClear();
+      mountRating();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
       hideProgress();
@@ -1036,8 +1134,267 @@
     }
   }
 
+  /* ══════════════════════════════════════════
+     ANSWER PERSISTENCE
+
+     A refresh, a stray back-button or a phone call mid-survey used to wipe
+     every answer with no way back. Progress is kept in localStorage on the
+     respondent's own device — nothing is sent anywhere — and cleared the
+     moment the survey is submitted. Every access is guarded: with storage
+     blocked or full, the survey behaves exactly as it did before.
+     ══════════════════════════════════════════ */
+  const STORE_KEY = 'ironbenchmark:' + STUDY_ID;
+  const STORE_TTL = 7 * 24 * 60 * 60 * 1000;
+  const INTRO_ID  = 'screen-intro';
+
+  function storeRead() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data || !data.savedAt || Date.now() - data.savedAt > STORE_TTL) {
+        localStorage.removeItem(STORE_KEY);
+        return null;
+      }
+      return data;
+    } catch (e) { return null; }
+  }
+
+  function storeSave() {
+    try {
+      const fields = {};
+      document.querySelectorAll('input[type="text"], input[type="email"], select').forEach((el) => {
+        if (el.id && el.value && !el.closest('.hp-field')) fields[el.id] = el.value;
+      });
+      const checked = [...document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked')]
+        .map((el) => [el.name, el.value]);
+      const segs   = [...document.querySelectorAll('.prog-seg')];
+      const active = document.querySelector('.screen.active');
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        savedAt:   Date.now(),
+        startedAt: typeof startedAt !== 'undefined' ? startedAt : Date.now(),
+        answers:   answers,
+        fields:    fields,
+        checked:   checked,
+        screen:    active ? active.id : null,
+        progIdx:   segs.findIndex((s) => s.classList.contains('active')),
+        orgType:   typeof orgType !== 'undefined' ? orgType : null,
+      }));
+    } catch (e) { /* storage unavailable — the survey still works, just without resume */ }
+  }
+
+  function storeClear() {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  }
+
+  function storeRestore(data) {
+    // Org type first: the marketing study renders its options from it, so the
+    // inputs those answers refer to do not exist until this has run.
+    if (typeof orgType !== 'undefined' && data.orgType) {
+      orgType = data.orgType;
+      if (typeof renderAllDynamic === 'function') renderAllDynamic();
+    }
+    Object.assign(answers, data.answers || {});
+    if (data.startedAt && typeof startedAt !== 'undefined') startedAt = data.startedAt;
+
+    Object.entries(data.fields || {}).forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = value;
+    });
+    (data.checked || []).forEach((pair) => {
+      const el = [...document.querySelectorAll('input[name="' + pair[0] + '"]')]
+        .find((x) => x.value === pair[1]);
+      if (el) { el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
+    });
+
+    mountInlineEmail();
+    if (data.screen === 'screen-email') {
+      hideProgress();
+      document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+      document.getElementById('screen-email').classList.add('active');
+      window.scrollTo({ top: 0 });
+    } else if (data.screen && document.getElementById(data.screen)) {
+      goTo(data.screen, typeof data.progIdx === 'number' ? data.progIdx : 0);
+    }
+    track('survey_resumed', { screen: data.screen });
+  }
+
+  // Save on the screen transition itself, not just the click that caused it —
+  // a programmatic move would otherwise leave the stored screen a step behind.
+  const goToUnsaved = goTo;
+  goTo = function (screenId, progIdx) {
+    goToUnsaved(screenId, progIdx);
+    storeSave();
+    mountInlineEmail();
+    sendPartial();
+  };
+
+  // Save on anything that changes an answer, and after any navigation click.
+  document.addEventListener('change', storeSave);
+  document.addEventListener('input', storeSave);
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('button')) setTimeout(storeSave, 0);
+  });
+
+  // Offer to resume only if they actually got past the intro.
+  (function offerResume() {
+    const saved = storeRead();
+    if (!saved || !saved.screen || saved.screen === INTRO_ID) return;
+
+    const anchor = document.querySelector('#' + INTRO_ID + ' .btn-next');
+    if (!anchor) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'resume-bar';
+    bar.innerHTML =
+      '<div class="resume-text">You have answers saved on this device from an earlier visit.</div>' +
+      '<div class="resume-actions">' +
+        '<button type="button" class="resume-go">Pick up where you left off →</button>' +
+        '<button type="button" class="resume-fresh">Start over</button>' +
+      '</div>';
+    anchor.parentNode.insertBefore(bar, anchor);
+
+    bar.querySelector('.resume-go').addEventListener('click', () => {
+      bar.remove();
+      storeRestore(saved);
+    });
+    bar.querySelector('.resume-fresh').addEventListener('click', () => {
+      storeClear();
+      bar.remove();
+      track('survey_restarted');
+    });
+  })();
+
+  /* ══════════════════════════════════════════
+     INLINE EMAIL CAPTURE (optional)
+
+     Sits under Continue from the first section on, so an address can be given
+     at any point rather than only at the end. Entirely optional and never
+     blocking: Continue behaves the same whether it is filled or not, which is
+     why it sits here rather than as a gate between sections — a gate would
+     cost starts, and this cannot.
+
+     Once given it disappears and pre-fills the final screen, so nobody types
+     it twice. The wording promises only what actually happens: the report on
+     completion, and a reminder if they do not finish.
+     ══════════════════════════════════════════ */
+  const INLINE_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+
+  const inlineEmail = document.createElement('div');
+  inlineEmail.className = 'inline-email';
+  inlineEmail.innerHTML =
+    '<label for="inline-email-input">Add your email now <span>(optional)</span></label>' +
+    '<input type="email" id="inline-email-input" class="inline-email-input" placeholder="you@yourdealership.com" autocomplete="email">' +
+    '<p class="inline-email-note">So we can send the report the moment you finish — and remind you if you don\'t.</p>';
+
+  function inlineEmailCapture(value) {
+    answers.emailEarly = value;
+    const final = document.getElementById('final-email');
+    if (final && !final.value) final.value = value;
+    inlineEmail.className = 'inline-email inline-email-done';
+    inlineEmail.textContent = '✓ We\'ll send the report to ' + value + '. You can change it at the end.';
+    track('early_email_captured');
+    storeSave();
+    sendPartial();
+  }
+
+  inlineEmail.addEventListener('change', (e) => {
+    if (!e.target.classList.contains('inline-email-input')) return;
+    const value = e.target.value.trim();
+    if (INLINE_EMAIL_RE.test(value)) inlineEmailCapture(value);
+  });
+
+  function mountInlineEmail() {
+    const active = document.querySelector('.screen.active');
+    const done   = !!answers.emailEarly;
+
+    // Carry a restored address through to the final screen.
+    if (done) {
+      const final = document.getElementById('final-email');
+      if (final && !final.value) final.value = answers.emailEarly;
+    }
+
+    // Not on the intro, the email screen or the confirmation — only the
+    // question sections, which are the ones with a nav row.
+    const nav = active && active.querySelector('.nav-row');
+    if (!active || !nav || active.id === 'screen-email' || active.id === 'screen-confirm') {
+      if (inlineEmail.parentNode) inlineEmail.remove();
+      return;
+    }
+    // Shown until an address is given; the confirmation replaces it in place
+    // and then it stops appearing.
+    if (done && inlineEmail.classList.contains('inline-email-done') && inlineEmail.parentNode) {
+      inlineEmail.remove();
+      return;
+    }
+    if (done) return;
+    nav.parentNode.insertBefore(inlineEmail, nav.nextSibling);
+  }
+
+  /* ══════════════════════════════════════════
+     SURVEY RATING
+
+     Asked after submission, so it costs a respondent nothing and cannot
+     affect completion. Recorded as an analytics event rather than displayed
+     anywhere — a rating is only worth showing once enough real ones exist.
+     ══════════════════════════════════════════ */
+  function mountRating() {
+    const host = document.getElementById('rating-block');
+    if (!host || host.dataset.done) return;
+    host.innerHTML = '<div class="rating-q">How useful was this survey?</div><div class="rating-stars"></div>';
+    const stars = host.querySelector('.rating-stars');
+    for (let i = 1; i <= 5; i++) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'rating-star';
+      b.textContent = '\u2605';
+      b.setAttribute('aria-label', i + ' out of 5');
+      b.addEventListener('mouseenter', () => {
+        [...stars.children].forEach((s, n) => s.classList.toggle('lit', n < i));
+      });
+      b.addEventListener('click', () => {
+        host.dataset.done = '1';
+        track('survey_rating', { rating: i });
+        host.innerHTML = '<div class="rating-done">Thanks \u2014 noted.</div>';
+      });
+      stars.appendChild(b);
+    }
+    stars.addEventListener('mouseleave', () => {
+      [...stars.children].forEach((s) => s.classList.remove('lit'));
+    });
+  }
+
+
+  /* ══════════════════════════════════════════
+     PARTIAL PROGRESS
+
+     Only ever runs once an address has actually been given. Fire-and-forget:
+     a failure here must never affect the survey, so nothing is awaited and
+     nothing is surfaced.
+     ══════════════════════════════════════════ */
+  function sendPartial() {
+    if (!answers.emailEarly) return;
+    const segs    = [...document.querySelectorAll('.prog-seg')];
+    const section = segs.findIndex((x) => x.classList.contains('active')) + 1;
+    try {
+      fetch('/api/partial', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          email:     answers.emailEarly,
+          study:     STUDY_ID,
+          section:   section,
+          hp:        document.getElementById('hp-website') ? document.getElementById('hp-website').value : '',
+          elapsedMs: Date.now() - startedAt,
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (e) { /* never let this affect the survey */ }
+  }
+
   /* ── INIT ── */
   hideProgress();
+  mountInlineEmail();
 </script>
 </body>
 </html>

@@ -31,9 +31,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, study, responses } = req.body || {};
+  const { email: rawEmail, study, responses } = req.body || {};
 
-  if (!email || !email.includes('@')) {
+  // Same rule the browser applies, enforced here too — the browser checks are a
+  // convenience and a direct POST never runs them. Normalising once means every
+  // downstream use (Beehiiv, Resend, the archive) gets the same address.
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+  const email = String(rawEmail || '').trim().toLowerCase();
+  if (!EMAIL_RE.test(email)) {
     return res.status(400).json({ error: 'Valid email required' });
   }
 
@@ -154,6 +159,9 @@ export default async function handler(req, res) {
       ...(r.c3_confidence_driver  ? [{ name: 'ibai_confidence_driver',  value: r.c3_confidence_driver }]  : []),
       ...(r.d1_biggest_impact     ? [{ name: 'ibai_biggest_impact',     value: r.d1_biggest_impact }]     : []),
       ...(r.d2_future_outlook     ? [{ name: 'ibai_future_outlook',     value: r.d2_future_outlook }]     : []),
+      // Flips the flag /api/partial sets, so the abandonment segment in Beehiiv
+      // drops anyone who came back and finished.
+      { name: 'ib_completed', value: 'yes' },
     ];
 
     const beehiivRes = await fetch(

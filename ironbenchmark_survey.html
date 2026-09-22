@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="IronBenchmark">
   <meta property="og:url" content="https://www.ironbenchmark.com/survey">
   <meta property="og:title" content="Heavy Equipment State of Marketing 2026 — IronBenchmark">
-  <meta property="og:description" content="Budget allocation, channel ROI and digital maturity across dealers, OEMs and agencies. 17 questions, five minutes. Free for contributors.">
+  <meta property="og:description" content="Where the budget goes, what's actually working, and who's really using digital — across dealers, OEMs and agencies. 17 questions, five minutes. Free for contributors.">
   <meta property="og:image" content="https://www.ironbenchmark.com/og-survey.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Heavy Equipment State of Marketing 2026 — IronBenchmark">
-  <meta name="twitter:description" content="Budget allocation, channel ROI and digital maturity across dealers, OEMs and agencies. 17 questions, five minutes. Free for contributors.">
+  <meta name="twitter:description" content="Where the budget goes, what's actually working, and who's really using digital — across dealers, OEMs and agencies. 17 questions, five minutes. Free for contributors.">
   <meta name="twitter:image" content="https://www.ironbenchmark.com/og-survey.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,6 +160,82 @@
     .status-offer svg { margin-top: 4px; }
     .status-offer .deadline { color: var(--red); font-weight: 600; }
 
+    /* ── RESUME BAR ── */
+    .resume-bar {
+      max-width: 460px; margin: 0 auto 18px; padding: 14px 18px;
+      background: var(--bronze-bg); border: 1px solid var(--bronze);
+      border-radius: 10px; text-align: left;
+    }
+    .resume-text { font-size: 14px; color: var(--navy); line-height: 1.5; margin-bottom: 10px; }
+    .resume-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .resume-go {
+      font-family: var(--sans); font-size: 14px; font-weight: 600; color: #fff;
+      background: var(--navy); border: none; border-radius: 6px;
+      padding: 9px 16px; cursor: pointer;
+    }
+    .resume-go:hover { background: #264D38; }
+    .resume-fresh {
+      font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 9px 6px;
+    }
+    .resume-fresh:hover { color: var(--navy); }
+
+    /* ── INLINE EMAIL CAPTURE ── */
+    .inline-email {
+      margin: 20px 0 0; padding: 16px 18px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; text-align: left;
+    }
+    .inline-email label {
+      display: block; font-size: 14px; font-weight: 600;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    .inline-email label span { font-weight: 400; color: var(--muted); }
+    .inline-email-input {
+      width: 100%; padding: 11px 14px; font-family: var(--sans); font-size: 15px;
+      color: var(--navy); background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; transition: border-color 0.15s;
+    }
+    .inline-email-input:focus { border-color: var(--bronze); }
+    .inline-email-input::placeholder { color: var(--muted); }
+    .inline-email-note {
+      font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-top: 8px;
+    }
+    .inline-email-done {
+      font-size: 13.5px; color: var(--navy); background: var(--bronze-bg);
+      border-color: var(--bronze); padding: 12px 16px;
+    }
+
+    /* ── WHAT'S IN THE REPORT ── */
+    .report-contents {
+      background: var(--white); border-left: 4px solid var(--bronze);
+      border-radius: 0 10px 10px 0; padding: 18px 22px;
+      margin: 0 0 20px; text-align: left;
+    }
+    .report-contents-title {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bronze); margin-bottom: 12px;
+    }
+    .report-contents ul { margin: 0; padding-left: 18px; }
+    .report-contents li {
+      font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 7px;
+    }
+    .report-contents li:last-child { margin-bottom: 0; }
+    .report-contents li strong { color: var(--navy); font-weight: 600; }
+
+    /* ── RATING ── */
+    .rating-block { margin: 0 0 28px; }
+    .rating-q { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+    .rating-stars { display: flex; justify-content: center; gap: 6px; }
+    .rating-star {
+      background: none; border: none; cursor: pointer; padding: 4px;
+      font-size: 26px; line-height: 1; color: var(--border-dk);
+      transition: color 0.15s, transform 0.1s;
+    }
+    .rating-star:hover, .rating-star.lit { color: var(--bronze); }
+    .rating-star:hover { transform: scale(1.12); }
+    .rating-done { font-size: 14px; color: var(--muted); }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -181,7 +257,7 @@
     /* ── SECTION HEADER ── */
     .section-header { margin-bottom: 36px; }
     .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bronze); margin-bottom: 8px; }
-    .section-title { font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
+    .section-title { margin: 0; font-family: var(--serif); font-size: 28px; color: var(--navy); line-height: 1.2; margin-bottom: 10px; }
     .section-desc { font-size: 15px; color: var(--muted); line-height: 1.5; }
 
     /* ── QUESTION BLOCK ── */
@@ -273,7 +349,7 @@
       .topbar { padding: 14px 20px; }
       .progress-wrap { padding: 0 20px 14px; }
       .survey-outer { padding: 32px 16px 64px; }
-      .section-title { font-size: 24px; }
+      .section-title { margin: 0; font-size: 24px; }
       .org-screen { padding: 40px 16px 64px; }
       .org-title { font-size: 26px; }
     }
@@ -364,14 +440,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 1 · About You</div>
-      <div class="section-title">Let's start with some context.</div>
+      <h2 class="section-title">Let's start with some context.</h2>
       <div class="section-desc">6 questions · about 90 seconds. All responses are anonymous and aggregated — your individual answers are never shared. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
     </div>
 
     <!-- Q1 — Title (options populated by JS based on org type) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 1</span>What best describes your role?</div>
-      <div class="options" id="q1-opts">
+      <div class="q-label" id="q1-label"><span class="q-num">Question 1</span>What best describes your role?</div>
+      <div class="options" id="q1-opts" role="group" aria-labelledby="q1-label">
         <!-- populated by renderQ1() -->
       </div>
       <div class="val-msg" id="q1-err">Please select an option to continue.</div>
@@ -380,7 +456,7 @@
     <!-- Q2 — Size (label + options swapped by JS based on org type) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 2</span><span id="q2-label">How many locations does your dealership operate?</span></div>
-      <div class="options" id="q2-opts">
+      <div class="options" id="q2-opts" role="group" aria-labelledby="q2-label">
         <!-- populated by renderQ2() -->
       </div>
       <div class="val-msg" id="q2-err">Please select an option to continue.</div>
@@ -389,7 +465,7 @@
     <!-- Q3 — Budget (options swapped by JS) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 3</span><span id="q3-label">What is your approximate annual marketing budget (all channels)?</span></div>
-      <div class="options" id="q3-opts">
+      <div class="options" id="q3-opts" role="group" aria-labelledby="q3-label">
         <!-- populated by renderQ3() -->
       </div>
       <div class="val-msg" id="q3-err">Please select an option to continue.</div>
@@ -397,8 +473,8 @@
 
     <!-- Q4 — Team size -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 4</span>How many people (FTE or equivalent) work on marketing at your company?</div>
-      <div class="options" id="q4-opts">
+      <div class="q-label" id="q4-label"><span class="q-num">Question 4</span>How many people (FTE or equivalent) work on marketing at your company?</div>
+      <div class="options" id="q4-opts" role="group" aria-labelledby="q4-label">
         <label class="opt"><input type="radio" name="q4" value="Just me"><span class="opt-text">Just me</span></label>
         <label class="opt"><input type="radio" name="q4" value="2–3 people"><span class="opt-text">2–3 people</span></label>
         <label class="opt"><input type="radio" name="q4" value="4–10 people"><span class="opt-text">4–10 people</span></label>
@@ -409,8 +485,8 @@
 
     <!-- Q5 — Structure (hidden for agencies) -->
     <div class="q-block" id="q5-block">
-      <div class="q-label"><span class="q-num">Question 5</span>How is your marketing function structured?</div>
-      <div class="options" id="q5-opts">
+      <div class="q-label" id="q5-label"><span class="q-num">Question 5</span>How is your marketing function structured?</div>
+      <div class="options" id="q5-opts" role="group" aria-labelledby="q5-label">
         <label class="opt"><input type="radio" name="q5" value="Entirely in-house"><span class="opt-text">Entirely in-house</span></label>
         <label class="opt"><input type="radio" name="q5" value="Primarily in-house, some agency support"><span class="opt-text">Primarily in-house, some agency support</span></label>
         <label class="opt"><input type="radio" name="q5" value="Mix of in-house and agency"><span class="opt-text">Mix of in-house and agency</span></label>
@@ -442,15 +518,15 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 2 · Where Your Budget Goes</div>
-      <div class="section-title">Where does the money go?</div>
+      <h2 class="section-title">Where does the money go?</h2>
       <div class="section-desc">3 questions · about 60 seconds. Channel spend is what your peers want to benchmark against most — where budget actually goes vs. where results come from.</div>
     </div>
 
     <!-- Q7 — Active channels -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 7</span>Which channels are you actively investing in right now?</div>
+      <div class="q-label" id="q7-label"><span class="q-num">Question 7</span>Which channels are you actively investing in right now?</div>
       <div class="q-hint">Select all that apply.</div>
-      <div class="options" id="q7-opts">
+      <div class="options" id="q7-opts" role="group" aria-labelledby="q7-label">
         <label class="opt"><input type="checkbox" name="q7" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
         <label class="opt"><input type="checkbox" name="q7" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
         <label class="opt"><input type="checkbox" name="q7" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
@@ -467,8 +543,8 @@
 
     <!-- Q8 — Largest allocation -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 8</span>Of those channels — which represents your single largest budget allocation?</div>
-      <div class="options" id="q8-opts">
+      <div class="q-label" id="q8-label"><span class="q-num">Question 8</span>Of those channels — which represents your single largest budget allocation?</div>
+      <div class="options" id="q8-opts" role="group" aria-labelledby="q8-label">
         <label class="opt"><input type="radio" name="q8" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
         <label class="opt"><input type="radio" name="q8" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
         <label class="opt"><input type="radio" name="q8" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
@@ -485,9 +561,9 @@
 
     <!-- Q9 — Planned increases -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 9</span>In the next 12 months, where are you planning to increase spending?</div>
+      <div class="q-label" id="q9-label"><span class="q-num">Question 9</span>In the next 12 months, where are you planning to increase spending?</div>
       <div class="q-hint">Select all that apply.</div>
-      <div class="options" id="q9-opts">
+      <div class="options" id="q9-opts" role="group" aria-labelledby="q9-label">
         <label class="opt"><input type="checkbox" name="q9" value="Trade shows and events"><span class="opt-text">Trade shows and events</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
         <label class="opt"><input type="checkbox" name="q9" value="Google Display / YouTube"><span class="opt-text">Google Display / YouTube</span></label>
@@ -518,14 +594,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 3 · Performance &amp; Challenges</div>
-      <div class="section-title">What's working — and what isn't.</div>
+      <h2 class="section-title">What's working — and what isn't.</h2>
       <div class="section-desc">4 questions · about 90 seconds. The most valuable section of the report. What you share here is exactly what your peers want to know.</div>
     </div>
 
     <!-- Q10 — Best ROI channel -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 10</span>Which single channel delivered your best ROI in the last 12 months?</div>
-      <div class="options" id="q10-opts">
+      <div class="q-label" id="q10-label"><span class="q-num">Question 10</span>Which single channel delivered your best ROI in the last 12 months?</div>
+      <div class="options" id="q10-opts" role="group" aria-labelledby="q10-label">
         <label class="opt"><input type="radio" name="q10" value="Trade shows / events"><span class="opt-text">Trade shows / events</span></label>
         <label class="opt"><input type="radio" name="q10" value="Google Search Ads"><span class="opt-text">Google Search Ads</span></label>
         <label class="opt"><input type="radio" name="q10" value="LinkedIn Ads"><span class="opt-text">LinkedIn Ads</span></label>
@@ -541,7 +617,7 @@
     <!-- Q11 — Cost per lead (label adapts for OEM) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 11</span><span id="q11-label">What's your estimated cost-per-qualified-lead from your best-performing channel?</span></div>
-      <div class="options" id="q11-opts">
+      <div class="options" id="q11-opts" role="group" aria-labelledby="q11-label">
         <label class="opt"><input type="radio" name="q11" value="Under $50"><span class="opt-text">Under $50</span></label>
         <label class="opt"><input type="radio" name="q11" value="$50–$100"><span class="opt-text">$50–$100</span></label>
         <label class="opt"><input type="radio" name="q11" value="$100–$200"><span class="opt-text">$100–$200</span></label>
@@ -555,8 +631,8 @@
 
     <!-- Q12 — Biggest challenge (options swapped by JS) -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 12</span>What's your single biggest marketing challenge right now?</div>
-      <div class="options" id="q12-opts">
+      <div class="q-label" id="q12-label"><span class="q-num">Question 12</span>What's your single biggest marketing challenge right now?</div>
+      <div class="options" id="q12-opts" role="group" aria-labelledby="q12-label">
         <!-- populated by renderQ12() -->
       </div>
       <div class="val-msg" id="q12-err">Please select an option to continue.</div>
@@ -564,8 +640,8 @@
 
     <!-- Q12b — Agency only: what does the client most often ask for -->
     <div class="q-block" id="q12b-block" style="display:none;">
-      <div class="q-label"><span class="q-num">Agency question</span>What does your primary equipment client most often ask you to focus on?</div>
-      <div class="options" id="q12b-opts">
+      <div class="q-label" id="q12b-label"><span class="q-num">Agency question</span>What does your primary equipment client most often ask you to focus on?</div>
+      <div class="options" id="q12b-opts" role="group" aria-labelledby="q12b-label">
         <label class="opt"><input type="radio" name="q12b" value="Generate leads and MQLs"><span class="opt-text">Generate leads and MQLs</span></label>
         <label class="opt"><input type="radio" name="q12b" value="Grow social following and online audience"><span class="opt-text">Grow social following and online audience</span></label>
         <label class="opt"><input type="radio" name="q12b" value="Build brand awareness"><span class="opt-text">Build brand awareness</span></label>
@@ -578,8 +654,8 @@
 
     <!-- Q13 — Overall performance -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 13</span>Looking at your marketing results over the last 12 months — how would you describe your overall performance?</div>
-      <div class="options" id="q13-opts">
+      <div class="q-label" id="q13-label"><span class="q-num">Question 13</span>Looking at your marketing results over the last 12 months — how would you describe your overall performance?</div>
+      <div class="options" id="q13-opts" role="group" aria-labelledby="q13-label">
         <label class="opt"><input type="radio" name="q13" value="On track — we hit our lead and revenue goals"><span class="opt-text">On track — we hit our lead and revenue goals</span></label>
         <label class="opt"><input type="radio" name="q13" value="Mixed — some channels worked well, others didn't"><span class="opt-text">Mixed — some channels worked well, others didn't</span></label>
         <label class="opt"><input type="radio" name="q13" value="Below expectations — results came in under what we planned for"><span class="opt-text">Below expectations — results came in under what we planned for</span></label>
@@ -603,14 +679,14 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 4 · How You Operate</div>
-      <div class="section-title">Systems, data, and how you run the business.</div>
-      <div class="section-desc">4 questions · about 90 seconds. This section produces the most distinctive findings in the report — where the industry actually sits on digital maturity.</div>
+      <h2 class="section-title">Systems, data, and how you run the business.</h2>
+      <div class="section-desc">4 questions · about 90 seconds. This section produces the most distinctive findings in the report — how far along the industry really is.</div>
     </div>
 
     <!-- Q14 — Maturity level -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 14</span>Which best describes how your sales and marketing operation runs today?</div>
-      <div class="options" id="q14-opts">
+      <div class="q-label" id="q14-label"><span class="q-num">Question 14</span>Which best describes how your sales and marketing operation runs today?</div>
+      <div class="options" id="q14-opts" role="group" aria-labelledby="q14-label">
         <label class="opt">
           <input type="radio" name="q14" value="Primarily relationship-driven — no formal CRM or digital lead tracking">
           <span class="opt-text">Primarily relationship-driven — no formal CRM or digital lead tracking
@@ -636,7 +712,7 @@
     <!-- Q15 — CRM quality (dealer/OEM) or client data quality (agency) -->
     <div class="q-block">
       <div class="q-label"><span class="q-num">Question 15</span><span id="q15-label">How would you describe how your team actually uses your CRM?</span></div>
-      <div class="options" id="q15-opts">
+      <div class="options" id="q15-opts" role="group" aria-labelledby="q15-label">
         <!-- populated by renderQ15() -->
       </div>
       <div class="val-msg" id="q15-err">Please select an option to continue.</div>
@@ -646,7 +722,7 @@
     <div class="q-block" id="q16-block">
       <div class="q-label"><span class="q-num">Question 16</span><span id="q16-label">When a new inbound lead comes in, how quickly does your team typically respond?</span></div>
       <div class="q-hint">Excluding automated responses such as auto-reply emails. Inbound channels include web form, phone, email, and chat.</div>
-      <div class="options" id="q16-opts">
+      <div class="options" id="q16-opts" role="group" aria-labelledby="q16-label">
         <!-- populated by renderQ16() -->
       </div>
       <div class="val-msg" id="q16-err">Please select an option to continue.</div>
@@ -654,8 +730,8 @@
 
     <!-- Q17 — Buyer visibility -->
     <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 17</span>Can you identify prospects who are researching your equipment before they reach out to you?</div>
-      <div class="options" id="q17-opts">
+      <div class="q-label" id="q17-label"><span class="q-num">Question 17</span>Can you identify prospects who are researching your equipment before they reach out to you?</div>
+      <div class="options" id="q17-opts" role="group" aria-labelledby="q17-label">
         <label class="opt"><input type="radio" name="q17" value="Yes — we track website visitors or use tools that flag interested prospects"><span class="opt-text">Yes — we track website visitors or use tools that flag interested prospects</span></label>
         <label class="opt"><input type="radio" name="q17" value="Sometimes — we pick up some signals but it's not consistent"><span class="opt-text">Sometimes — we pick up some signals but it's not consistent</span></label>
         <label class="opt"><input type="radio" name="q17" value="No — we find out someone was interested only when they reach out"><span class="opt-text">No — we find out someone was interested only when they reach out</span></label>
@@ -678,16 +754,16 @@
 <div class="screen" id="screen-email">
   <div class="survey-outer">
     <div class="section-header">
-      <div class="section-title">Last step — get the report.</div>
+      <h2 class="section-title">Last step — get the report.</h2>
       <div class="section-desc">As a contributor, you'll receive the full Heavy Equipment State of Marketing 2026 report free, delivered ahead of release.</div>
     </div>
 
     <!-- Work email -->
     <div class="q-block">
-      <div class="q-label">Work email address</div>
       <div class="email-group">
-        <label for="final-email" style="font-size:13px;color:var(--muted);font-weight:400;">Please use your work email — we use this to verify you're an industry practitioner and to send you the report.</label>
-        <input type="email" id="final-email" class="email-input" placeholder="you@yourcompany.com" autocomplete="email">
+        <label for="final-email" class="q-label">Work email address</label>
+        <p id="final-email-hint" style="font-size:13px;color:var(--muted);font-weight:400;line-height:1.5;">Please use your work email — we use this to verify you're an industry practitioner and to send you the report.</p>
+        <input type="email" id="final-email" class="email-input" placeholder="you@yourcompany.com" autocomplete="email" aria-describedby="final-email-hint">
         <div class="val-msg" id="email-err">Please enter a valid work email address (no personal email domains).</div>
       </div>
     </div>
@@ -752,6 +828,8 @@
     <div class="confirm-studies" id="confirm-studies-block">
       <!-- populated by populateConfirmStudies() based on org type -->
     </div>
+    <div class="rating-block" id="rating-block"></div>
+
     <div class="confirm-fwd-line" id="confirm-fwd-line"></div>
     <a href="/" class="confirm-home">← Back to IronBenchmark.com</a>
   </div>
@@ -1231,7 +1309,14 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  const PERSONAL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','live.com','msn.com','me.com','mac.com'];
+  const PERSONAL_DOMAINS = [
+    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','ymail.com','rocketmail.com',
+    'hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','icloud.com','me.com',
+    'mac.com','aol.com','proton.me','protonmail.com','pm.me','gmx.com','gmx.net','mail.com',
+    'zoho.com','yandex.com','comcast.net','sbcglobal.net','att.net','verizon.net','cox.net',
+    'bellsouth.net','charter.net','earthlink.net','roadrunner.com','optonline.net',
+  ];
+  const WORK_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
   function isPersonalEmail(email) {
     const domain = email.split('@')[1]?.toLowerCase() || '';
     return PERSONAL_DOMAINS.includes(domain);
@@ -1348,7 +1433,7 @@
     const btn       = document.getElementById('submit-btn');
     const honeypot  = document.getElementById('hp-website').value;
 
-    if (!email || !email.includes('@') || !email.includes('.')) {
+    if (!WORK_EMAIL_RE.test(email)) {
       errEl.classList.add('show'); emailEl.classList.add('error'); return;
     }
     if (isPersonalEmail(email)) {
@@ -1400,6 +1485,8 @@
       });
       if (!res.ok) throw new Error('Server error ' + res.status);
       track('survey_submit');
+      storeClear();
+      mountRating();
       populateConfirmStudies();
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-confirm').classList.add('active');
@@ -1456,8 +1543,267 @@
       studies.map((s, i) => `<p style="margin-top:${i === 0 ? 10 : 8}px;">${s}</p>`).join('');
   }
 
+  /* ══════════════════════════════════════════
+     ANSWER PERSISTENCE
+
+     A refresh, a stray back-button or a phone call mid-survey used to wipe
+     every answer with no way back. Progress is kept in localStorage on the
+     respondent's own device — nothing is sent anywhere — and cleared the
+     moment the survey is submitted. Every access is guarded: with storage
+     blocked or full, the survey behaves exactly as it did before.
+     ══════════════════════════════════════════ */
+  const STORE_KEY = 'ironbenchmark:' + STUDY_ID;
+  const STORE_TTL = 7 * 24 * 60 * 60 * 1000;
+  const INTRO_ID  = 'screen-org';
+
+  function storeRead() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data || !data.savedAt || Date.now() - data.savedAt > STORE_TTL) {
+        localStorage.removeItem(STORE_KEY);
+        return null;
+      }
+      return data;
+    } catch (e) { return null; }
+  }
+
+  function storeSave() {
+    try {
+      const fields = {};
+      document.querySelectorAll('input[type="text"], input[type="email"], select').forEach((el) => {
+        if (el.id && el.value && !el.closest('.hp-field')) fields[el.id] = el.value;
+      });
+      const checked = [...document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked')]
+        .map((el) => [el.name, el.value]);
+      const segs   = [...document.querySelectorAll('.prog-seg')];
+      const active = document.querySelector('.screen.active');
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        savedAt:   Date.now(),
+        startedAt: typeof startedAt !== 'undefined' ? startedAt : Date.now(),
+        answers:   answers,
+        fields:    fields,
+        checked:   checked,
+        screen:    active ? active.id : null,
+        progIdx:   segs.findIndex((s) => s.classList.contains('active')),
+        orgType:   typeof orgType !== 'undefined' ? orgType : null,
+      }));
+    } catch (e) { /* storage unavailable — the survey still works, just without resume */ }
+  }
+
+  function storeClear() {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  }
+
+  function storeRestore(data) {
+    // Org type first: the marketing study renders its options from it, so the
+    // inputs those answers refer to do not exist until this has run.
+    if (typeof orgType !== 'undefined' && data.orgType) {
+      orgType = data.orgType;
+      if (typeof renderAllDynamic === 'function') renderAllDynamic();
+    }
+    Object.assign(answers, data.answers || {});
+    if (data.startedAt && typeof startedAt !== 'undefined') startedAt = data.startedAt;
+
+    Object.entries(data.fields || {}).forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = value;
+    });
+    (data.checked || []).forEach((pair) => {
+      const el = [...document.querySelectorAll('input[name="' + pair[0] + '"]')]
+        .find((x) => x.value === pair[1]);
+      if (el) { el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
+    });
+
+    mountInlineEmail();
+    if (data.screen === 'screen-email') {
+      hideProgress();
+      document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+      document.getElementById('screen-email').classList.add('active');
+      window.scrollTo({ top: 0 });
+    } else if (data.screen && document.getElementById(data.screen)) {
+      goTo(data.screen, typeof data.progIdx === 'number' ? data.progIdx : 0);
+    }
+    track('survey_resumed', { screen: data.screen });
+  }
+
+  // Save on the screen transition itself, not just the click that caused it —
+  // a programmatic move would otherwise leave the stored screen a step behind.
+  const goToUnsaved = goTo;
+  goTo = function (screenId, progIdx) {
+    goToUnsaved(screenId, progIdx);
+    storeSave();
+    mountInlineEmail();
+    sendPartial();
+  };
+
+  // Save on anything that changes an answer, and after any navigation click.
+  document.addEventListener('change', storeSave);
+  document.addEventListener('input', storeSave);
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('button')) setTimeout(storeSave, 0);
+  });
+
+  // Offer to resume only if they actually got past the intro.
+  (function offerResume() {
+    const saved = storeRead();
+    if (!saved || !saved.screen || saved.screen === INTRO_ID) return;
+
+    const anchor = document.querySelector('#' + INTRO_ID + ' .btn-next');
+    if (!anchor) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'resume-bar';
+    bar.innerHTML =
+      '<div class="resume-text">You have answers saved on this device from an earlier visit.</div>' +
+      '<div class="resume-actions">' +
+        '<button type="button" class="resume-go">Pick up where you left off →</button>' +
+        '<button type="button" class="resume-fresh">Start over</button>' +
+      '</div>';
+    anchor.parentNode.insertBefore(bar, anchor);
+
+    bar.querySelector('.resume-go').addEventListener('click', () => {
+      bar.remove();
+      storeRestore(saved);
+    });
+    bar.querySelector('.resume-fresh').addEventListener('click', () => {
+      storeClear();
+      bar.remove();
+      track('survey_restarted');
+    });
+  })();
+
+  /* ══════════════════════════════════════════
+     INLINE EMAIL CAPTURE (optional)
+
+     Sits under Continue from the first section on, so an address can be given
+     at any point rather than only at the end. Entirely optional and never
+     blocking: Continue behaves the same whether it is filled or not, which is
+     why it sits here rather than as a gate between sections — a gate would
+     cost starts, and this cannot.
+
+     Once given it disappears and pre-fills the final screen, so nobody types
+     it twice. The wording promises only what actually happens: the report on
+     completion, and a reminder if they do not finish.
+     ══════════════════════════════════════════ */
+  const INLINE_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+
+  const inlineEmail = document.createElement('div');
+  inlineEmail.className = 'inline-email';
+  inlineEmail.innerHTML =
+    '<label for="inline-email-input">Add your email now <span>(optional)</span></label>' +
+    '<input type="email" id="inline-email-input" class="inline-email-input" placeholder="you@yourdealership.com" autocomplete="email">' +
+    '<p class="inline-email-note">So we can send the report the moment you finish — and remind you if you don\'t.</p>';
+
+  function inlineEmailCapture(value) {
+    answers.emailEarly = value;
+    const final = document.getElementById('final-email');
+    if (final && !final.value) final.value = value;
+    inlineEmail.className = 'inline-email inline-email-done';
+    inlineEmail.textContent = '✓ We\'ll send the report to ' + value + '. You can change it at the end.';
+    track('early_email_captured');
+    storeSave();
+    sendPartial();
+  }
+
+  inlineEmail.addEventListener('change', (e) => {
+    if (!e.target.classList.contains('inline-email-input')) return;
+    const value = e.target.value.trim();
+    if (INLINE_EMAIL_RE.test(value)) inlineEmailCapture(value);
+  });
+
+  function mountInlineEmail() {
+    const active = document.querySelector('.screen.active');
+    const done   = !!answers.emailEarly;
+
+    // Carry a restored address through to the final screen.
+    if (done) {
+      const final = document.getElementById('final-email');
+      if (final && !final.value) final.value = answers.emailEarly;
+    }
+
+    // Not on the intro, the email screen or the confirmation — only the
+    // question sections, which are the ones with a nav row.
+    const nav = active && active.querySelector('.nav-row');
+    if (!active || !nav || active.id === 'screen-email' || active.id === 'screen-confirm') {
+      if (inlineEmail.parentNode) inlineEmail.remove();
+      return;
+    }
+    // Shown until an address is given; the confirmation replaces it in place
+    // and then it stops appearing.
+    if (done && inlineEmail.classList.contains('inline-email-done') && inlineEmail.parentNode) {
+      inlineEmail.remove();
+      return;
+    }
+    if (done) return;
+    nav.parentNode.insertBefore(inlineEmail, nav.nextSibling);
+  }
+
+  /* ══════════════════════════════════════════
+     SURVEY RATING
+
+     Asked after submission, so it costs a respondent nothing and cannot
+     affect completion. Recorded as an analytics event rather than displayed
+     anywhere — a rating is only worth showing once enough real ones exist.
+     ══════════════════════════════════════════ */
+  function mountRating() {
+    const host = document.getElementById('rating-block');
+    if (!host || host.dataset.done) return;
+    host.innerHTML = '<div class="rating-q">How useful was this survey?</div><div class="rating-stars"></div>';
+    const stars = host.querySelector('.rating-stars');
+    for (let i = 1; i <= 5; i++) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'rating-star';
+      b.textContent = '\u2605';
+      b.setAttribute('aria-label', i + ' out of 5');
+      b.addEventListener('mouseenter', () => {
+        [...stars.children].forEach((s, n) => s.classList.toggle('lit', n < i));
+      });
+      b.addEventListener('click', () => {
+        host.dataset.done = '1';
+        track('survey_rating', { rating: i });
+        host.innerHTML = '<div class="rating-done">Thanks \u2014 noted.</div>';
+      });
+      stars.appendChild(b);
+    }
+    stars.addEventListener('mouseleave', () => {
+      [...stars.children].forEach((s) => s.classList.remove('lit'));
+    });
+  }
+
+
+  /* ══════════════════════════════════════════
+     PARTIAL PROGRESS
+
+     Only ever runs once an address has actually been given. Fire-and-forget:
+     a failure here must never affect the survey, so nothing is awaited and
+     nothing is surfaced.
+     ══════════════════════════════════════════ */
+  function sendPartial() {
+    if (!answers.emailEarly) return;
+    const segs    = [...document.querySelectorAll('.prog-seg')];
+    const section = segs.findIndex((x) => x.classList.contains('active')) + 1;
+    try {
+      fetch('/api/partial', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          email:     answers.emailEarly,
+          study:     STUDY_ID,
+          section:   section,
+          hp:        document.getElementById('hp-website') ? document.getElementById('hp-website').value : '',
+          elapsedMs: Date.now() - startedAt,
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (e) { /* never let this affect the survey */ }
+  }
+
   /* ── INIT ── */
   hideProgress();
+  mountInlineEmail();
 </script>
 </body>
 </html>
