@@ -44,6 +44,15 @@ if (placeholder(API_KEY) || placeholder(PUB_ID)) {
   console.error('\nBoth values are required.');
   process.exit(1);
 }
+// The two values look nothing alike, and pasting the publication ID into both
+// prompts produces a 401 that reads like a bad key rather than a wrong value.
+if (API_KEY.startsWith('pub_')) {
+  console.error(`\nThat is the publication ID, not the API key — they are different values.`);
+  console.error(`The publication ID starts "pub_". The API key does not: it is a long`);
+  console.error(`random string, found in Beehiiv under Settings -> API, or in Vercel as`);
+  console.error(`BEEHIIV_API_KEY.`);
+  process.exit(1);
+}
 if (!PUB_ID.startsWith('pub_')) {
   console.error(`\nThat publication ID does not start with "pub_" — check it before continuing.`);
   process.exit(1);
