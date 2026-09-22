@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="IronBenchmark">
   <meta property="og:url" content="https://www.ironbenchmark.com/survey">
   <meta property="og:title" content="Heavy Equipment State of Marketing 2026 — IronBenchmark">
-  <meta property="og:description" content="Where the budget goes, what's actually working, and who's really using digital — across dealers, OEMs and agencies. 17 questions, five minutes. Free for contributors.">
+  <meta property="og:description" content="Where the budget goes, what's actually working, and who's really using digital — across dealers, OEMs and agencies. 17 quick questions, five minutes. Free for contributors.">
   <meta property="og:image" content="https://www.ironbenchmark.com/og-survey.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Heavy Equipment State of Marketing 2026 — IronBenchmark">
-  <meta name="twitter:description" content="Where the budget goes, what's actually working, and who's really using digital — across dealers, OEMs and agencies. 17 questions, five minutes. Free for contributors.">
+  <meta name="twitter:description" content="Where the budget goes, what's actually working, and who's really using digital — across dealers, OEMs and agencies. 17 quick questions, five minutes. Free for contributors.">
   <meta name="twitter:image" content="https://www.ironbenchmark.com/og-survey.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -922,10 +922,10 @@
         const open  = close - new Date() >= 0;
         const pretty = close.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
         offer.innerHTML = open
-          ? qCount + ' questions · 5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
+          ? qCount + ' quick questions · 5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
           : 'Responses for this study have closed. The report is available to non-contributors for ' + REPORT_PRICE + '.';
       } else {
-        offer.innerHTML = qCount + ' questions · 5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
+        offer.innerHTML = qCount + ' quick questions · 5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
       }
       document.getElementById('intro-offer').style.display = '';
       shown = true;

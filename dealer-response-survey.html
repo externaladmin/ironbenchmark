@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IronBenchmark — The Dealer Response Report 2026</title>
-  <meta name="description" content="Your dealership has a number for almost everything — except what happens when a customer tries to reach you. The first benchmark on dealer response. 17 questions, five minutes, free for contributors.">
+  <meta name="description" content="Your dealership has a number for almost everything — except what happens when a customer tries to reach you. The first benchmark on dealer response. 17 quick questions, five minutes, free for contributors.">
   <link rel="canonical" href="https://www.ironbenchmark.com/dealer-response">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="IronBenchmark">
   <meta property="og:url" content="https://www.ironbenchmark.com/dealer-response">
   <meta property="og:title" content="The Dealer Response Report 2026 — IronBenchmark">
-  <meta property="og:description" content="How equipment dealers manage customer communications across every channel — and the deals and reputation it costs. 17 questions, five minutes.">
+  <meta property="og:description" content="How equipment dealers manage customer communications across every channel — and the deals and reputation it costs. 17 quick questions, five minutes.">
   <meta property="og:image" content="https://www.ironbenchmark.com/og-dealer-response.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Dealer Response Report 2026 — IronBenchmark">
-  <meta name="twitter:description" content="How equipment dealers manage customer communications across every channel — and the deals and reputation it costs. 17 questions, five minutes.">
+  <meta name="twitter:description" content="How equipment dealers manage customer communications across every channel — and the deals and reputation it costs. 17 quick questions, five minutes.">
   <meta name="twitter:image" content="https://www.ironbenchmark.com/og-dealer-response.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -430,7 +430,7 @@
       <p class="intro-desc">How you respond matters more than it used to. Customers can find information anywhere now — increasingly by asking AI — so your response is one of the few things still in your control.</p>
       <p class="intro-desc">Phone calls and walk-ins are only part of the picture. Customers reach you through web forms, Facebook Messenger, text and listing platforms.</p>
       <p class="intro-desc">A missed inquiry isn't a lost order. It's a lost machine, and every parts and service dollar that machine would have earned for the rest of its life.</p>
-      <p class="intro-desc">Nobody has published what good looks like. This is the first benchmark of its kind. 17 questions. About 5 minutes.</p>
+      <p class="intro-desc">Nobody has published what good looks like. This is the first benchmark of its kind. 17 quick questions. About 5 minutes.</p>
       <div class="report-contents">
         <div class="report-contents-title">What's in the report</div>
         <ul>
@@ -894,10 +894,10 @@
         const open  = close - new Date() >= 0;
         const pretty = close.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
         offer.innerHTML = open
-          ? qCount + ' questions · 5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
+          ? qCount + ' quick questions · 5 minutes. <span class="deadline">Responses close ' + pretty + '</span> — contribute before then and the report is free; after that it\'s ' + REPORT_PRICE + '.'
           : 'Responses for this study have closed. The report is available to non-contributors for ' + REPORT_PRICE + '.';
       } else {
-        offer.innerHTML = qCount + ' questions · 5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
+        offer.innerHTML = qCount + ' quick questions · 5 minutes. Contribute and the report is free; for non-contributors it\'s ' + REPORT_PRICE + '.';
       }
       document.getElementById('intro-offer').style.display = '';
       shown = true;
