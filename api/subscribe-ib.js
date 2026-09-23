@@ -171,6 +171,11 @@ export default async function handler(req, res) {
       ...(r.q12_challenge           ? [{ name: 'ib_challenge',           value: r.q12_challenge }]             : []),
       ...(r.q12b_client_ask         ? [{ name: 'ib_client_ask',         value: r.q12b_client_ask }]           : []),
       ...(r.q13_performance         ? [{ name: 'ib_performance',         value: r.q13_performance }]           : []),
+      // Free text, trimmed to a length Beehiiv reliably accepts — the archive
+      // email carries the full text either way.
+      ...(r.q10_note ? [{ name: 'ib_q10_note', value: String(r.q10_note).slice(0, 500) }] : []),
+      ...(r.q12_note ? [{ name: 'ib_q12_note', value: String(r.q12_note).slice(0, 500) }] : []),
+      ...(r.q13_note ? [{ name: 'ib_q13_note', value: String(r.q13_note).slice(0, 500) }] : []),
       ...(r.q14_maturity            ? [{ name: 'ib_maturity',            value: r.q14_maturity }]              : []),
       ...(r.q15_crm_usage           ? [{ name: 'ib_crm_usage',           value: r.q15_crm_usage }]             : []),
       ...(r.q16_lead_response       ? [{ name: 'ib_lead_response',       value: r.q16_lead_response }]         : []),
