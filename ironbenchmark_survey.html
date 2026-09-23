@@ -242,27 +242,32 @@
 
     /* Tinted like the other blocks the page wants read, because a muted grey
        prompt under an answered question is exactly what gets scrolled past. */
+    /* The tinted panel sat close enough to the page background that it read as
+       part of the question. Dark green is the one surface on the page that
+       cannot be skimmed past, and it matches the topbar. */
     .q-comment {
       margin-top: 16px; display: none;
-      background: var(--bronze-bg); border: 1px solid var(--bronze);
-      border-radius: 10px; padding: 14px 16px;
+      background: var(--navy); border: 1px solid var(--navy);
+      border-radius: 10px; padding: 16px;
     }
     .q-comment.show { display: block; }
     .q-comment label {
-      display: block; font-size: 14.5px; font-weight: 600; color: var(--navy);
-      line-height: 1.5; margin-bottom: 8px;
+      display: block; font-size: 14.5px; font-weight: 600; color: var(--bg);
+      line-height: 1.5; margin-bottom: 9px;
     }
-    .q-comment .opt-tag { color: var(--muted); font-weight: 400; }
+    .q-comment .opt-tag { color: var(--bronze-lt); font-weight: 400; }
     .comment-input {
       width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 14.5px;
-      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      color: var(--navy); background: var(--white); border: 1.5px solid transparent;
       border-radius: 8px; outline: none; resize: vertical; min-height: 62px; line-height: 1.55;
     }
+    .comment-input::placeholder { color: #66796F; }
     .comment-input:focus { border-color: var(--bronze); }
     .comment-input::placeholder { color: var(--muted); }
+    /* Sits inside the question block, directly under the comment panel. */
     .q-footnote {
       font-size: 12px; color: var(--muted); line-height: 1.55;
-      margin: -14px 0 0; padding-top: 4px;
+      margin: 10px 0 0;
     }
 
     /* ── PROGRESS BAR ── */
