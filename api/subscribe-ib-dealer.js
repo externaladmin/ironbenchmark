@@ -36,10 +36,19 @@ export default async function handler(req, res) {
   // Same rule the browser applies, enforced here too — the browser checks are a
   // convenience and a direct POST never runs them. Normalising once means every
   // downstream use (Beehiiv, Resend, the archive) gets the same address.
+  const PERSONAL_DOMAINS = new Set([
+    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','ymail.com','rocketmail.com',
+    'hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com','icloud.com','me.com',
+    'mac.com','aol.com','proton.me','protonmail.com','pm.me','gmx.com','gmx.net','mail.com',
+    'zoho.com','yandex.com','comcast.net','sbcglobal.net','att.net','verizon.net','cox.net',
+  ]);
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
   const email = String(rawEmail || '').trim().toLowerCase();
   if (!EMAIL_RE.test(email)) {
     return res.status(400).json({ error: 'Valid email required' });
+  }
+  if (PERSONAL_DOMAINS.has(email.split('@')[1] || '')) {
+    return res.status(400).json({ error: 'Work email required' });
   }
 
   const RESEND_API_KEY  = process.env.RESEND_API_KEY;
@@ -157,13 +166,13 @@ export default async function handler(req, res) {
       ...(r.q1_role              ? [{ name: 'ibdr_role',              value: r.q1_role }]              : []),
       ...(r.q2_locations         ? [{ name: 'ibdr_locations',         value: r.q2_locations }]         : []),
       ...(r.q3_brand_lines       ? [{ name: 'ibdr_brand_lines',       value: r.q3_brand_lines }]       : []),
-      ...(r.q4_website           ? [{ name: 'ibdr_website',           value: r.q4_website }]           : []),
       ...(r.q5_channels          ? [{ name: 'ibdr_channels',          value: r.q5_channels }]          : []),
       ...(r.q6_primary_channel   ? [{ name: 'ibdr_primary_channel',   value: r.q6_primary_channel }]   : []),
       ...(r.q7_volume_visibility ? [{ name: 'ibdr_volume_visibility', value: r.q7_volume_visibility }] : []),
       ...(r.q8_response_owner    ? [{ name: 'ibdr_response_owner',    value: r.q8_response_owner }]    : []),
       ...(r.q8_other ? [{ name: 'ibdr_q8_other', value: String(r.q8_other).slice(0, 200) }] : []),
       ...(r.q9_response_speed    ? [{ name: 'ibdr_response_speed',    value: r.q9_response_speed }]    : []),
+      ...(r.qdelay_reason ? [{ name: 'ibdr_delay_reason', value: r.qdelay_reason }] : []),
       ...(r.q10_salesperson_leaving ? [{ name: 'ibdr_salesperson_leaving', value: r.q10_salesperson_leaving }] : []),
       ...(r.q11_quote_followup   ? [{ name: 'ibdr_quote_followup',    value: r.q11_quote_followup }]   : []),
       ...(r.q12_hardest_challenge? [{ name: 'ibdr_hardest_challenge', value: r.q12_hardest_challenge }]: []),
