@@ -261,10 +261,11 @@
     .opt-other.show { display: block; }
     .opt-other input { min-height: 0; border-color: var(--border); }
 
-    /* Sits inside the question block, directly under the comment panel. */
+    /* Sits below the nav buttons, under a rule — it is a note about the whole
+       section rather than about the last question on it. */
     .q-footnote {
       font-size: 12px; color: var(--muted); line-height: 1.55;
-      margin: 10px 0 0;
+      margin: 32px 0 0; padding-top: 18px; border-top: 1px solid var(--border);
     }
 
     /* ── PROGRESS BAR ── */
@@ -737,7 +738,6 @@
         <textarea id="q13-note" class="comment-input" rows="3" maxlength="700"
                   placeholder="e.g. “Form came in Friday, sat over the weekend. He bought down the road.”"></textarea>
       </div>
-      <p class="q-footnote">Anything you add in an optional box may be quoted in the report — never with your name or your dealership's.</p>
     </div>
 
 
@@ -745,6 +745,7 @@
       <button class="btn-back" onclick="goTo('screen-2', 1)">← Back</button>
       <button class="btn-next" onclick="goTo4()">Continue →</button>
     </div>
+    <p class="q-footnote">Anything you add in an optional box may be quoted in the report — never with your name or your dealership's.</p>
   </div>
 </div>
 
