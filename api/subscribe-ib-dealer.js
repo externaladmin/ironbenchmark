@@ -162,6 +162,7 @@ export default async function handler(req, res) {
       ...(r.q6_primary_channel   ? [{ name: 'ibdr_primary_channel',   value: r.q6_primary_channel }]   : []),
       ...(r.q7_volume_visibility ? [{ name: 'ibdr_volume_visibility', value: r.q7_volume_visibility }] : []),
       ...(r.q8_response_owner    ? [{ name: 'ibdr_response_owner',    value: r.q8_response_owner }]    : []),
+      ...(r.q8_other ? [{ name: 'ibdr_q8_other', value: String(r.q8_other).slice(0, 200) }] : []),
       ...(r.q9_response_speed    ? [{ name: 'ibdr_response_speed',    value: r.q9_response_speed }]    : []),
       ...(r.q10_salesperson_leaving ? [{ name: 'ibdr_salesperson_leaving', value: r.q10_salesperson_leaving }] : []),
       ...(r.q11_quote_followup   ? [{ name: 'ibdr_quote_followup',    value: r.q11_quote_followup }]   : []),
