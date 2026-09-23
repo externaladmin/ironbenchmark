@@ -728,12 +728,12 @@
 
     <!-- Q13 — Lost deal -->
     <div class="q-block">
-      <div class="q-label" id="q13-label"><span class="q-num">Question 13</span>Has your dealership lost a deal — or nearly lost one — because a customer message wasn't seen or responded to in time?</div>
+      <div class="q-label" id="q13-label"><span class="q-num">Question 13</span>So far this year, how many times do you know of a deal being lost or nearly lost because a message wasn't answered in time?</div>
       <div class="options" id="q13-opts" role="group" aria-labelledby="q13-label">
-        <label class="opt"><input type="radio" name="q13" value="Yes, definitely — I can think of specific examples"><span class="opt-text">Yes, definitely — I can think of specific examples</span></label>
-        <label class="opt"><input type="radio" name="q13" value="Probably — I suspect it's happened but we don't always know"><span class="opt-text">Probably — I suspect it's happened but we don't always know</span></label>
-        <label class="opt"><input type="radio" name="q13" value="Not that I'm aware of"><span class="opt-text">Not that I'm aware of</span></label>
-        <label class="opt"><input type="radio" name="q13" value="No — our response process is tight"><span class="opt-text">No — our response process is tight</span></label>
+        <label class="opt"><input type="radio" name="q13" value="Several that I know of"><span class="opt-text">Several that I know of</span></label>
+        <label class="opt"><input type="radio" name="q13" value="One or two"><span class="opt-text">One or two</span></label>
+        <label class="opt"><input type="radio" name="q13" value="None that we've identified"><span class="opt-text">None that we've identified</span></label>
+        <label class="opt"><input type="radio" name="q13" value="We wouldn't have a way of knowing"><span class="opt-text">We wouldn't have a way of knowing</span></label>
       </div>
       <div class="val-msg" id="q13-err">Please select an option to continue.</div>
       <div class="q-comment" id="q13-comment">
@@ -1514,7 +1514,7 @@
      makes no sense against "our response process is tight".
      ══════════════════════════════════════════ */
   const COMMENT_WHEN = {
-    q13: (v) => /^Yes, definitely|^Probably/.test(v),
+    q13: (v) => /^Several|^One or two/.test(v),
   };
 
   // Q6's box asks for volume on the one channel they picked, so its label has
