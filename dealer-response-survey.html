@@ -238,6 +238,9 @@
       border-radius: 10px; padding: 16px;
     }
     .q-comment.show { display: block; }
+    /* Inside an options list it sits in the flow, so the list's own gap does
+       the spacing — its margin would land on one side only. */
+    .options > .q-comment { margin-top: 0; }
     .q-comment label {
       display: block; font-size: 14.5px; font-weight: 600; color: var(--bg);
       line-height: 1.5; margin-bottom: 9px;
@@ -1559,9 +1562,13 @@
 
   document.querySelectorAll('input[name="q6"]').forEach((input) => {
     input.addEventListener('change', () => {
+      const panel = document.getElementById('q6-comment');
       document.getElementById('q6-channel').textContent =
         CHANNEL_NOUN[input.value] || 'of those';
-      document.getElementById('q6-comment').classList.add('show');
+      // Follows the selection down the list rather than waiting at the bottom,
+      // so the follow-up is next to the answer that prompted it.
+      input.closest('.opt').after(panel);
+      panel.classList.add('show');
     });
   });
 
