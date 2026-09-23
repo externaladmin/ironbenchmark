@@ -252,7 +252,7 @@ export default async function handler(req, res) {
               <ul style="margin: 8px 0 0; padding-left: 20px; font-size: 13px; color: #444; line-height: 1.9;">
                 <li><a href="https://ironbenchmark.com/survey" style="color: #1C3A2A;">Heavy Equipment State of Marketing 2026</a></li>
                 <li><a href="https://ironbenchmark.com/ai-sales" style="color: #1C3A2A;">AI in Heavy Equipment Sales: 2026 Benchmark</a></li>
-                <li><a href="https://ironbenchmark.com/dealer-response" style="color: #1C3A2A;">The Dealer Response Report 2026</a> (dealers only)</li>
+                <li><a href="https://ironbenchmark.com/dealer-response" style="color: #1C3A2A;">The Dealer Response Report 2026</a></li>
               </ul>
             </div>
 
