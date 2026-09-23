@@ -254,6 +254,9 @@
     .comment-input.short { min-height: 0; max-width: 260px; }
     /* Completes the answer above it rather than adding to it, so it sits on the
        page rather than in one of the dark panels. */
+    .opt.is-disabled { opacity: 0.42; cursor: not-allowed; }
+    .cap-hint { display: none; margin-top: 12px; color: var(--bronze); }
+    .cap-hint.show { display: block; }
     .opt-other { display: none; margin-top: 10px; }
     .opt-other.show { display: block; }
     .opt-other input { min-height: 0; border-color: var(--border); }
@@ -700,16 +703,18 @@
 
     <!-- Q12 — Biggest challenge -->
     <div class="q-block">
-      <div class="q-label" id="q12-label"><span class="q-num">Question 12</span>What's your biggest challenge managing communications across multiple channels?</div>
+      <div class="q-label" id="q12-label"><span class="q-num">Question 12</span>What are your top two challenges managing communications across multiple channels?</div>
+      <div class="q-hint">Select up to two</div>
       <div class="options" id="q12-opts" role="group" aria-labelledby="q12-label">
-        <label class="opt"><input type="radio" name="q12" value="Keeping track of all the places messages come from"><span class="opt-text">Keeping track of all the places messages come from</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Response speed — we can't always get back fast enough"><span class="opt-text">Response speed — we can't always get back fast enough</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Knowing which inquiries are serious buyers vs. tire kickers"><span class="opt-text">Knowing which inquiries are serious buyers vs. tire kickers</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Handoff to salespeople — things fall through the cracks"><span class="opt-text">Handoff to salespeople — things fall through the cracks</span></label>
-        <label class="opt"><input type="radio" name="q12" value="Customer history not visible to the whole team"><span class="opt-text">Customer history not visible to the whole team</span></label>
-        <label class="opt"><input type="radio" name="q12" value="It's manageable — no major issues"><span class="opt-text">It's manageable — no major issues</span></label>
+        <label class="opt"><input type="checkbox" name="q12" value="Keeping track of all the places messages come from"><span class="opt-text">Keeping track of all the places messages come from</span></label>
+        <label class="opt"><input type="checkbox" name="q12" value="Response speed — we can't always get back fast enough"><span class="opt-text">Response speed — we can't always get back fast enough</span></label>
+        <label class="opt"><input type="checkbox" name="q12" value="Knowing which inquiries are serious buyers vs. tire kickers"><span class="opt-text">Knowing which inquiries are serious buyers vs. tire kickers</span></label>
+        <label class="opt"><input type="checkbox" name="q12" value="Handoff to salespeople — things fall through the cracks"><span class="opt-text">Handoff to salespeople — things fall through the cracks</span></label>
+        <label class="opt"><input type="checkbox" name="q12" value="Customer history not visible to the whole team"><span class="opt-text">Customer history not visible to the whole team</span></label>
+        <label class="opt"><input type="checkbox" name="q12" value="It's manageable — no major issues"><span class="opt-text">It's manageable — no major issues</span></label>
       </div>
-      <div class="val-msg" id="q12-err">Please select an option to continue.</div>
+      <div class="val-msg" id="q12-err">Please select one or two to continue.</div>
+      <div class="q-hint cap-hint" id="q12-cap">Two selected — deselect one to change.</div>
       <div class="q-comment" id="q12-comment">
         <label for="q12-note">Think of a time in the last few months it went wrong — what happened? <span class="opt-tag">(optional)</span></label>
         <textarea id="q12-note" class="comment-input" rows="3" maxlength="700"
@@ -1121,10 +1126,14 @@
 
   function goTo4() {
     let valid = true;
-    ['q8','q9','q10','q11','q12','q13'].forEach(q => {
+    ['q8','q9','q10','q11','q13'].forEach(q => {
       const val = getRadio(q);
       if (!val) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = val; }
     });
+    // Q12 takes up to two, so it is checked against the count rather than a
+    // single value. The cap is enforced on selection; this only needs a floor.
+    const q12 = getChecked('q12');
+    if (!q12.length) { showErr('q12-err'); valid = false; } else { hideErr('q12-err'); answers.q12 = q12; }
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     track('section_complete', { section: 3, section_name: 'How You Handle It' });
     goTo('screen-4', 3);
@@ -1185,7 +1194,7 @@
         q9_response_speed:      answers.q9              || '',
         q10_salesperson_leaving: answers.q10            || '',
         q11_quote_followup:     answers.q11             || '',
-        q12_hardest_challenge:  answers.q12             || '',
+        q12_hardest_challenge:  (answers.q12 || []).join(', '),
         q13_lost_deal:          answers.q13             || '',
         q10_note:               (document.getElementById('q10-note') || {}).value || '',
         q11_note:               (document.getElementById('q11-note') || {}).value || '',
@@ -1518,6 +1527,26 @@
     'Online listings':      'listing inquiries',
   };
   // Q8's "Other" needs somewhere to say what the other thing is.
+  /* ── Q12: up to two, and "no major issues" cannot be one of a pair ──
+     Unchecked options are disabled once two are chosen, so the cap is visible
+     rather than enforced by a click that silently does nothing. */
+  const Q12_NONE = "It's manageable — no major issues";
+  function syncQ12() {
+    const boxes   = [...document.querySelectorAll('input[name="q12"]')];
+    const checked = boxes.filter((b) => b.checked);
+    const atCap   = checked.length >= 2;
+    boxes.forEach((b) => {
+      const off = (!b.checked && atCap) ||
+                  (!b.checked && b.value === Q12_NONE && checked.length > 0) ||
+                  (!b.checked && checked.some((c) => c.value === Q12_NONE));
+      b.disabled = off;
+      b.closest('.opt').classList.toggle('is-disabled', off);
+    });
+    const hint = document.getElementById('q12-cap');
+    if (hint) hint.classList.toggle('show', atCap);
+  }
+  document.querySelectorAll('input[name="q12"]').forEach((b) => b.addEventListener('change', syncQ12));
+
   document.querySelectorAll('input[name="q8"]').forEach((input) => {
     input.addEventListener('change', () => {
       const show = input.value === 'Other';
@@ -1535,7 +1564,18 @@
     });
   });
 
-  ['q10', 'q11', 'q12', 'q13'].forEach((q) => {
+  document.querySelectorAll('input[name="q12"]').forEach((b) => {
+    b.addEventListener('change', () => {
+      // "what happened?" makes no sense against "no major issues", so the box
+      // needs a real challenge named, not just any selection.
+      const picked = [...document.querySelectorAll('input[name="q12"]:checked')].map((x) => x.value);
+      const any    = picked.some((v) => v !== Q12_NONE);
+      document.getElementById('q12-comment').classList.toggle('show', any);
+      if (!any) document.getElementById('q12-note').value = '';
+    });
+  });
+
+  ['q10', 'q11', 'q13'].forEach((q) => {
     document.querySelectorAll(`input[name="${q}"]`).forEach((input) => {
       input.addEventListener('change', () => {
         const wrap = document.getElementById(`${q}-comment`);
