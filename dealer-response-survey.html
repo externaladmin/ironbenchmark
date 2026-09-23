@@ -504,7 +504,7 @@
     <div class="section-header">
       <div class="section-tag">Section 1 · About You</div>
       <h2 class="section-title">Your role and your dealership</h2>
-      <div class="section-desc">4 questions · about 60 seconds. All responses are anonymous and aggregated. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
+      <div class="section-desc">3 questions · about 45 seconds. All responses are anonymous and aggregated. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
     </div>
 
     <!-- Q1 — Role -->
@@ -541,13 +541,6 @@
       <div class="q-hint">e.g. Caterpillar, Komatsu, John Deere, AGCO, Kubota, Bobcat — or Independent / Multi-line</div>
       <input type="text" id="q3-brands" class="text-input" placeholder="Type here…" autocomplete="off">
       <div class="val-msg" id="q3-err">Please enter your brand lines to continue.</div>
-    </div>
-
-    <!-- Q4 — Website URL (optional) -->
-    <div class="q-block">
-      <div class="q-label"><span class="q-num">Question 4</span>What's your dealership's website URL? <span style="font-weight:400;color:var(--muted);font-size:14px;">(optional)</span></div>
-      <div class="q-hint">Helps us verify brand lines and is never shared publicly</div>
-      <input type="text" id="q4-website" class="text-input" placeholder="www.yourdealership.com" autocomplete="url">
     </div>
 
     <div class="nav-row">
@@ -637,7 +630,7 @@
     <div class="section-header">
       <div class="section-tag">Section 3 · How You Handle It</div>
       <h2 class="section-title">Who picks it up, and what happens next</h2>
-      <div class="section-desc">6 questions · about 90 seconds. Who responds to an inquiry, how quickly, and what happens to it after that.</div>
+      <div class="section-desc">7 questions · about 2 minutes. Who responds to an inquiry, how quickly, and what happens to it after that.</div>
     </div>
 
     <!-- Q8 — Who responds to digital -->
@@ -668,6 +661,22 @@
         <label class="opt"><input type="radio" name="q9" value="We don't have a standard for this"><span class="opt-text">We don't have a standard for this</span></label>
       </div>
       <div class="val-msg" id="q9-err">Please select an option to continue.</div>
+    </div>
+
+    <!-- Qdelay — Why a response slips -->
+    <div class="q-block">
+      <div class="q-label" id="qdelay-label"><span class="q-num"></span>When an inbound inquiry doesn't get answered quickly, what's usually the reason?</div>
+      <div class="q-hint">Select up to two</div>
+      <div class="options" id="qdelay-opts" role="group" aria-labelledby="qdelay-label">
+        <label class="opt"><input type="checkbox" name="qdelay" value="The person who should answer it is with a customer"><span class="opt-text">The person who should answer it is with a customer</span></label>
+        <label class="opt"><input type="checkbox" name="qdelay" value="It came in after hours or over a weekend"><span class="opt-text">It came in after hours or over a weekend</span></label>
+        <label class="opt"><input type="checkbox" name="qdelay" value="It landed somewhere nobody owns"><span class="opt-text">It landed somewhere nobody owns</span></label>
+        <label class="opt"><input type="checkbox" name="qdelay" value="It came through a channel we don't check often"><span class="opt-text">It came through a channel we don't check often</span></label>
+        <label class="opt"><input type="checkbox" name="qdelay" value="Nobody was sure whose it was"><span class="opt-text">Nobody was sure whose it was</span></label>
+        <label class="opt"><input type="checkbox" name="qdelay" value="It doesn't really happen — we're consistent"><span class="opt-text">It doesn't really happen — we're consistent</span></label>
+      </div>
+      <div class="val-msg" id="qdelay-err">Please select one or two to continue.</div>
+      <div class="q-hint cap-hint" id="qdelay-cap">Two selected — deselect one to change.</div>
     </div>
 
     <!-- Q10 — Salesperson leaving -->
@@ -1104,7 +1113,6 @@
     const q3 = document.getElementById('q3-brands').value.trim();
     if (!q3) { showErr('q3-err'); valid = false; } else { hideErr('q3-err'); answers.q3 = q3; }
 
-    answers.q4 = document.getElementById('q4-website').value.trim();
 
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     track('section_complete', { section: 1, section_name: 'About You' });
@@ -1136,8 +1144,10 @@
     });
     // Q12 takes up to two, so it is checked against the count rather than a
     // single value. The cap is enforced on selection; this only needs a floor.
-    const q12 = getChecked('q12');
-    if (!q12.length) { showErr('q12-err'); valid = false; } else { hideErr('q12-err'); answers.q12 = q12; }
+    [['q12'], ['qdelay']].forEach(([q]) => {
+      const picked = getChecked(q);
+      if (!picked.length) { showErr(q + '-err'); valid = false; } else { hideErr(q + '-err'); answers[q] = picked; }
+    });
     if (!valid) { document.querySelector('.val-msg.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     track('section_complete', { section: 3, section_name: 'How You Handle It' });
     goTo('screen-4', 3);
@@ -1188,7 +1198,6 @@
         q1_role:                answers.q1              || '',
         q2_locations:           answers.q2              || '',
         q3_brand_lines:         answers.q3              || '',
-        q4_website:             answers.q4              || '',
         q5_channels:            (answers.q5 || []).join('; '),
         q6_primary_channel:     answers.q6              || '',
         q6_note:                (document.getElementById('q6-note')  || {}).value || '',
@@ -1199,6 +1208,7 @@
         q10_salesperson_leaving: answers.q10            || '',
         q11_quote_followup:     answers.q11             || '',
         q12_hardest_challenge:  (answers.q12 || []).join(', '),
+        qdelay_reason:          (answers.qdelay || []).join(', '),
         q13_lost_deal:          answers.q13             || '',
         q10_note:               (document.getElementById('q10-note') || {}).value || '',
         q11_note:               (document.getElementById('q11-note') || {}).value || '',
@@ -1534,22 +1544,28 @@
   /* ── Q12: up to two, and "no major issues" cannot be one of a pair ──
      Unchecked options are disabled once two are chosen, so the cap is visible
      rather than enforced by a click that silently does nothing. */
-  const Q12_NONE = "It's manageable — no major issues";
-  function syncQ12() {
-    const boxes   = [...document.querySelectorAll('input[name="q12"]')];
-    const checked = boxes.filter((b) => b.checked);
-    const atCap   = checked.length >= 2;
-    boxes.forEach((b) => {
-      const off = (!b.checked && atCap) ||
-                  (!b.checked && b.value === Q12_NONE && checked.length > 0) ||
-                  (!b.checked && checked.some((c) => c.value === Q12_NONE));
-      b.disabled = off;
-      b.closest('.opt').classList.toggle('is-disabled', off);
-    });
-    const hint = document.getElementById('q12-cap');
-    if (hint) hint.classList.toggle('show', atCap);
+  const Q12_NONE    = "It's manageable — no major issues";
+  const QDELAY_NONE = "It doesn't really happen — we're consistent";
+
+  function capTwo(name, noneValue) {
+    const boxes = [...document.querySelectorAll(`input[name="${name}"]`)];
+    const sync = () => {
+      const checked = boxes.filter((b) => b.checked);
+      const atCap   = checked.length >= 2;
+      const noneOn  = checked.some((c) => c.value === noneValue);
+      boxes.forEach((b) => {
+        // The "no problem here" answer cannot be half of a pair, in either
+        // direction — it contradicts whatever it would be paired with.
+        const off = !b.checked && (atCap || noneOn || (b.value === noneValue && checked.length > 0));
+        b.disabled = off;
+        b.closest('.opt').classList.toggle('is-disabled', off);
+      });
+      document.getElementById(name + '-cap')?.classList.toggle('show', atCap);
+    };
+    boxes.forEach((b) => b.addEventListener('change', sync));
   }
-  document.querySelectorAll('input[name="q12"]').forEach((b) => b.addEventListener('change', syncQ12));
+  capTwo('q12', Q12_NONE);
+  capTwo('qdelay', QDELAY_NONE);
 
   document.querySelectorAll('input[name="q8"]').forEach((input) => {
     input.addEventListener('change', () => {
@@ -1597,6 +1613,7 @@
   });
 
   /* ── INIT ── */
+  document.querySelectorAll('.q-num').forEach((el, i) => { el.textContent = 'Question ' + (i + 1); });
   hideProgress();
   mountInlineEmail();
 </script>
