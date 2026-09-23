@@ -162,6 +162,10 @@ export default async function handler(req, res) {
       ...(r.b3_ai_impact          ? [{ name: 'ibai_ai_impact',          value: r.b3_ai_impact }]          : []),
       ...(r.b4_ai_best_area       ? [{ name: 'ibai_ai_best_area',       value: r.b4_ai_best_area }]       : []),
       ...(r.c1_barrier            ? [{ name: 'ibai_barrier',            value: r.c1_barrier }]            : []),
+      // Free text, trimmed to a length Beehiiv reliably accepts — the archive
+      // email carries the full text either way.
+      ...(r.b3_note ? [{ name: 'ibai_b3_note', value: String(r.b3_note).slice(0, 500) }] : []),
+      ...(r.c1_note ? [{ name: 'ibai_c1_note', value: String(r.c1_note).slice(0, 500) }] : []),
       ...(r.c2_competitor_position? [{ name: 'ibai_competitor_pos',     value: r.c2_competitor_position }]: []),
       ...(r.c3_confidence_driver  ? [{ name: 'ibai_confidence_driver',  value: r.c3_confidence_driver }]  : []),
       ...(r.d1_biggest_impact     ? [{ name: 'ibai_biggest_impact',     value: r.d1_biggest_impact }]     : []),

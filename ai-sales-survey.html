@@ -226,6 +226,31 @@
     .rating-star:hover { transform: scale(1.12); }
     .rating-done { font-size: 14px; color: var(--muted); }
 
+    /* Tinted like the other blocks the page wants read, because a muted grey
+       prompt under an answered question is exactly what gets scrolled past. */
+    .q-comment {
+      margin-top: 16px; display: none;
+      background: var(--bronze-bg); border: 1px solid var(--bronze);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .q-comment.show { display: block; }
+    .q-comment label {
+      display: block; font-size: 14.5px; font-weight: 600; color: var(--navy);
+      line-height: 1.5; margin-bottom: 8px;
+    }
+    .q-comment .opt-tag { color: var(--muted); font-weight: 400; }
+    .comment-input {
+      width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 14.5px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; resize: vertical; min-height: 62px; line-height: 1.55;
+    }
+    .comment-input:focus { border-color: var(--bronze); }
+    .comment-input::placeholder { color: var(--muted); }
+    .q-footnote {
+      font-size: 12px; color: var(--muted); line-height: 1.55;
+      margin: -14px 0 0; padding-top: 4px;
+    }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -526,6 +551,12 @@
         <label class="opt"><input type="radio" name="b3" value="We haven't adopted AI in sales yet"><span class="opt-text">We haven't adopted AI in sales yet</span></label>
       </div>
       <div class="val-msg" id="b3-err">Please select an option to continue.</div>
+      <div class="q-comment" id="b3-comment">
+        <label for="b3-note">What changed, in practice? <span class="opt-tag">(optional)</span></label>
+        <textarea id="b3-note" class="comment-input" rows="2" maxlength="700"
+                  placeholder="A sentence or two is plenty"></textarea>
+      </div>
+      <p class="q-footnote">Anything you add in an optional box may be quoted in the report — never with your name or your dealership's.</p>
     </div>
 
     <!-- B4 — Best area -->
@@ -574,6 +605,12 @@
         <label class="opt"><input type="radio" name="c1" value="No real barrier — we're moving forward"><span class="opt-text">No real barrier — we're moving forward</span></label>
       </div>
       <div class="val-msg" id="c1-err">Please select an option to continue.</div>
+      <div class="q-comment" id="c1-comment">
+        <label for="c1-note">What’s actually blocking it? <span class="opt-tag">(optional)</span></label>
+        <textarea id="c1-note" class="comment-input" rows="2" maxlength="700"
+                  placeholder="A sentence or two is plenty"></textarea>
+      </div>
+      <p class="q-footnote">Anything you add in an optional box may be quoted in the report — never with your name or your dealership's.</p>
     </div>
 
     <!-- C2 — Competitor position -->
@@ -1046,6 +1083,8 @@
         b3_ai_impact:           answers.b3              || '',
         b4_ai_best_area:        answers.b4              || '',
         c1_barrier:             answers.c1              || '',
+        b3_note:                (document.getElementById('b3-note') || {}).value || '',
+        c1_note:                (document.getElementById('c1-note') || {}).value || '',
         c2_competitor_position: answers.c2              || '',
         c3_confidence_driver:   answers.c3              || '',
         d1_biggest_impact:      answers.d1              || '',
@@ -1111,7 +1150,7 @@
   function storeSave() {
     try {
       const fields = {};
-      document.querySelectorAll('input[type="text"], input[type="email"], select').forEach((el) => {
+      document.querySelectorAll('input[type="text"], input[type="email"], select, textarea').forEach((el) => {
         if (el.id && el.value && !el.closest('.hp-field')) fields[el.id] = el.value;
       });
       const checked = [...document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked')]
@@ -1147,7 +1186,11 @@
 
     Object.entries(data.fields || {}).forEach(([id, value]) => {
       const el = document.getElementById(id);
-      if (el) el.value = value;
+      if (!el) return;
+      el.value = value;
+      if (id.endsWith('-note') && value) {
+        document.getElementById(id.replace('-note', '-comment'))?.classList.add('show');
+      }
     });
     (data.checked || []).forEach((pair) => {
       const el = [...document.querySelectorAll('input[name="' + pair[0] + '"]')]
@@ -1339,6 +1382,21 @@
       }).catch(() => {});
     } catch (e) { /* never let this affect the survey */ }
   }
+
+  /* ══════════════════════════════════════════
+     OPTIONAL COMMENTS
+
+     Revealed once the question is answered, never required. Bound by
+     delegation rather than per-input: several option groups are rendered
+     after load, so anything bound at init would miss them.
+     ══════════════════════════════════════════ */
+  const COMMENT_QS = ['b3', 'c1'];
+  document.addEventListener('change', (e) => {
+    const q = e.target && e.target.name;
+    if (!COMMENT_QS.includes(q)) return;
+    const wrap = document.getElementById(q + '-comment');
+    if (wrap) wrap.classList.add('show');
+  });
 
   /* ── INIT ── */
   hideProgress();
