@@ -108,7 +108,11 @@ export default async function handler(req, res) {
       responses: r,
     };
 
-    const rows = Object.entries(record.responses).map(([k, v]) =>
+    // Unanswered optionals would otherwise take a row each — the JSON block
+    // below still carries every key, so nothing is lost by hiding blanks here.
+    const rows = Object.entries(record.responses)
+      .filter(([, v]) => String(v ?? '').trim())
+      .map(([k, v]) =>
       '<tr><td style="padding:4px 14px 4px 0;color:#5A7060;vertical-align:top;white-space:nowrap;">' + esc(k) +
       '</td><td style="padding:4px 0;color:#1C3A2A;">' + esc(v) + '</td></tr>'
     ).join('');
