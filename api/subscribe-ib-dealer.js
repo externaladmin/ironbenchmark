@@ -163,6 +163,12 @@ export default async function handler(req, res) {
       ...(r.q11_quote_followup   ? [{ name: 'ibdr_quote_followup',    value: r.q11_quote_followup }]   : []),
       ...(r.q12_hardest_challenge? [{ name: 'ibdr_hardest_challenge', value: r.q12_hardest_challenge }]: []),
       ...(r.q13_lost_deal        ? [{ name: 'ibdr_lost_deal',         value: r.q13_lost_deal }]        : []),
+      // Free text, so trimmed to a length Beehiiv will reliably accept — the
+      // archive email carries the full text either way.
+      ...(r.q10_note ? [{ name: 'ibdr_q10_note', value: String(r.q10_note).slice(0, 500) }] : []),
+      ...(r.q11_note ? [{ name: 'ibdr_q11_note', value: String(r.q11_note).slice(0, 500) }] : []),
+      ...(r.q12_note ? [{ name: 'ibdr_q12_note', value: String(r.q12_note).slice(0, 500) }] : []),
+      ...(r.q13_note ? [{ name: 'ibdr_q13_note', value: String(r.q13_note).slice(0, 500) }] : []),
       ...(r.q14_google_rating    ? [{ name: 'ibdr_google_rating',     value: r.q14_google_rating }]    : []),
       ...(r.q15_rating_value     ? [{ name: 'ibdr_rating_value',      value: r.q15_rating_value }]     : []),
       ...(r.q16_review_monitoring? [{ name: 'ibdr_review_monitoring', value: r.q16_review_monitoring }]: []),

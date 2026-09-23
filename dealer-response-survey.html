@@ -226,6 +226,22 @@
     .rating-star:hover { transform: scale(1.12); }
     .rating-done { font-size: 14px; color: var(--muted); }
 
+    /* ── OPTIONAL COMMENTS ── */
+    .q-comment { margin-top: 14px; display: none; }
+    .q-comment.show { display: block; }
+    .q-comment label {
+      display: block; font-size: 13.5px; color: var(--muted);
+      line-height: 1.5; margin-bottom: 6px;
+    }
+    .q-comment .opt-tag { color: var(--muted); font-weight: 400; }
+    .comment-input {
+      width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 14.5px;
+      color: var(--navy); background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 8px; outline: none; resize: vertical; min-height: 62px; line-height: 1.55;
+    }
+    .comment-input:focus { border-color: var(--bronze); }
+    .comment-input::placeholder { color: var(--muted); }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -586,7 +602,7 @@
     <div class="section-header">
       <div class="section-tag">Section 3 · How You Handle It</div>
       <h2 class="section-title">Who picks it up, and what happens next</h2>
-      <div class="section-desc">6 questions · about 90 seconds. Who responds to an inquiry, how quickly, and what happens to it after that.</div>
+      <div class="section-desc">6 questions · about 90 seconds. Who responds to an inquiry, how quickly, and what happens to it after that. Anything you add in an optional box may be quoted in the report — never with your name or your dealership's.</div>
     </div>
 
     <!-- Q8 — Who responds to digital -->
@@ -625,6 +641,11 @@
         <label class="opt"><input type="radio" name="q10" value="We've lost deals because of this"><span class="opt-text">We've lost deals because of this</span></label>
       </div>
       <div class="val-msg" id="q10-err">Please select an option to continue.</div>
+      <div class="q-comment" id="q10-comment">
+        <label for="q10-note">What happened the last time someone left? <span class="opt-tag">(optional)</span></label>
+        <textarea id="q10-note" class="comment-input" rows="2" maxlength="700"
+                  placeholder="A sentence or two is plenty"></textarea>
+      </div>
     </div>
 
     <!-- Q11 — Quote follow-up ownership -->
@@ -638,6 +659,11 @@
         <label class="opt"><input type="radio" name="q11" value="We don't have a consistent follow-up process"><span class="opt-text">We don't have a consistent follow-up process</span></label>
       </div>
       <div class="val-msg" id="q11-err">Please select an option to continue.</div>
+      <div class="q-comment" id="q11-comment">
+        <label for="q11-note">How does follow-up actually work day to day? <span class="opt-tag">(optional)</span></label>
+        <textarea id="q11-note" class="comment-input" rows="2" maxlength="700"
+                  placeholder="A sentence or two is plenty"></textarea>
+      </div>
     </div>
 
     <!-- Q12 — Biggest challenge -->
@@ -652,6 +678,11 @@
         <label class="opt"><input type="radio" name="q12" value="It's manageable — no major issues"><span class="opt-text">It's manageable — no major issues</span></label>
       </div>
       <div class="val-msg" id="q12-err">Please select an option to continue.</div>
+      <div class="q-comment" id="q12-comment">
+        <label for="q12-note">What does that look like in practice? <span class="opt-tag">(optional)</span></label>
+        <textarea id="q12-note" class="comment-input" rows="2" maxlength="700"
+                  placeholder="A sentence or two is plenty"></textarea>
+      </div>
     </div>
 
     <!-- Q13 — Lost deal -->
@@ -664,6 +695,11 @@
         <label class="opt"><input type="radio" name="q13" value="No — our response process is tight"><span class="opt-text">No — our response process is tight</span></label>
       </div>
       <div class="val-msg" id="q13-err">Please select an option to continue.</div>
+      <div class="q-comment" id="q13-comment">
+        <label for="q13-note">What happened? No names needed. <span class="opt-tag">(optional)</span></label>
+        <textarea id="q13-note" class="comment-input" rows="2" maxlength="700"
+                  placeholder="A sentence or two is plenty"></textarea>
+      </div>
     </div>
 
     <div class="nav-row">
@@ -1115,6 +1151,10 @@
         q11_quote_followup:     answers.q11             || '',
         q12_hardest_challenge:  answers.q12             || '',
         q13_lost_deal:          answers.q13             || '',
+        q10_note:               (document.getElementById('q10-note') || {}).value || '',
+        q11_note:               (document.getElementById('q11-note') || {}).value || '',
+        q12_note:               (document.getElementById('q12-note') || {}).value || '',
+        q13_note:               (document.getElementById('q13-note') || {}).value || '',
         q14_google_rating:      answers.q14             || '',
         q15_rating_value:       answers.q15             || '',
         q16_review_monitoring:  answers.q16             || '',
@@ -1179,7 +1219,7 @@
   function storeSave() {
     try {
       const fields = {};
-      document.querySelectorAll('input[type="text"], input[type="email"], select').forEach((el) => {
+      document.querySelectorAll('input[type="text"], input[type="email"], select, textarea').forEach((el) => {
         if (el.id && el.value && !el.closest('.hp-field')) fields[el.id] = el.value;
       });
       const checked = [...document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked')]
@@ -1215,7 +1255,13 @@
 
     Object.entries(data.fields || {}).forEach(([id, value]) => {
       const el = document.getElementById(id);
-      if (el) el.value = value;
+      if (!el) return;
+      el.value = value;
+      // A restored comment needs its box shown again, or the text is present
+      // and invisible.
+      if (id.endsWith('-note') && value) {
+        document.getElementById(id.replace('-note', '-comment'))?.classList.add('show');
+      }
     });
     (data.checked || []).forEach((pair) => {
       const el = [...document.querySelectorAll('input[name="' + pair[0] + '"]')]
@@ -1407,6 +1453,33 @@
       }).catch(() => {});
     } catch (e) { /* never let this affect the survey */ }
   }
+
+  /* ══════════════════════════════════════════
+     OPTIONAL COMMENTS
+
+     Revealed only once the question has been answered, so the survey never
+     looks longer than it is. Never required — a blocked Continue over an
+     optional box would cost far more than the comment is worth.
+
+     Q13 appears only for the answers that imply a story; "what happened?"
+     makes no sense against "our response process is tight".
+     ══════════════════════════════════════════ */
+  const COMMENT_WHEN = {
+    q13: (v) => /^Yes, definitely|^Probably/.test(v),
+  };
+
+  ['q10', 'q11', 'q12', 'q13'].forEach((q) => {
+    document.querySelectorAll(`input[name="${q}"]`).forEach((input) => {
+      input.addEventListener('change', () => {
+        const wrap = document.getElementById(`${q}-comment`);
+        if (!wrap) return;
+        const test = COMMENT_WHEN[q];
+        const show = test ? test(input.value) : true;
+        wrap.classList.toggle('show', show);
+        if (!show) document.getElementById(`${q}-note`).value = '';
+      });
+    });
+  });
 
   /* ── INIT ── */
   hideProgress();
