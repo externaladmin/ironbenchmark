@@ -227,11 +227,17 @@
     .rating-done { font-size: 14px; color: var(--muted); }
 
     /* ── OPTIONAL COMMENTS ── */
-    .q-comment { margin-top: 14px; display: none; }
+    /* Tinted like the other blocks the page wants read, because a muted grey
+       prompt under a answered question is exactly what gets scrolled past. */
+    .q-comment {
+      margin-top: 16px; display: none;
+      background: var(--bronze-bg); border: 1px solid var(--bronze);
+      border-radius: 10px; padding: 14px 16px;
+    }
     .q-comment.show { display: block; }
     .q-comment label {
-      display: block; font-size: 13.5px; color: var(--muted);
-      line-height: 1.5; margin-bottom: 6px;
+      display: block; font-size: 14.5px; font-weight: 600; color: var(--navy);
+      line-height: 1.5; margin-bottom: 8px;
     }
     .q-comment .opt-tag { color: var(--muted); font-weight: 400; }
     .comment-input {
