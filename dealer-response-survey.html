@@ -242,6 +242,11 @@
     .comment-input:focus { border-color: var(--bronze); }
     .comment-input::placeholder { color: var(--muted); }
 
+    .q-footnote {
+      font-size: 12px; color: var(--muted); line-height: 1.55;
+      margin: -14px 0 0; padding-top: 4px;
+    }
+
     /* ── PROGRESS BAR ── */
     .progress-wrap {
       background: var(--navy);
@@ -602,7 +607,7 @@
     <div class="section-header">
       <div class="section-tag">Section 3 · How You Handle It</div>
       <h2 class="section-title">Who picks it up, and what happens next</h2>
-      <div class="section-desc">6 questions · about 90 seconds. Who responds to an inquiry, how quickly, and what happens to it after that. Anything you add in an optional box may be quoted in the report — never with your name or your dealership's.</div>
+      <div class="section-desc">6 questions · about 90 seconds. Who responds to an inquiry, how quickly, and what happens to it after that.</div>
     </div>
 
     <!-- Q8 — Who responds to digital -->
@@ -701,6 +706,8 @@
                   placeholder="A sentence or two is plenty"></textarea>
       </div>
     </div>
+
+    <p class="q-footnote">Anything you add in an optional box may be quoted in the report — never with your name or your dealership's.</p>
 
     <div class="nav-row">
       <button class="btn-back" onclick="goTo('screen-2', 1)">← Back</button>
