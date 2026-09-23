@@ -101,7 +101,11 @@
       line-height: 1.2; margin-bottom: 12px;
     }
     .org-desc {
-      font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 40px;
+      font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 12px;
+    }
+    .org-prompt {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--navy); margin: 32px 0 14px;
     }
     .org-cards {
       display: flex; flex-direction: column; gap: 12px; text-align: left;
@@ -377,6 +381,7 @@
       .section-title { margin: 0; font-size: 24px; }
       .org-screen { padding: 40px 16px 64px; }
       .org-title { font-size: 26px; }
+      .org-desc, .org-prompt { text-align: left; }
     }
   </style>
 </head>
@@ -404,10 +409,11 @@
 <div class="screen active" id="screen-org">
   <div class="org-screen">
     <div class="org-eyebrow">Heavy Equipment State of Marketing 2026</div>
-    <h1 class="org-title">Who are you in the industry?</h1>
-    <p class="org-desc">We'll tailor a handful of questions to your role so the data is as accurate and useful as possible. Takes about 5 minutes.</p>
-    <p class="org-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
+    <h1 class="org-title">Nobody publishes what equipment marketing actually spends.</h1>
+    <p class="org-desc">Not by channel, not by budget size, and not by what any of it returns. Most budgets get set from last year's number and a feel for what worked. This study builds something to check that against.</p>
+    <p class="org-desc">We'll tailor some of the questions to your role so the answers compare properly. 17 questions, about 5 minutes.</p>
 
+    <div class="org-prompt">Who are you in the industry?</div>
     <div class="org-cards" id="org-opts">
       <label class="org-card">
         <input type="radio" name="org_type" value="dealer">
@@ -436,6 +442,8 @@
     <div class="org-nav">
       <!-- Live study status. Both rows stay hidden until the constants at the top
            of the script below are set to real values, so nothing unverified ships. -->
+      <p class="org-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
+
       <div class="intro-status" id="intro-status" style="display:none;">
         <div class="status-row status-offer" id="intro-offer" style="display:none;">
           <svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
@@ -465,7 +473,7 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 1 · About You</div>
-      <h2 class="section-title">Let's start with some context.</h2>
+      <h2 class="section-title">Your role and your organization</h2>
       <div class="section-desc">6 questions · about 90 seconds. All responses are anonymous and aggregated — your individual answers are never shared. IronBenchmark is independent research — not sponsored by any equipment manufacturer, dealer group, or vendor.</div>
     </div>
 
@@ -543,8 +551,8 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 2 · Where Your Budget Goes</div>
-      <h2 class="section-title">Where does the money go?</h2>
-      <div class="section-desc">3 questions · about 60 seconds. Channel spend is what your peers want to benchmark against most — where budget actually goes vs. where results come from.</div>
+      <h2 class="section-title">Which channels you spend on</h2>
+      <div class="section-desc">3 questions · about 60 seconds. Which channels you're investing in now, where the largest share goes, and where you plan to add.</div>
     </div>
 
     <!-- Q7 — Active channels -->
@@ -619,8 +627,8 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 3 · Performance &amp; Challenges</div>
-      <h2 class="section-title">What's working — and what isn't.</h2>
-      <div class="section-desc">4 questions · about 90 seconds. The most valuable section of the report. What you share here is exactly what your peers want to know.</div>
+      <h2 class="section-title">What returns, and what gets in the way</h2>
+      <div class="section-desc">4 questions · about 90 seconds. Your best-performing channel, what a qualified lead costs, and the biggest thing slowing you down.</div>
     </div>
 
     <!-- Q10 — Best ROI channel -->
@@ -720,8 +728,8 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section 4 · How You Operate</div>
-      <h2 class="section-title">Systems, data, and how you run the business.</h2>
-      <div class="section-desc">4 questions · about 90 seconds. This section produces the most distinctive findings in the report — how far along the industry really is.</div>
+      <h2 class="section-title">Your systems, and how leads get handled</h2>
+      <div class="section-desc">4 questions · about 90 seconds. How sales and marketing run together, how the CRM actually gets used, and how fast inbound leads get answered.</div>
     </div>
 
     <!-- Q14 — Maturity level -->
