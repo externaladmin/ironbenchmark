@@ -248,9 +248,10 @@
       color: var(--navy); background: var(--white); border: 1.5px solid transparent;
       border-radius: 8px; outline: none; resize: vertical; min-height: 62px; line-height: 1.55;
     }
-    .comment-input::placeholder { color: #66796F; }
-    .comment-input:focus { border-color: var(--bronze); }
     .comment-input::placeholder { color: var(--muted); }
+    .comment-input:focus { border-color: var(--bronze); }
+    /* A count per day needs a line, not a paragraph. */
+    .comment-input.short { min-height: 0; max-width: 260px; }
 
     /* Sits inside the question block, directly under the comment panel. */
     .q-footnote {
@@ -588,6 +589,12 @@
         <label class="opt"><input type="radio" name="q6" value="Online listings"><span class="opt-text">Online listings</span></label>
       </div>
       <div class="val-msg" id="q6-err">Please select an option to continue.</div>
+
+      <div class="q-comment" id="q6-comment">
+        <label for="q6-note">Roughly how many <span id="q6-channel">of those</span> a day? <span class="opt-tag">(optional)</span></label>
+        <input id="q6-note" class="comment-input short" type="text" maxlength="60"
+               inputmode="numeric" placeholder="e.g. &ldquo;15&ndash;20&rdquo;">
+      </div>
     </div>
 
     <!-- Q7 — Volume visibility -->
@@ -1161,6 +1168,7 @@
         q4_website:             answers.q4              || '',
         q5_channels:            (answers.q5 || []).join('; '),
         q6_primary_channel:     answers.q6              || '',
+        q6_note:                (document.getElementById('q6-note')  || {}).value || '',
         q7_volume_visibility:   answers.q7              || '',
         q8_response_owner:      answers.q8              || '',
         q9_response_speed:      answers.q9              || '',
@@ -1484,6 +1492,27 @@
   const COMMENT_WHEN = {
     q13: (v) => /^Yes, definitely|^Probably/.test(v),
   };
+
+  // Q6's box asks for volume on the one channel they picked, so its label has
+  // to name that channel. Keyed on the option values as written above.
+  const CHANNEL_NOUN = {
+    'Phone call':           'phone calls',
+    'Walk-in':              'walk-ins',
+    'Email':                'emails',
+    'Website form':         'website forms',
+    'Live chat':            'live chats',
+    'Facebook / Messenger': 'Facebook messages',
+    'Text / SMS':           'texts',
+    'WhatsApp':             'WhatsApp messages',
+    'Online listings':      'listing inquiries',
+  };
+  document.querySelectorAll('input[name="q6"]').forEach((input) => {
+    input.addEventListener('change', () => {
+      document.getElementById('q6-channel').textContent =
+        CHANNEL_NOUN[input.value] || 'of those';
+      document.getElementById('q6-comment').classList.add('show');
+    });
+  });
 
   ['q10', 'q11', 'q12', 'q13'].forEach((q) => {
     document.querySelectorAll(`input[name="${q}"]`).forEach((input) => {

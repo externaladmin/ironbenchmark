@@ -169,6 +169,7 @@ export default async function handler(req, res) {
       ...(r.q13_lost_deal        ? [{ name: 'ibdr_lost_deal',         value: r.q13_lost_deal }]        : []),
       // Free text, so trimmed to a length Beehiiv will reliably accept — the
       // archive email carries the full text either way.
+      ...(r.q6_note  ? [{ name: 'ibdr_q6_note',  value: String(r.q6_note).slice(0, 500) }]  : []),
       ...(r.q10_note ? [{ name: 'ibdr_q10_note', value: String(r.q10_note).slice(0, 500) }] : []),
       ...(r.q11_note ? [{ name: 'ibdr_q11_note', value: String(r.q11_note).slice(0, 500) }] : []),
       ...(r.q12_note ? [{ name: 'ibdr_q12_note', value: String(r.q12_note).slice(0, 500) }] : []),
