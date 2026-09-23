@@ -252,6 +252,11 @@
     .comment-input:focus { border-color: var(--bronze); }
     /* A count per day needs a line, not a paragraph. */
     .comment-input.short { min-height: 0; max-width: 260px; }
+    /* Completes the answer above it rather than adding to it, so it sits on the
+       page rather than in one of the dark panels. */
+    .opt-other { display: none; margin-top: 10px; }
+    .opt-other.show { display: block; }
+    .opt-other input { min-height: 0; border-color: var(--border); }
 
     /* Sits inside the question block, directly under the comment panel. */
     .q-footnote {
@@ -517,7 +522,8 @@
         <label class="opt"><input type="radio" name="q2" value="1 location"><span class="opt-text">1 location</span></label>
         <label class="opt"><input type="radio" name="q2" value="2–5 locations"><span class="opt-text">2–5 locations</span></label>
         <label class="opt"><input type="radio" name="q2" value="6–15 locations"><span class="opt-text">6–15 locations</span></label>
-        <label class="opt"><input type="radio" name="q2" value="16+ locations"><span class="opt-text">16+ locations</span></label>
+        <label class="opt"><input type="radio" name="q2" value="16–49 locations"><span class="opt-text">16–49 locations</span></label>
+        <label class="opt"><input type="radio" name="q2" value="50+ locations"><span class="opt-text">50+ locations</span></label>
       </div>
       <div class="val-msg" id="q2-err">Please select an option to continue.</div>
     </div>
@@ -636,6 +642,10 @@
         <label class="opt"><input type="radio" name="q8" value="Salespeople individually — each handles their own"><span class="opt-text">Salespeople individually — each handles their own</span></label>
         <label class="opt"><input type="radio" name="q8" value="We use an automated response for initial contact"><span class="opt-text">We use an automated response for initial contact</span></label>
         <label class="opt"><input type="radio" name="q8" value="It's inconsistent — no clear owner"><span class="opt-text">It's inconsistent — no clear owner</span></label>
+        <label class="opt"><input type="radio" name="q8" value="Other"><span class="opt-text">Other</span></label>
+      </div>
+      <div class="opt-other" id="q8-other-wrap">
+        <input id="q8-other" class="comment-input" type="text" maxlength="120" placeholder="Who handles it?">
       </div>
       <div class="val-msg" id="q8-err">Please select an option to continue.</div>
     </div>
@@ -1171,6 +1181,7 @@
         q6_note:                (document.getElementById('q6-note')  || {}).value || '',
         q7_volume_visibility:   answers.q7              || '',
         q8_response_owner:      answers.q8              || '',
+        q8_other:               (document.getElementById('q8-other') || {}).value || '',
         q9_response_speed:      answers.q9              || '',
         q10_salesperson_leaving: answers.q10            || '',
         q11_quote_followup:     answers.q11             || '',
@@ -1506,6 +1517,16 @@
     'WhatsApp':             'WhatsApp messages',
     'Online listings':      'listing inquiries',
   };
+  // Q8's "Other" needs somewhere to say what the other thing is.
+  document.querySelectorAll('input[name="q8"]').forEach((input) => {
+    input.addEventListener('change', () => {
+      const show = input.value === 'Other';
+      document.getElementById('q8-other-wrap').classList.toggle('show', show);
+      if (!show) document.getElementById('q8-other').value = '';
+      else document.getElementById('q8-other').focus();
+    });
+  });
+
   document.querySelectorAll('input[name="q6"]').forEach((input) => {
     input.addEventListener('change', () => {
       document.getElementById('q6-channel').textContent =
