@@ -373,6 +373,7 @@
       .section-title { margin: 0; font-size: 24px; }
       .intro-screen { padding: 40px 16px 64px; }
       .intro-title { font-size: 26px; }
+      .intro-desc { text-align: left; }
       .email-screen { padding: 32px 16px 64px; }
     }
   </style>
@@ -402,15 +403,7 @@
   <div class="intro-screen">
     <div class="intro-eyebrow">IronBenchmark · Independent Research</div>
     <h1 class="intro-title">AI in Heavy Equipment Sales:<br>2026 Benchmark</h1>
-    <p class="intro-desc">AI is moving fast. Nobody knows how fast it's moving in <em>this</em> industry — until now. This is the first benchmark study on AI adoption specifically in construction, agricultural, and industrial equipment sales.</p>
-    <p class="intro-desc">12 quick questions. About 5 minutes.</p>
-    <p class="intro-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
-    <div class="intro-badges">
-      <span class="intro-badge">Dealers · OEMs · Rental · Auction</span>
-      <span class="intro-badge">Fully anonymous</span>
-      <span class="intro-badge">No vendor angle</span>
-      <span class="intro-badge">Free report for respondents</span>
-    </div>
+    <p class="intro-desc">You can't get through a week in this industry without an AI pitch. Harder to find is what equipment sellers are actually running, and whether any of it is working. Nobody has published that — this is the first benchmark for construction, agricultural, and industrial equipment sales.</p>
     <!-- Live study status. Both rows stay hidden until the constants at the top
          of the script below are set to real values, so nothing unverified ships. -->
     <div class="intro-status" id="intro-status" style="display:none;">
@@ -429,6 +422,13 @@
     </div>
 
     <button class="btn-next" onclick="startSurvey()" style="width:100%;padding:15px;font-size:16px;">Start the 5-minute survey →</button>
+    <div class="intro-badges">
+      <span class="intro-badge">Dealers · OEMs · Rental · Auction</span>
+      <span class="intro-badge">Fully anonymous</span>
+      <span class="intro-badge">No vendor angle</span>
+      <span class="intro-badge">Free report for respondents</span>
+    </div>
+    <p class="intro-desc">All those who contribute receive the full report free, before others. For those who don't contribute, the original insights and report from IronBenchmark are valued at <strong style="color:var(--navy);font-weight:600;" id="price-inline"></strong>.</p>
     <p style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;">US-based respondents only &nbsp;·&nbsp; Anonymous and aggregated &nbsp;·&nbsp; Independent research — no sponsors</p>
   </div>
 </div>
@@ -441,7 +441,7 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section A · Who You Are</div>
-      <h2 class="section-title">Let's start with some context.</h2>
+      <h2 class="section-title">Your role and your organization</h2>
       <div class="section-desc">3 questions · about 60 seconds. Responses are fully anonymous and aggregated. IronBenchmark is independent research — not sponsored by any manufacturer, dealer group, or vendor.</div>
     </div>
 
@@ -501,8 +501,8 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section B · AI in Your Sales Process</div>
-      <h2 class="section-title">What's actually happening on the ground.</h2>
-      <div class="section-desc">4 questions · about 90 seconds. No right or wrong answers — honest data is what makes this report useful.</div>
+      <h2 class="section-title">What you're using it for</h2>
+      <div class="section-desc">4 questions · about 90 seconds. Which tasks you're using AI for, which tools, and what it has changed so far.</div>
     </div>
 
     <!-- B1 — AI use cases (multi-select) -->
@@ -587,8 +587,8 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section C · Barriers &amp; Skepticism</div>
-      <h2 class="section-title">The honest part of the conversation.</h2>
-      <div class="section-desc">3 questions · about 60 seconds. This section produces some of the most valuable data in the report — the gap between where the industry thinks it is and where it actually is.</div>
+      <h2 class="section-title">What's holding it back</h2>
+      <div class="section-desc">3 questions · about 60 seconds. What's stopping you from doing more, where you think you stand against competitors, and what would change that.</div>
     </div>
 
     <!-- C1 — Biggest barrier -->
@@ -655,8 +655,8 @@
   <div class="survey-outer">
     <div class="section-header">
       <div class="section-tag">Section D · Looking Ahead</div>
-      <h2 class="section-title">Where this is all heading.</h2>
-      <div class="section-desc">2 questions · about 60 seconds. The industry is split on this — your view contributes to one of the most interesting findings in the report.</div>
+      <h2 class="section-title">What you expect next</h2>
+      <div class="section-desc">2 questions · about 60 seconds. Where you expect AI to land over the next two years, and where it stands in three.</div>
     </div>
 
     <!-- D1 — Biggest impact area -->
